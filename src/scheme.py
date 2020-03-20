@@ -83,6 +83,7 @@ class Maze:
         for no, node in enumerate(self.nodes):
             if node.location == (y, x):
                 return no
+        return 'NOGET ER HELT GALT MANNER!'
 
     # generate graph structure to tell nearby nodes for every node
     def gen_graph(self) -> None:
@@ -121,8 +122,12 @@ class Maze:
                 # decrement y with 1
                 for up in range(y):
                     tmp = y-up-1
-                    # if right or left are path, save length and exit
-                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] or tmp == 0:
+                    # if found start node
+                    if tmp == 0:
+                        node.n = (self.get_node_index(tmp, x), up+1)
+                        break
+                    # if right or left are path or above is not, save length and exit
+                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp-1, x]:
                         node.n = (self.get_node_index(tmp, x), up+1)
                         break
 
@@ -130,8 +135,13 @@ class Maze:
                 # incement y with 1
                 for dn in range(self.y - y):
                     tmp = y+dn+1
-                    # if right or left are path, save length and exit
-                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] or tmp == self.y-1:
+                    # if found end node
+                    if tmp == self.y-1:
+                        node.s = (self.get_node_index(tmp, x), dn+1)
+                        break
+
+                    # if right or left are path or below is not, save length and exit
+                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp+1, x]:
                         node.s = (self.get_node_index(tmp, x), dn+1)
                         break
 
@@ -139,8 +149,8 @@ class Maze:
                 # decrement x with 1
                 for lt in range(x):
                     tmp = x-lt-1
-                    # if up or down are path, save length and exit
-                    if self.maze[y+1, tmp] or self.maze[y-1, tmp]:
+                    # if up or down are path or left is not, save length and exit
+                    if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp-1]:
                         node.w = (self.get_node_index(y, tmp), lt+1)
                         break
 
@@ -148,8 +158,8 @@ class Maze:
                 # increment x with 1
                 for rt in range(self.x - x):
                     tmp = x+rt+1
-                    # if up or down are path, save length and exit
-                    if self.maze[y+1, tmp] or self.maze[y-1, tmp]:
+                    # if up or down are path or right is not, save length and exit
+                    if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp+1]:
                         node.e = (self.get_node_index(y, tmp), rt+1)
                         break
 
