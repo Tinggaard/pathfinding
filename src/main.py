@@ -77,9 +77,15 @@ def main() -> None:
     print('Nodes found:', maze.node_count)
     print()
 
+    # debugging:
+    # for node in maze.nodes:
+    #     print('node at: {}'.format(node.location))
+    #     print('above: ', node.n)
+    #     print('below: ', node.s)
+    #     print('right: ', node.e)
+    #     print(' left: ', node.w)
+    #     print()
 
-    # maze.show_nodes()
-    # print(maze)
     print('Success!')
 
 
