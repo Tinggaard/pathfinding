@@ -1,21 +1,29 @@
 import numpy as np
 
+# class containing neccesary information on every node
+class Node:
+    def __init__(self, location: tuple):
+        self.location = location # (y, x)
+        self.n = None # [node_index, dist]
+        self.s = None # [node_index, dist]
+        self.e = None # [node_index, dist]
+        self.w = None # [node_index, dist]
+        self.dist_goal = np.inf
+
+
+    # if printing the Node class, return it's location
+    def __repr__(self) -> str:
+        return 'Node{}'.format(self.location)
+
+
+    # two nodes are equal if they have the same location
+    def __eq__(self, other) -> bool:
+        return self.location == other.location
+
+
+
 # class containing the whole data structure
 class Maze:
-    # class containing neccesary information on every node
-    class Node:
-        def __init__(self, location: tuple):
-            self.location = location # (y, x)
-            self.n = None # [node_index, dist]
-            self.s = None # [node_index, dist]
-            self.e = None # [node_index, dist]
-            self.w = None # [node_index, dist]
-            self.dist_goal = np.inf
-
-        # if printing the Node class, return it's location
-        def __repr__(self) -> str:
-            return 'Node{}'.format(self.location)
-
 
     def __init__(self, maze: np.ndarray):
         self.maze = maze
@@ -28,7 +36,7 @@ class Maze:
         self.end = (self.y-1, np.argmax(maze[-1]))
 
         self.nodes = self.get_nodes()
-        self.node_count = len(self.nodes) # + start and end
+        self.node_count = len(self.nodes)
 
         self.gen_graph()
 
@@ -40,7 +48,7 @@ class Maze:
 
     # find nodes on map
     def get_nodes(self) -> list:
-        nodes = [self.Node(self.start)]
+        nodes = [Node(self.start)]
 
         # iterating the maze finding nodes
         for y, line in enumerate(self.maze[1:-1], 1):
@@ -64,9 +72,9 @@ class Maze:
                     continue
 
                 # otherwise add it as a node
-                nodes.append(self.Node((y,x)))
+                nodes.append(Node((y,x)))
 
-        nodes.append(self.Node(self.end))
+        nodes.append(Node(self.end))
         return nodes
 
 
@@ -83,7 +91,7 @@ class Maze:
         for no, node in enumerate(self.nodes):
             if node.location == (y, x):
                 return no
-        return 'NOGET ER HELT GALT MANNER!'
+
 
     # generate graph structure to tell nearby nodes for every node
     def gen_graph(self) -> None:

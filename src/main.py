@@ -9,7 +9,7 @@ import numpy as np
 import cv2 as cv
 
 # own code
-import scheme
+import solve
 
 
 # convert textfile to maze
@@ -70,21 +70,14 @@ def main() -> None:
     print()
 
     print('Constructing graph')
-    maze = scheme.Maze(struct)
+    maze = solve.Maze(struct)
 
     end_time = time()
     print('Constructing took {} ms'.format(round((end_time - construct_time)*1000, 8)))
     print('Nodes found:', maze.node_count)
     print()
 
-    # debugging:
-    # for node in maze.nodes:
-    #     print('node at: {}'.format(node.location))
-    #     print('above: ', node.n)
-    #     print('below: ', node.s)
-    #     print('right: ', node.e)
-    #     print(' left: ', node.w)
-    #     print()
+    maze.leftturn()
 
     print('Success!')
 
