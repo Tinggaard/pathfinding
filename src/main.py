@@ -77,9 +77,19 @@ def main() -> None:
     print('Nodes found:', maze.node_count)
     print()
 
-    maze.leftturn()
+    solved, [explored, path, length] = maze.rightturn()
 
-    print('Success!')
+    s = 'Success!' if solved else 'The algorithm did not find a solution...'
+
+    print(s)
+
+    if solved:
+
+        print('Nodes explored:', explored)
+        print()
+
+        maze.show_solution()
+
 
 
 

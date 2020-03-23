@@ -4,10 +4,19 @@ import numpy as np
 class Node:
     def __init__(self, location: tuple):
         self.location = location # (y, x)
-        self.n = None # [node_index, dist]
-        self.s = None # [node_index, dist]
-        self.e = None # [node_index, dist]
-        self.w = None # [node_index, dist]
+        # self.w = None # [node_index, dist]
+        # self.s = None # [node_index, dist]
+        # self.e = None # [node_index, dist]
+        # self.n = None # [node_index, dist]
+
+        # w s e n
+        # [node_index, dist]
+        self.nearby = [None] * 4
+
+        self.via = None
+        self.dist = np.inf
+
+        # a*
         self.dist_goal = np.inf
 
 
@@ -21,6 +30,11 @@ class Node:
         return self.location == other.location
 
 
+    # used to creating sets for counting explored nodes
+    def __hash__(self) -> hash:
+        return hash(self.location)
+
+
 
 # class containing the whole data structure
 class Maze:
@@ -32,13 +46,20 @@ class Maze:
         self.y = maze.shape[0]
 
         # start and end nodes for algs
-        self.start = (0, np.argmax(maze[0]))
-        self.end = (self.y-1, np.argmax(maze[-1]))
+        self.first = (0, np.argmax(maze[0]))
+        self.last = (self.y-1, np.argmax(maze[-1]))
 
         self.nodes = self.get_nodes()
         self.node_count = len(self.nodes)
 
+        # connect nodes
         self.gen_graph()
+
+        self.start = self.nodes[0]
+        self.end = self.nodes[-1]
+
+        self.solved = False
+        self.path = None
 
 
     # if printing the Maze class, return the np.ndarray structure
@@ -48,7 +69,7 @@ class Maze:
 
     # find nodes on map
     def get_nodes(self) -> list:
-        nodes = [Node(self.start)]
+        nodes = [Node(self.first)]
 
         # iterating the maze finding nodes
         for y, line in enumerate(self.maze[1:-1], 1):
@@ -74,7 +95,7 @@ class Maze:
                 # otherwise add it as a node
                 nodes.append(Node((y,x)))
 
-        nodes.append(Node(self.end))
+        nodes.append(Node(self.last))
         return nodes
 
 
@@ -83,14 +104,17 @@ class Maze:
         tmp = self.maze.copy()
         for node in self.nodes:
             tmp[node[0], node[1]] = 8
-        print(tmp)
+        # print(tmp)
 
 
     # function used in connection generating node connectivity
-    def get_node_index(self, y, x):
+    def get_node_index(self, y, x) -> int:
         for no, node in enumerate(self.nodes):
             if node.location == (y, x):
                 return no
+
+    def get_node(self, index) -> Node:
+        return self.nodes[index[0]]
 
 
     # generate graph structure to tell nearby nodes for every node
@@ -101,7 +125,8 @@ class Maze:
         for dn in range(self.y - y):
             tmp = y+dn+1
             if self.maze[tmp, x+1] or self.maze[tmp, x-1] or tmp == self.y-1:
-                first.s = (self.get_node_index(tmp, x), dn+1)
+                # south node
+                first.nearby[1] = (self.get_node_index(tmp, x), dn+1)
                 break
 
         #last Node
@@ -110,7 +135,8 @@ class Maze:
         for up in range(y):
             tmp = y-up-1
             if self.maze[tmp, x+1] or self.maze[tmp, x-1] or tmp == 0:
-                last.n = (self.get_node_index(tmp, x), up+1)
+                # north node
+                last.nearby[3] = (self.get_node_index(tmp, x), up+1)
                 break
 
         # all other nodes
@@ -125,18 +151,17 @@ class Maze:
             left = self.maze[y,x-1]
             right = self.maze[y,x+1]
 
-
             if above:
                 # decrement y with 1
                 for up in range(y):
                     tmp = y-up-1
                     # if found start node
                     if tmp == 0:
-                        node.n = (self.get_node_index(tmp, x), up+1)
+                        node.nearby[3] = (self.get_node_index(tmp, x), up+1)
                         break
                     # if right or left are path or above is not, save length and exit
                     if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp-1, x]:
-                        node.n = (self.get_node_index(tmp, x), up+1)
+                        node.nearby[3] = (self.get_node_index(tmp, x), up+1)
                         break
 
             if below:
@@ -145,12 +170,12 @@ class Maze:
                     tmp = y+dn+1
                     # if found end node
                     if tmp == self.y-1:
-                        node.s = (self.get_node_index(tmp, x), dn+1)
+                        node.nearby[1] = (self.get_node_index(tmp, x), dn+1)
                         break
 
                     # if right or left are path or below is not, save length and exit
                     if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp+1, x]:
-                        node.s = (self.get_node_index(tmp, x), dn+1)
+                        node.nearby[1] = (self.get_node_index(tmp, x), dn+1)
                         break
 
             if left:
@@ -159,7 +184,7 @@ class Maze:
                     tmp = x-lt-1
                     # if up or down are path or left is not, save length and exit
                     if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp-1]:
-                        node.w = (self.get_node_index(y, tmp), lt+1)
+                        node.nearby[0] = (self.get_node_index(y, tmp), lt+1)
                         break
 
             if right:
@@ -168,8 +193,32 @@ class Maze:
                     tmp = x+rt+1
                     # if up or down are path or right is not, save length and exit
                     if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp+1]:
-                        node.e = (self.get_node_index(y, tmp), rt+1)
+                        node.nearby[2] = (self.get_node_index(y, tmp), rt+1)
                         break
+
+
+    def show_solution(self) -> None:
+        if not self.solved:
+            print('Maze not solved, cannot show solution')
+            return False
+
+        sol = []
+        for row in self.maze:
+            tmp = []
+            for val in row:
+                tmp.append(str(val))
+
+            sol.append(tmp)
+
+        for node in self.path:
+            y, x = node.location
+            sol[y][x] = 'n'
+
+        print('Solution:')
+        print(''.join([' '] + [str(i) for i in range(self.y)]))
+        for no, row in enumerate(sol):
+            out = ''.join(row).replace('0', '▒').replace('1', ' ') # character: u"\u2592"
+            print(str(no) + out)
 
 
     # remove nodes on a dead end completely

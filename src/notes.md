@@ -5,3 +5,7 @@
 - dijkstra
 - leftturn
 - monte carlo?
+
+# lib
+- collections: deque
+- heapq

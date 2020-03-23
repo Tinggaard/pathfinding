@@ -1,19 +1,19 @@
 import scheme
-import rightturn
-# import dijkstra
-# import a_star
+import algs
 
 class Maze(scheme.Maze):
 
     def rightturn(self):
-        return rightturn.solve(self)
+        return algs.rightturn(self)
+
+
+    def breadthfirst(self):
+        return algs.breadthfirst(self)
 
 
     def dijkstra(self):
-        pass
-        # return dijkstra.solve(self)
+        return algs.dijkstra(self)
 
 
-    def a_star(self):
-        pass
-        # return a_star.solve(self)
+    def astar(self):
+        return algs.astar(self)
