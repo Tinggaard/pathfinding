@@ -46,8 +46,7 @@ def load_img(path: str) -> np.ndarray:
     return maze // 128
 
 
-
-def main() -> None:
+def load() -> object:
     path = sys.argv[1]
 
     if not os.path.isfile(path):
@@ -58,12 +57,16 @@ def main() -> None:
         print('Imagefile must be of type ".png", exiting...')
         sys.exit(1)
 
-    func = load_img if ext.lower() == '.png' else load_txt
+    return path, load_img if ext.lower() == '.png' else load_txt
 
+
+def main() -> None:
+
+    path, f = load()
 
     start_time = time()
     print('Loading input')
-    struct = func(path)
+    struct = f(path)
 
     construct_time = time()
     print('Loading took {} ms'.format(round((construct_time - start_time)*1000, 8)))
@@ -77,18 +80,20 @@ def main() -> None:
     print('Nodes found:', maze.node_count)
     print()
 
-    solved, [explored, path, length] = maze.rightturn()
+    explored, path, length = maze.breadthfirst()
 
-    s = 'Success!' if solved else 'The algorithm did not find a solution...'
+    s = 'Success!' if maze.solved else 'The algorithm did not find a solution...'
 
     print(s)
 
-    if solved:
+    if maze.solved:
 
         print('Nodes explored:', explored)
         print()
 
         maze.show_solution()
+
+        print('Total time elapsed: {} ms'.format(round((time()-start_time)*1000,8)))
 
 
 

@@ -25,7 +25,7 @@ def solve(self):
             self.solved = True
             self.path = path
             # path, nodes explored, length of path
-            return True, [len(set(path)), path, len(path)]
+            return len(set(path)), path, len(path)
 
         if current == start:
             return False, len(set(path))

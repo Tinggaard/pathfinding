@@ -9,3 +9,6 @@
 # lib
 - collections: deque
 - heapq
+
+# features
+- Start on coordinate in maze
