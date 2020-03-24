@@ -12,3 +12,11 @@
 
 # features
 - Start on coordinate in maze
+- stats on maze
+  - dead ends
+  - turnings
+  - junctions
+  - crossroads
+  - straightways
+  - path percentage
+- Steps to solve

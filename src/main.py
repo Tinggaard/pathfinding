@@ -80,7 +80,7 @@ def main() -> None:
     print('Nodes found:', maze.node_count)
     print()
 
-    explored, path, length = maze.breadthfirst()
+    explored, path, length = maze.dijkstra()
 
     s = 'Success!' if maze.solved else 'The algorithm did not find a solution...'
 

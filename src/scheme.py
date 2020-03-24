@@ -30,6 +30,11 @@ class Node:
         return self.location == other.location
 
 
+    # heapq comparison for dijkstra
+    def __lt__(self, other) -> bool:
+        return self.dist < other.dist
+
+
     # used to creating sets for counting explored nodes
     def __hash__(self) -> hash:
         return hash(self.location)

@@ -1,7 +1,7 @@
 from .rightturn import solve as right
 from .breadthfirst import solve as breadth
 from .depthfirst import solve as depth
-# from .dijkstra import solve as dijk
+from .dijkstra import solve as dijk
 # from .astar import solve as ast
 
 def rightturn(self):
@@ -17,8 +17,7 @@ def depthfirst(self):
 
 
 def dijkstra(self):
-    # return dijk(self)
-    pass
+    return dijk(self)
 
 
 def astar(self):
