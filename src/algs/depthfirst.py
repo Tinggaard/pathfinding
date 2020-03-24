@@ -21,22 +21,24 @@ def solve(self):
         # explored nodes
         explored += 1
 
-        # get first item
+        # get last item
         current = q.pop(0)
 
         # stop iteration, if at the end
         if current == end:
             break
 
-        for node in current.nearby:
+        # the current node has now been visited
+        visited[current.location] = True
+
+        for node in current.nearby[::-1]:
             # if not a wall
             if node is not None:
                 n = self.get_node(node)
                 # and if not visited
                 if not visited[n.location]:
-                    visited[n.location] = True
-                    # append the node to the list to visit
-                    q.append(n)
+                    # prepend the node to the list to visit
+                    q.insert(0, n)
                     # set the via node for generating path
                     n.via = self.get_node_index(current.location[0], current.location[1])
 

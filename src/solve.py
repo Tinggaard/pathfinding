@@ -11,6 +11,10 @@ class Maze(scheme.Maze):
         return algs.breadthfirst(self)
 
 
+    def depthfirst(self):
+        return algs.depthfirst(self)
+
+
     def dijkstra(self):
         return algs.dijkstra(self)
 
