@@ -7,7 +7,7 @@ def solve(self):
     end = self.end
 
     # set initial value
-    start.dist = 0
+    start.dist = start.combined = 0
 
     # bool array
     visited = np.full((self.y, self.x), False)
@@ -48,10 +48,10 @@ def solve(self):
 
                     cy, cx = current.location
                     ny, nx = node.location
-                    # calculate difference in locations
-                    distance = abs(cy-ny) if cy-ny != 0 else abs(cx-ny)
+                    # calculate difference in locations (one is always 0)
+                    distance = abs(cy-ny) + abs(cx-ny)
                     # set total distance and via node
-                    node.dist = current.dist + distance
+                    node.dist = node.combined = current.dist + distance
                     node.via = self.get_node_index(cy, cx)
 
                     # push new node into heap
@@ -62,7 +62,7 @@ def solve(self):
     current = end
     while current != start:
         path.append(current)
-        current = self.nodes[current.via]
+        current = self.get_node(current.via)
 
     # append the start node
     path.append(self.start)
@@ -72,5 +72,5 @@ def solve(self):
 
     self.solved = True
     self.path = path
-    # path, nodes explored, length of path
-    return explored, path, len(path)
+    # nodes explored, path, number of nodes, length of path
+    return explored, path, len(path), goal

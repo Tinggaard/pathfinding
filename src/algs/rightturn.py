@@ -1,41 +1,44 @@
 def solve(self):
     assert not self.solved
 
-    start = self.nodes[0]
-    end = self.nodes[-1]
+    start = self.get_node(0)
+    end = self.get_node(-1)
 
-    second = self.nodes[start.nearby[1][0]]
+    second = self.get_node(start.nearby[1])
     second.via = 0
 
     # initiate vars
     path = [start, second]
     current = second
+    travelled = 0
 
     direction = 0
+
 
     # dicretions
     # w s e n
     # 0 1 2 3
-
-
 
     while True:
 
         if current == end:
             self.solved = True
             self.path = path
-            # path, nodes explored, length of path
-            return len(set(path)), path, len(path)
+            # nodes explored, path, number of nodes, length of path
+            return len(set(path)), path, len(path), travelled
 
         if current == start:
             return False, len(set(path))
 
         # west
         if direction % 4 == 0:
+            # if there is a node the that side
             if current.nearby[0] is not None:
-                prev = current.nearby[0][0]
-                current = self.nodes[prev]
-                current.via = prev
+                following = current.nearby[0]
+                current = self.get_node(following)
+                current.via = following
+
+                travelled += following[1]
 
                 path.append(current)
                 direction -= 1
@@ -45,9 +48,11 @@ def solve(self):
         # south
         if direction % 4 == 1:
             if current.nearby[1] is not None:
-                prev = current.nearby[1][0]
-                current = self.nodes[prev]
-                current.via = prev
+                following = current.nearby[1]
+                current = self.get_node(following)
+                current.via = following
+
+                travelled += following[1]
 
                 path.append(current)
                 direction -= 1
@@ -57,9 +62,11 @@ def solve(self):
         # east
         if direction % 4 == 2:
             if current.nearby[2] is not None:
-                prev = current.nearby[2][0]
-                current = self.nodes[prev]
-                current.via = prev
+                following = current.nearby[2]
+                current = self.get_node(following)
+                current.via = following
+
+                travelled += following[1]
 
                 path.append(current)
                 direction -= 1
@@ -69,9 +76,12 @@ def solve(self):
         # north
         if direction % 4 == 3:
             if current.nearby[3] is not None:
-                prev = current.nearby[3][0]
-                current = self.nodes[prev]
-                current.via = prev
+                following = current.nearby[3]
+                current = self.get_node(following)
+                current.via = following
+
+                travelled += following[1]
+
                 path.append(current)
                 direction -= 1
                 continue

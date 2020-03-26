@@ -1,22 +1,26 @@
 # algorithms
-- breadth first
-- depth first
-- a*
-- dijkstra
-- leftturn
-- monte carlo?
+- [x] breadth first
+- [x] depth first
+- [x] a*
+- [x] dijkstra
+- [x] rigtturn
+- [ ] monte carlo?
 
 # lib
 - collections: deque
-- heapq
 
 # features
-- Start on coordinate in maze
-- stats on maze
-  - dead ends
-  - turnings
-  - junctions
-  - crossroads
-  - straightways
-  - path percentage
-- Steps to solve
+- [ ] start on coordinate in maze
+- [ ] stats on maze
+  - [ ] dead ends
+  - [ ] turnings
+  - [ ] junctions
+  - [ ] crossroads
+  - [ ] straightways
+  - [ ] path percentage
+- [ ] steps to solve
+- [ ] image to solve
+- [x] return length travelled
+- verbose mode
+- output mode
+- generate images using `pydaedalus`

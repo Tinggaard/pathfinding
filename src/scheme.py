@@ -13,11 +13,15 @@ class Node:
         # [node_index, dist]
         self.nearby = [None] * 4
 
+        # tracking distance travelled
         self.via = None
         self.dist = np.inf
 
         # a*
         self.dist_goal = np.inf
+
+        # set to be combined self.dist_goal and self.dist
+        self.combined = np.inf
 
 
     # if printing the Node class, return it's location
@@ -32,7 +36,7 @@ class Node:
 
     # heapq comparison for dijkstra
     def __lt__(self, other) -> bool:
-        return self.dist < other.dist
+        return self.combined < other.combined
 
 
     # used to creating sets for counting explored nodes
@@ -60,8 +64,8 @@ class Graph:
         # connect nodes
         self.gen_graph()
 
-        self.start = self.nodes[0]
-        self.end = self.nodes[-1]
+        self.start = self.get_node(0)
+        self.end = self.get_node(-1)
 
         self.solved = False
         self.path = None
@@ -119,13 +123,13 @@ class Graph:
                 return no
 
     def get_node(self, index) -> Node:
-        return self.nodes[index[0]]
+        return self.nodes[index] if isinstance(index, int) else self.nodes[index[0]]
 
 
     # generate graph structure to tell nearby nodes for every node
     def gen_graph(self) -> None:
         # first Node
-        first = self.nodes[0]
+        first = self.get_node(0)
         y, x = first.location
         for dn in range(self.y - y):
             tmp = y+dn+1
@@ -135,7 +139,7 @@ class Graph:
                 break
 
         #last Node
-        last = self.nodes[-1]
+        last = self.get_node(-1)
         y, x = last.location
         for up in range(y):
             tmp = y-up-1

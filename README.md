@@ -9,7 +9,7 @@ I'd recommend creating a virtual environment:
 git clone https://github.com/Tinggaard/pathfinding.git
 cd pathfinding
 python3 -m venv venv
-source venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 

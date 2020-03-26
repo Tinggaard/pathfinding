@@ -6,6 +6,9 @@ def solve(self):
     start = self.start
     end = self.end
 
+    # set initial value
+    start.dist = 0
+
     # bool array
     visited = np.full((self.y, self.x), False)
 
@@ -13,6 +16,7 @@ def solve(self):
     # initiate vars
     q = [start]
     explored = 0
+    goal = np.inf
 
     # dicretions
     # w s e n
@@ -26,21 +30,30 @@ def solve(self):
 
         # stop iteration, if at the end
         if current == end:
+            goal = current.dist
             break
 
         # the current node has now been visited
         visited[current.location] = True
 
-        for node in current.nearby[::-1]:
+        for near in current.nearby[::-1]:
             # if not a wall
-            if node is not None:
-                n = self.get_node(node)
+            if near is not None:
+                node = self.get_node(near)
                 # and if not visited
-                if not visited[n.location]:
+                if not visited[node.location]:
+
+                    cy, cx = current.location
+                    ny, nx = node.location
+                    # calculate difference in locations (one is always 0)
+                    distance = abs(cy-ny) + abs(cx-ny)
+                    # set total distance and via node
+                    node.dist = current.dist + distance
+
                     # prepend the node to the list to visit
-                    q.insert(0, n)
+                    q.insert(0, node)
                     # set the via node for generating path
-                    n.via = self.get_node_index(current.location[0], current.location[1])
+                    node.via = self.get_node_index(cy, cx)
 
 
     # backtrack the path
@@ -48,7 +61,7 @@ def solve(self):
     current = end
     while current != start:
         path.append(current)
-        current = self.nodes[current.via]
+        current = self.get_node(current.via)
 
     # append the start node
     path.append(self.start)
@@ -58,5 +71,5 @@ def solve(self):
 
     self.solved = True
     self.path = path
-    # path, nodes explored, length of path
-    return explored, path, len(path)
+    # nodes explored, path, number of nodes, length of path
+    return explored, path, len(path), goal
