@@ -53,10 +53,11 @@ def solve(self):
                     # set total distance and via node
                     node.dist = current.dist + distance
                     node.via = self.get_node_index(cy, cx)
-                    print(node)
 
+                    # push new node into heap
                     hq.heappush(pq, node)
 
+    # backtrack the path
     path = []
     current = end
     while current != start:
@@ -66,6 +67,7 @@ def solve(self):
     # append the start node
     path.append(self.start)
 
+    # reverse the path (from top to bottom)
     path = path[::-1]
 
     self.solved = True

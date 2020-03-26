@@ -42,6 +42,8 @@ def solve(self):
                     # set the via node for generating path
                     n.via = self.get_node_index(current.location[0], current.location[1])
 
+
+    # backtrack the path
     path = []
     current = end
     while current != start:
@@ -51,6 +53,7 @@ def solve(self):
     # append the start node
     path.append(self.start)
 
+    # reverse the path (from top to bottom)
     path = path[::-1]
 
     self.solved = True

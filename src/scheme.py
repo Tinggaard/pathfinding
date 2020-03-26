@@ -42,7 +42,7 @@ class Node:
 
 
 # class containing the whole data structure
-class Maze:
+class Graph:
 
     def __init__(self, maze: np.ndarray):
         self.maze = maze
@@ -67,7 +67,7 @@ class Maze:
         self.path = None
 
 
-    # if printing the Maze class, return the np.ndarray structure
+    # if printing the Graph class, return the np.ndarray structure
     def __repr__(self) -> str:
         return str(self.maze)
 
@@ -204,7 +204,7 @@ class Maze:
 
     def show_solution(self) -> None:
         if not self.solved:
-            print('Maze not solved, cannot show solution')
+            print('Graph not solved, cannot show solution')
             return False
 
         sol = []

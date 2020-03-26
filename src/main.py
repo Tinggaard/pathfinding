@@ -73,7 +73,7 @@ def main() -> None:
     print()
 
     print('Constructing graph')
-    maze = solve.Maze(struct)
+    maze = solve.Graph(struct)
 
     end_time = time()
     print('Constructing took {} ms'.format(round((end_time - construct_time)*1000, 8)))

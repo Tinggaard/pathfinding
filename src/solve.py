@@ -1,7 +1,7 @@
 import scheme
 import algs
 
-class Maze(scheme.Maze):
+class Graph(scheme.Graph):
 
     def rightturn(self):
         return algs.rightturn(self)
