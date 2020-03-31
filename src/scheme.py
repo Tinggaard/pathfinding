@@ -1,4 +1,6 @@
 import numpy as np
+import cv2 as cv
+import os.path
 
 # class containing neccesary information on every node
 class Node:
@@ -42,6 +44,15 @@ class Node:
     # used to creating sets for counting explored nodes
     def __hash__(self) -> hash:
         return hash(self.location)
+
+
+    # iterate the neighbours
+    def __iter__(self):
+        pass
+
+    # self.location[index]
+    def __getitem__(self, index):
+        pass
 
 
 
@@ -208,26 +219,204 @@ class Graph:
 
     def show_solution(self) -> None:
         if not self.solved:
-            print('Graph not solved, cannot show solution')
+            print('ERROR: Graph not solved, cannot show solution')
             return False
 
         sol = []
+        # create normal python list, that are type independent
         for row in self.maze:
             tmp = []
             for val in row:
                 tmp.append(str(val))
-
             sol.append(tmp)
 
+        # mark all nodes
         for node in self.path:
             y, x = node.location
             sol[y][x] = 'n'
 
-        print('Solution:')
-        print(''.join([' '] + [str(i) for i in range(self.y)]))
-        for no, row in enumerate(sol):
-            out = ''.join(row).replace('0', '▒').replace('1', ' ') # character: u"\u2592"
-            print(str(no) + out)
+        # print it all
+        for row in sol:
+            print(''.join(row).replace('0', '▒').replace('1', ' ')) # character: u"\u2592"
+
+
+    # write maze to disk as image
+    def save_image(self, destination: str) -> None:
+        cv.imwrite(destination, self.maze*255)
+
+
+    # write maze to disk as text file
+    def save_text(self, destination: str) -> None:
+        # create (and truncate) file
+        with open(destination, 'w+') as f:
+            # create normal python list, that are type independent
+            for row in self.maze:
+                tmp = []
+                for val in row:
+                    tmp.append(str(val))
+                f.write(''.join(tmp).replace('0', '#').replace('1', ' ') + '\n')
+
+
+    # convenient function that reads the filetype, and the save it as an image
+    def save(self, destination: str) -> None:
+        file, ext = os.path.splitext(destination)
+
+        if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
+            print('NOTE: will only write images to types of ".bmp" and ".png"')
+            print('other formats compress the image, and makes it unusable')
+            return False
+
+        elif ext.lower() in ['.png', '.bmp']:
+            return self.save_image(destination)
+
+        if ext.lower() not in ['.txt', '.text']:
+            print('NOTE: writing as textfile, as format was not understood')
+            print('use the ".txt" or ".text" extension to dismiss this note')
+
+        return self.save_text(destination)
+
+
+    # write maze solution to disk as image
+    def save_solution_image(self, destination: str) -> None:
+        if not self.solved:
+            print('ERROR: Graph not solved, cannot show solution')
+            return False
+
+        file, ext = os.path.splitext(destination)
+        if not ext.lower() in ['.bmp', '.png']:
+            print('ERROR: Can only save images to ".bmp" or ".png" type')
+            return False
+
+        mz = self.maze.copy()*255
+
+        # make array 3D
+        mz = mz[..., np.newaxis]
+        mz = np.concatenate((mz, mz, mz), axis=2)
+
+        count = len(self.path)
+
+        for i in range(count - 1):
+            c = self.path[i].location #current
+            n = self.path[i+1].location #next
+
+            # red -> green
+            val = int((i/count)*255)
+            bgr = [0, val, 255 - val]
+
+            # y vals are the same: going horizontal
+            if c[0] == n[0]:
+                for loc in range(min(c[1], n[1]), max(c[1], n[1]) + 1):
+                    mz[c[0], loc] = bgr
+
+            # x vals are the same: going vertical
+            else:
+                for loc in range(min(c[0], n[0]), max(c[0], n[0]) + 1):
+                    mz[loc, c[1]] = bgr
+
+        cv.imwrite(destination, mz)
+
+
+    def save_solution_text(self, destination: str, fancy:bool = True) -> None:
+        if not self.solved:
+            print('ERROR: Graph not solved, cannot show solution')
+            return False
+
+        sol = []
+        # create normal python list, that are type independent
+        for row in self.maze:
+            tmp = []
+            for val in row:
+                tmp.append(str(val))
+            sol.append(tmp)
+
+        # if fancy flag not set
+        if not fancy:
+            for node in self.path:
+                y, x = node.location
+                sol[y][x] = 'n'
+            # create (and truncate) file
+            with open(destination, 'w+') as f:
+                # create normal python list, that are type independent
+                for line in sol:
+                    f.write(''.join(line).replace('0', '#').replace('1', ' ') + '\n')
+            return
+
+        # otherwise, we makin' it fancy!
+
+        # filling out the nodes
+        def filled(field):
+            return field not in ['0', '1']
+
+
+        for i in range(len(self.path) - 1):
+            c = self.path[i].location #current
+            n = self.path[i+1].location #next
+
+            # y vals are the same: going horizontal
+            if c[0] == n[0]:
+                # new_v = False
+                for loc in range(min(c[1], n[1]), max(c[1], n[1]) + 1):
+                    sol[c[0]][loc] = '━'
+
+            # x vals are the same: going vertical
+            else:
+                # new_v = True
+                for loc in range(min(c[0], n[0]), max(c[0], n[0]) + 1):
+                    sol[loc][c[1]] = '┃'
+
+            top = filled(sol[c[0]-1][c[1]])
+            btm = filled(sol[c[0]+1][c[1]])
+            lft = filled(sol[c[0]][c[1]-1])
+            rht = filled(sol[c[0]][c[1]+1])
+
+            if top and btm:
+                sol[c[0]][c[1]] = '┃'
+                continue
+
+            if lft and rht:
+                sol[c[0]][c[1]] = '━'
+                continue
+
+            if lft and top:
+                sol[c[0]][c[1]] = '┛'
+                continue
+
+            if rht and top:
+                sol[c[0]][c[1]] = '┗'
+                continue
+
+            if rht and btm:
+                sol[c[0]][c[1]] = '┏'
+                continue
+
+            if lft and btm:
+                sol[c[0]][c[1]] = '┓'
+                continue
+
+        # create (and truncate) file
+        with open(destination, 'w+') as f:
+            # create normal python list, that are type independent
+            for line in sol:
+                f.write(''.join(line).replace('0', '▒').replace('1', ' ') + '\n')
+
+
+    # convenient function that reads the filetype, and the save it as an image
+    def save_solution(self, destination: str, *fancy) -> None:
+        file, ext = os.path.splitext(destination)
+
+        if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
+            print('NOTE: will only write images to types of ".bmp" and ".png"')
+            print('other formats compress the image, and makes it unusable')
+            return False
+
+        elif ext.lower() in ['.png', '.bmp']:
+            return self.save_solution_image(destination)
+
+        if ext.lower() not in ['.txt', '.text']:
+            print('NOTE: writing as textfile, as format was not understood')
+            print('use the ".txt" or ".text" extension to dismiss this note')
+
+        return self.save_solution_text(destination, fancy)
 
 
     # remove nodes on a dead end completely

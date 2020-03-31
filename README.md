@@ -2,7 +2,7 @@
 A school project on pathfinding algorithms based on mazes, by Jens Tinggaard.
 
 ## Prerequisites
-Requires installation of `numpy` and `opencv-python`.
+Requires installation of `numpy`, `opencv-python` and `pydaedalus`.
 
 I'd recommend creating a virtual environment:
 ```shell
@@ -15,9 +15,9 @@ pip install -r requirements.txt
 
 ## Usage
 ```shell
-python main.py [maze_file]
+python main.py (-i INPUT | -g width height) [-v] [-s]
 ```
 E.g.
 ```shell
-python main.py ../in/tiny.png
+python main.py -i ../in/tiny.png -vs
 ```

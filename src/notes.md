@@ -19,8 +19,10 @@
   - [ ] straightways
   - [ ] path percentage
 - [ ] steps to solve
-- [ ] image to solve
+- [x] image to solve
 - [x] return length travelled
-- verbose mode
-- output mode
-- generate images using `pydaedalus`
+- [x] verbose mode
+- [ ] output mode
+- [x] generate images using `pydaedalus`
+- [ ] support different types of input (1 and 0 as image)
+- [ ] scale smaller images
