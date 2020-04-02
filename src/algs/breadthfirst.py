@@ -1,4 +1,5 @@
 import numpy as np
+from _collections import deque as dq
 
 def solve(self):
     assert not self.solved
@@ -12,13 +13,12 @@ def solve(self):
     # bool array
     visited = np.full((self.y, self.x), False)
 
-
     # initiate vars
-    q = [start]
+    q = dq([start])
     explored = 0
     goal = np.inf
 
-    # dicretions
+    # directions
     # w s e n
     # 0 1 2 3
     while q:
@@ -26,7 +26,7 @@ def solve(self):
         explored += 1
 
         # get first item
-        current = q.pop(0)
+        current = q.popleft()
 
         # stop iteration, if at the end
         if current == end:
@@ -44,7 +44,7 @@ def solve(self):
                     cy, cx = current.location
                     ny, nx = node.location
                     # calculate difference in locations (one is always 0)
-                    distance = abs(cy-ny) + abs(cx-ny)
+                    distance = abs(cy-ny) + abs(cx-nx)
                     # set total distance and via node
                     node.dist = current.dist + distance
 

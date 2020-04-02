@@ -15,7 +15,7 @@ def solve(self):
     direction = 0
 
 
-    # dicretions
+    # directions
     # w s e n
     # 0 1 2 3
 

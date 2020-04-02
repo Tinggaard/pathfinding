@@ -6,7 +6,8 @@ import re
 import argparse
 from time import time
 import numpy as np
-import cv2 as cv
+# import cv2 as cv
+from PIL import Image
 
 # own code
 import solve
@@ -40,23 +41,25 @@ def load_txt(path: str) -> np.ndarray:
 # convert binary image to maze
 # black (0) begin wall and white (255) being path
 def load_img(path: str) -> np.ndarray:
-    # open file
-    maze = cv.imread(path, cv.IMREAD_GRAYSCALE)
-
-    # anything under 128 is white, anything over i black
-    return maze // 128
+    # bitmaps loads as 1 and 0, png as 255 and 0
+    if os.path.splitext(path)[1].lower() == '.bmp':
+        return np.array(Image.open(path)) // 255
+    return np.array(Image.open(path))
 
 
 def load(path: str) -> object:
 
+    # try locating the file
     if not os.path.isfile(path):
         raise FileNotFoundError('The requested file was not found')
 
     file, ext = os.path.splitext(path)
+    # some image files not supported
     if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
         print('ERROR: Imagefile must be of type ".png" og ".bmp"')
         sys.exit(1)
 
+    # method to use
     return load_img if ext.lower() == '.png' or ext.lower() == '.bmp' else load_txt
 
 
@@ -64,13 +67,13 @@ def main() -> None:
 
 
     # methods, based on argparse
-    # methods = {
-    # 'astar': solve.Graph.astar,
-    # 'dijkstra': solve.Graph.dijkstra,
-    # 'breadthfirst': solve.Graph.breadthfirst,
-    # 'depthfirst': solve.Graph.depthfirst,
-    # 'rightturn': solve.Graph.rightturn
-    # }
+    methods = {
+    'astar': solve.Graph.astar,
+    'dijkstra': solve.Graph.dijkstra,
+    'breadthfirst': solve.Graph.breadthfirst,
+    'depthfirst': solve.Graph.depthfirst,
+    'rightturn': solve.Graph.rightturn
+    }
 
     # argparse
     parser = argparse.ArgumentParser(description='Visualize pathfinding algorithms using mazes')
@@ -82,8 +85,8 @@ def main() -> None:
 
     # other stuff
     parser.add_argument('-o', '--output', default=None, type=str, help='Path to save maze to')
+    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str, choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'), help='Pathfinding algorithm to use')
     parser.add_argument('-v', '--verbose', action='store_true', help='Output is verbose, including timings')
-    # parser.add_argument('-a', '--algorithm', default='dijkstra', type=str, choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'), help='Pathfinding algorithm to use')
     parser.add_argument('-s', '--show', action='store_true', help='Show solved solution in terminal')
 
 
@@ -92,7 +95,7 @@ def main() -> None:
 
     verbose = args.verbose
     output = args.output
-    # algorithm = args.algorithm
+    algorithm = args.algorithm
     show = args.show
 
     # verbose print: only print if verbose mode is on
@@ -111,7 +114,7 @@ def main() -> None:
         struct = f(args.input)
 
         construct_time = time()
-        vprint('Loading took {} ms'.format(round((construct_time - start_time)*1000, 8)))
+        vprint('Loading took {} ms'.format(round((construct_time - start_time)*1000)))
         vprint()
 
 
@@ -122,7 +125,7 @@ def main() -> None:
         struct = generate.gen_maze(args.generate)
 
         construct_time = time()
-        vprint('Generating took {} ms'.format(round((construct_time - start_time)*1000, 8)))
+        vprint('Generating took {} ms'.format(round((construct_time - start_time)*1000)))
         vprint()
 
 
@@ -131,11 +134,13 @@ def main() -> None:
     maze = solve.Graph(struct)
 
     end_time = time()
-    vprint('Constructing took {} ms'.format(round((end_time - construct_time)*1000, 8)))
+    vprint('Constructing took {} ms'.format(round((end_time - construct_time)*1000)))
     vprint('Nodes found:', maze.node_count)
     vprint()
 
-    explored, path, nodes, length = maze.astar()
+    method = methods[algorithm]
+
+    explored, path, nodes, length = method(maze)
 
     s = 'Success!' if maze.solved else 'The algorithm did not find a solution...'
 
@@ -150,9 +155,10 @@ def main() -> None:
         if show:
             maze.show_solution()
 
-        vprint('Total time elapsed: {} ms'.format(round((time()-start_time)*1000,8)))
+        vprint('Total time elapsed: {} ms'.format(round((time()-start_time)*1000)))
 
-        maze.save_solution('../out/solution.png', False)
+        if output:
+            maze.save_solution(output)
 
 
 

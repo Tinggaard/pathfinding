@@ -20,7 +20,7 @@ def solve(self):
     pq = [start]
 
 
-    # dicretions
+    # directions
     # w s e n
     # 0 1 2 3
 
@@ -49,7 +49,7 @@ def solve(self):
                     cy, cx = current.location
                     ny, nx = node.location
                     # calculate difference in locations (one is always 0)
-                    distance = abs(cy-ny) + abs(cx-ny)
+                    distance = abs(cy-ny) + abs(cx-nx)
                     # set total distance and via node
                     node.dist = node.combined = current.dist + distance
                     node.via = self.get_node_index(cy, cx)

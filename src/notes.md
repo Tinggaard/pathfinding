@@ -7,7 +7,9 @@
 - [ ] monte carlo?
 
 # lib
-- collections: deque
+- [ ] import `click`
+- [ ] import `logging`
+- [ ] generation methods
 
 # features
 - [ ] start on coordinate in maze
@@ -19,10 +21,7 @@
   - [ ] straightways
   - [ ] path percentage
 - [ ] steps to solve
-- [x] image to solve
-- [x] return length travelled
-- [x] verbose mode
-- [ ] output mode
-- [x] generate images using `pydaedalus`
 - [ ] support different types of input (1 and 0 as image)
 - [ ] scale smaller images
+- [ ] timings
+  - Shell script

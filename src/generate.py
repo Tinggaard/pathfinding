@@ -19,6 +19,15 @@ def gen_maze(size: tuple) -> np.ndarray:
 
     # other methods are available, this is just the standard for now
     maze.create_perfect()
+    # other methods include:
+    # create_braid
+    # create_unicursal
+    # create_spiral
+    # create_braid_tilt
+    # create_diagonal
+    # create_sidewinder
+    # create_recursive
+    # create_prim
 
     # invert array, as library treats 0 as path and 1 as wall
     inv = np.array(maze, dtype=np.bool)
@@ -29,7 +38,7 @@ def gen_maze(size: tuple) -> np.ndarray:
 # short snippet to generate a maze and nothing else
 if __name__ == '__main__':
     import sys
-    import cv2 as cv
+    from PIL import Image
 
     try:
         width, height, location = sys.argv[1:4]
@@ -43,4 +52,5 @@ if __name__ == '__main__':
         sys.exit(1)
 
     maze = gen_maze((width, height))
-    cv.imwrite(location, maze*255)
+
+    Image.fromarray((maze*255).astype(np.uint8)).save(location)

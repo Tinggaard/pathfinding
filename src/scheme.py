@@ -1,5 +1,5 @@
 import numpy as np
-import cv2 as cv
+from PIL import Image
 import os.path
 
 # class containing neccesary information on every node
@@ -240,9 +240,14 @@ class Graph:
             print(''.join(row).replace('0', '▒').replace('1', ' ')) # character: u"\u2592"
 
 
+
+    # def scale_image(self, scale):
+    #     return cv.resize(self.maze, (0,0), fx=scale, fy=scale)
+
+
     # write maze to disk as image
     def save_image(self, destination: str) -> None:
-        cv.imwrite(destination, self.maze*255)
+        Image.fromarray(self.maze*255).save(destination)
 
 
     # write maze to disk as text file
@@ -301,7 +306,7 @@ class Graph:
 
             # red -> green
             val = int((i/count)*255)
-            bgr = [0, val, 255 - val]
+            bgr = [255 - val, val, 0]
 
             # y vals are the same: going horizontal
             if c[0] == n[0]:
@@ -313,7 +318,7 @@ class Graph:
                 for loc in range(min(c[0], n[0]), max(c[0], n[0]) + 1):
                     mz[loc, c[1]] = bgr
 
-        cv.imwrite(destination, mz)
+        Image.fromarray(mz).save(destination)
 
 
     def save_solution_text(self, destination: str, fancy:bool = True) -> None:
