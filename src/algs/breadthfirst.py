@@ -36,7 +36,7 @@ def solve(self):
         for near in current.nearby:
             # if not a wall
             if near is not None:
-                node = self.get_node(near)
+                node = self.get_node(near[0])
                 # and if not visited
                 if not visited[node.location]:
                     visited[node.location] = True
@@ -51,7 +51,7 @@ def solve(self):
                     # append the node to the list to visit
                     q.append(node)
                     # set the via node for generating path
-                    node.via = self.get_node_index(cy, cx)
+                    node.via = (cy, cx)
 
 
     # backtrack the path

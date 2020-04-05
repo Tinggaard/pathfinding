@@ -6,17 +6,14 @@ import os.path
 class Node:
     def __init__(self, location: tuple):
         self.location = location # (y, x)
-        # self.w = None # [node_index, dist]
-        # self.s = None # [node_index, dist]
-        # self.e = None # [node_index, dist]
-        # self.n = None # [node_index, dist]
 
         # w s e n
-        # [node_index, dist]
+        # [location, dist]
         self.nearby = [None] * 4
 
-        # tracking distance travelled
+        # location of node travelled by
         self.via = None
+        # tracking distance travelled
         self.dist = np.inf
 
         # a*
@@ -72,11 +69,11 @@ class Graph:
         self.nodes = self.get_nodes()
         self.node_count = len(self.nodes)
 
+        self.start = self.nodes[self.first] # Node(self.first)
+        self.end = self.nodes[self.last] # Node(self.last)
+
         # connect nodes
         self.gen_graph()
-
-        self.start = self.get_node(0)
-        self.end = self.get_node(-1)
 
         self.solved = False
         self.path = None
@@ -89,7 +86,8 @@ class Graph:
 
     # find nodes on map
     def get_nodes(self) -> list:
-        nodes = [Node(self.first)]
+        # initiate dict
+        nodes = {self.first: Node(self.first), self.last: Node(self.last)}
 
         # iterating the maze finding nodes
         for y, line in enumerate(self.maze[1:-1], 1):
@@ -113,9 +111,8 @@ class Graph:
                     continue
 
                 # otherwise add it as a node
-                nodes.append(Node((y,x)))
+                nodes[(y,x)] = Node((y,x))
 
-        nodes.append(Node(self.last))
         return nodes
 
 
@@ -124,43 +121,44 @@ class Graph:
         tmp = self.maze.copy()
         for node in self.nodes:
             tmp[node[0], node[1]] = 8
-        # print(tmp)
+        print(tmp)
 
 
-    # function used in connection generating node connectivity
-    def get_node_index(self, y, x) -> int:
-        for no, node in enumerate(self.nodes):
-            if node.location == (y, x):
-                return no
-
-    def get_node(self, index) -> Node:
-        return self.nodes[index] if isinstance(index, int) else self.nodes[index[0]]
+    # used to get a node, from a specified index
+    # hashes the location, and finds the node
+    def get_node(self, location: tuple) -> Node:
+        return self.nodes[location]
 
 
     # generate graph structure to tell nearby nodes for every node
     def gen_graph(self) -> None:
         # first Node
-        first = self.get_node(0)
+        first = self.start
         y, x = first.location
         for dn in range(self.y - y):
             tmp = y+dn+1
             if self.maze[tmp, x+1] or self.maze[tmp, x-1] or tmp == self.y-1:
                 # south node
-                first.nearby[1] = (self.get_node_index(tmp, x), dn+1)
+                first.nearby[1] = ((tmp, x), dn+1)
                 break
 
         #last Node
-        last = self.get_node(-1)
+        last = self.end
         y, x = last.location
         for up in range(y):
             tmp = y-up-1
             if self.maze[tmp, x+1] or self.maze[tmp, x-1] or tmp == 0:
                 # north node
-                last.nearby[3] = (self.get_node_index(tmp, x), up+1)
+                last.nearby[3] = ((tmp, x), up+1)
                 break
 
         # all other nodes
-        for node in self.nodes[1:-1]:
+        # skip the first and last node (first two declared)
+        for node in self.nodes.values():
+
+            # if the first or last node, skip
+            if node.location[0] == 0 or node.location[0] == self.y - 1:
+                continue
 
             # current node location
             y, x = node.location
@@ -177,11 +175,11 @@ class Graph:
                     tmp = y-up-1
                     # if found start node
                     if tmp == 0:
-                        node.nearby[3] = (self.get_node_index(tmp, x), up+1)
+                        node.nearby[3] = ((tmp, x), up+1)
                         break
                     # if right or left are path or above is not, save length and exit
                     if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp-1, x]:
-                        node.nearby[3] = (self.get_node_index(tmp, x), up+1)
+                        node.nearby[3] = ((tmp, x), up+1)
                         break
 
             if below:
@@ -190,12 +188,12 @@ class Graph:
                     tmp = y+dn+1
                     # if found end node
                     if tmp == self.y-1:
-                        node.nearby[1] = (self.get_node_index(tmp, x), dn+1)
+                        node.nearby[1] = ((tmp, x), dn+1)
                         break
 
                     # if right or left are path or below is not, save length and exit
                     if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp+1, x]:
-                        node.nearby[1] = (self.get_node_index(tmp, x), dn+1)
+                        node.nearby[1] = ((tmp, x), dn+1)
                         break
 
             if left:
@@ -204,7 +202,7 @@ class Graph:
                     tmp = x-lt-1
                     # if up or down are path or left is not, save length and exit
                     if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp-1]:
-                        node.nearby[0] = (self.get_node_index(y, tmp), lt+1)
+                        node.nearby[0] = ((y, tmp), lt+1)
                         break
 
             if right:
@@ -213,7 +211,7 @@ class Graph:
                     tmp = x+rt+1
                     # if up or down are path or right is not, save length and exit
                     if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp+1]:
-                        node.nearby[2] = (self.get_node_index(y, tmp), rt+1)
+                        node.nearby[2] = ((y, tmp), rt+1)
                         break
 
 

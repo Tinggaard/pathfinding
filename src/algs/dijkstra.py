@@ -2,6 +2,7 @@ import numpy as np
 import heapq as hq
 
 def solve(self):
+    assert not self.solved
 
     start = self.start
     end = self.end
@@ -41,7 +42,7 @@ def solve(self):
         for near in current.nearby:
             # if not a wall
             if near is not None:
-                node = self.get_node(near)
+                node = self.get_node(near[0])
                 # and if not visited
                 if not visited[node.location]:
                     visited[node.location] = True
@@ -52,7 +53,7 @@ def solve(self):
                     distance = abs(cy-ny) + abs(cx-nx)
                     # set total distance and via node
                     node.dist = node.combined = current.dist + distance
-                    node.via = self.get_node_index(cy, cx)
+                    node.via = (cy, cx)
 
                     # push new node into heap
                     hq.heappush(pq, node)
