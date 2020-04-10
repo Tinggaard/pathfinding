@@ -1,17 +1,14 @@
 #!/usr/bin/env python
-# official libraries
 import sys
 import os.path
 import re
 import argparse
 from time import time
 import numpy as np
-# import cv2 as cv
 from PIL import Image
 
 # own code
 import solve
-import generate
 
 
 # convert textfile to maze
@@ -41,10 +38,8 @@ def load_txt(path: str) -> np.ndarray:
 # convert binary image to maze
 # black (0) begin wall and white (255) being path
 def load_img(path: str) -> np.ndarray:
-    # bitmaps loads as 1 and 0, png as 255 and 0
-    if os.path.splitext(path)[1].lower() == '.bmp':
-        return np.array(Image.open(path)) // 255
-    return np.array(Image.open(path))
+    # convert to binary array
+    return np.array(Image.open(path)) // 255
 
 
 def load(path: str) -> object:
@@ -120,6 +115,11 @@ def main() -> None:
 
     # Generate maze from size parameter
     else:
+        try:
+            import generate
+        except ImportError:
+            raise ImportError('Module "pydaedalus" not found, please ensure a C++ compiler is installed')
+
         start_time = time()
         vprint('Generating maze')
         struct = generate.gen_maze(args.generate)

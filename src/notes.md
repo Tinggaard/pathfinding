@@ -25,3 +25,4 @@
 - [ ] scale smaller images
 - [ ] timings
   - Shell script
+- `--force` option to overwrite

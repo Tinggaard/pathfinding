@@ -43,13 +43,13 @@ class Node:
         return hash(self.location)
 
 
-    # iterate the neighbours
-    def __iter__(self):
-        pass
-
-    # self.location[index]
-    def __getitem__(self, index):
-        pass
+    # # iterate the neighbours
+    # def __iter__(self):
+    #     pass
+    #
+    # # self.location[index]
+    # def __getitem__(self, index):
+    #     pass
 
 
 
@@ -245,7 +245,7 @@ class Graph:
 
     # write maze to disk as image
     def save_image(self, destination: str) -> None:
-        Image.fromarray(self.maze*255).save(destination)
+        Image.fromarray((self.maze*255).astype(np.uint8)).save(destination)
 
 
     # write maze to disk as text file
