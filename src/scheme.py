@@ -261,7 +261,15 @@ class Graph:
 
 
     # convenient function that reads the filetype, and the save it as an image
-    def save(self, destination: str) -> None:
+    def save(self, destination: str, force: bool = False) -> None:
+        if not force:
+            if os.path.isfile(destination):
+                i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(destination)).lower()
+                # if not yes or y
+                if i != 'yes' and i != 'y':
+                    print('Aborting')
+                    return
+
         file, ext = os.path.splitext(destination)
 
         if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
@@ -319,7 +327,7 @@ class Graph:
         Image.fromarray(mz).save(destination)
 
 
-    def save_solution_text(self, destination: str, fancy:bool = True) -> None:
+    def save_solution_text(self, destination: str, fancy: bool = True) -> None:
         if not self.solved:
             print('ERROR: Graph not solved, cannot show solution')
             return False
@@ -404,7 +412,15 @@ class Graph:
 
 
     # convenient function that reads the filetype, and the save it as an image
-    def save_solution(self, destination: str, *fancy) -> None:
+    def save_solution(self, destination: str, force: bool = False, fancy: bool = False) -> None:
+        if not force:
+            if os.path.isfile(destination):
+                i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(destination)).lower()
+                # if not yes or y
+                if i != 'yes' and i != 'y':
+                    print('Aborting')
+                    return
+
         file, ext = os.path.splitext(destination)
 
         if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:

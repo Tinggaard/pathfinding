@@ -79,10 +79,11 @@ def main() -> None:
     i.add_argument('-g', '--generate', nargs=2, metavar=('width', 'height'), type=int, help='Generate maze of size (width * height)')
 
     # other stuff
-    parser.add_argument('-o', '--output', default=None, type=str, help='Path to save maze to')
-    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str, choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'), help='Pathfinding algorithm to use')
     parser.add_argument('-v', '--verbose', action='store_true', help='Output is verbose, including timings')
     parser.add_argument('-s', '--show', action='store_true', help='Show solved solution in terminal')
+    parser.add_argument('-f', '--force', action='store_true', help='Do not ask before overwriting files')
+    parser.add_argument('-o', '--output', default=None, type=str, help='Path to save maze to')
+    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str, choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'), help='Pathfinding algorithm to use')
 
 
     # parse it
@@ -92,6 +93,7 @@ def main() -> None:
     output = args.output
     algorithm = args.algorithm
     show = args.show
+    force = args.force
 
     # verbose print: only print if verbose mode is on
     def vprint(*args, **kwargs):
@@ -158,7 +160,7 @@ def main() -> None:
         vprint('Total time elapsed: {} ms'.format(round((time()-start_time)*1000)))
 
         if output:
-            maze.save_solution(output)
+            maze.save_solution(output, force)
 
 
 

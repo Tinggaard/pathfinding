@@ -63,6 +63,7 @@ def auto_gen():
 if __name__ == '__main__':
     import sys
     from PIL import Image
+    import os.path
 
     # auto_gen()
 
@@ -72,10 +73,17 @@ if __name__ == '__main__':
 
     except:
         print('ERROR: No arguments given...')
-        print('Usage: python generate.py width height location')
+        print('Usage: ./generate.py width height location')
         print('E.g.')
         print('python generate.py 31 31 ../in/maze.bmp')
         sys.exit(1)
+
+    if os.path.isfile(location):
+        i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(location)).lower()
+        # if not yes or y
+        if i != 'yes' and i != 'y':
+            print('Aborting')
+            return
 
     maze = gen_maze((width, height))
 

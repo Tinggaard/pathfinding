@@ -3,6 +3,8 @@ A school project on pathfinding algorithms based on mazes, by Jens Tinggaard.
 
 ## Prerequisites
 Requires installation of `numpy`, `pillow` and `pydaedalus`.
+Furthermore `pydaedalus` requires a `C++` compiler to be installed.
+The program will run without the library, however some of the functionality (maze generation) will be limited.
 
 
 I'd recommend creating a virtual environment:
@@ -30,13 +32,12 @@ which python
 
 # Usage
 ```shell
-./main.py (-i INPUT | -g width height) [-o OUTPUT]
-[-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
-[-v] [-s]
+./main.py [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
+          [-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
 ```
 E.g.
 ```shell
-python main.py -i ../in/tiny.png -o ../out/solution.png -vs
+python main.py -i ../mazes/perfect/101.png -o ../out/solution.png -vs
 ```
 
 The script accepts bitmap files and portable network graphics (`.bmp` and `.png`) as images.
@@ -44,7 +45,7 @@ The script accepts bitmap files and portable network graphics (`.bmp` and `.png`
 It can also read (and generate) textfiles, with pounds (`#`) as wall, and whitespace (` `) as path.
 
 ## Generating your own mazes
-The file `generate.py` can be used to generate mazes of a specific size (and algorithm to come).
+The file `generate.py` can be used to generate mazes of a specific size (and algorithm to come - only `create_perfect()` for now).
 
 Use it with:
 ```shell
@@ -52,5 +53,5 @@ Use it with:
 ```
 E.g.
 ```shell
-./generate.py 151 101 ../in/maze.bmp
+./generate.py 151 101 ../mazes/maze.bmp
 ```
