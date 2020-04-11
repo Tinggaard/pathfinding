@@ -176,7 +176,7 @@ def main() -> None:
     struct_time = time()
     logger.info('Constructing took {} ms'.format(
         round((struct_time - load_time)*1000)))
-    logger.info('Nodes found:', maze.node_count)
+    logger.info('Nodes found: {}'.format(maze.node_count))
 
     # set solveing method
     method = methods[algorithm]
@@ -184,7 +184,7 @@ def main() -> None:
     # solve...
     explored, path, nodes, length = method(maze)
     # ms to solve
-    solve_time = round(time() - struct_time, 5)*1000
+    solve_time = round((time() - struct_time)*1000, 5)
 
     print('{file} took {time} using {method}'.format(
         file=args.input, time=solve_time, method=args.algorithm))
@@ -196,9 +196,9 @@ def main() -> None:
         sys.exit(1)
 
 
-    logger.info('Nodes explored:', explored)
-    logger.info('Nodes in path:', nodes)
-    logger.info('Length of path:', length)
+    logger.info('Nodes explored: {}'.format(explored))
+    logger.info('Nodes in path: {}'.format(nodes))
+    logger.info('Length of path: {}'.format(length))
 
     # if s flag set, show the solution in terminal
     if show:
