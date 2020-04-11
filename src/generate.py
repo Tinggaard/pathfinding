@@ -53,7 +53,9 @@ def auto_gen():
         for size in sizes:
             mz = gen_maze((size, size), method)
 
-            loc = '../mazes/' + method.__name__.split('_', 1)[1] + '/' + str(size) + '.png'
+            loc = '../mazes/' + method.__name__.split('_', 1)[1] + \
+                '/' + str(size) + '.png'
+                
             print('Saving to: ', loc)
 
             Image.fromarray((mz*255).astype(np.uint8)).save(loc)
@@ -79,7 +81,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
     if os.path.isfile(location):
-        i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(location)).lower()
+        i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(
+            location)).lower()
         # if not yes or y
         if i != 'yes' and i != 'y':
             print('Aborting')

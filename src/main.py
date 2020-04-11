@@ -6,6 +6,7 @@ import argparse
 from time import time
 import numpy as np
 from PIL import Image
+import logging
 
 # own code
 import solve
@@ -17,7 +18,8 @@ def load_txt(path: str) -> np.ndarray:
     # open file
     with open(path, 'r') as f:
         # replace # with 1 and " " with 0
-        lines = [l.strip().replace("#", "0").replace(" ", "1") for l in f.readlines()]
+        lines = [l.strip().replace("#", "0").replace(" ", "1")
+            for l in f.readlines()]
 
     # converting to ints and changing shape
     maze = [[] for _ in lines]
@@ -25,7 +27,8 @@ def load_txt(path: str) -> np.ndarray:
 
         #regex validation
         if not re.match(r'^[01]*$', line):
-            print('ERROR: Textfile can only contain pounds and spaces ("#" and " "), failed on line {}'.format(no+1))
+            print('ERROR: Textfile can only contain pounds and spaces \
+                ("#" and " "), failed on line {}'.format(no+1))
             sys.exit(1)
 
         # converting to ints
@@ -71,19 +74,27 @@ def main() -> None:
     }
 
     # argparse
-    parser = argparse.ArgumentParser(description='Visualize pathfinding algorithms using mazes')
+    parser = argparse.ArgumentParser(
+        description='Visualize pathfinding algorithms using mazes')
 
     # must take exatly 1 input
     i = parser.add_mutually_exclusive_group(required=True)
     i.add_argument('-i', '--input', type=str, help='Path to load maze from')
-    i.add_argument('-g', '--generate', nargs=2, metavar=('width', 'height'), type=int, help='Generate maze of size (width * height)')
+    i.add_argument('-g', '--generate', nargs=2, metavar=('width', 'height'),
+        type=int, help='Generate maze of size (width * height)')
 
     # other stuff
-    parser.add_argument('-v', '--verbose', action='store_true', help='Output is verbose, including timings')
-    parser.add_argument('-s', '--show', action='store_true', help='Show solved solution in terminal')
-    parser.add_argument('-f', '--force', action='store_true', help='Do not ask before overwriting files')
-    parser.add_argument('-o', '--output', default=None, type=str, help='Path to save maze to')
-    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str, choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'), help='Pathfinding algorithm to use')
+    parser.add_argument('-v', '--verbose', action='store_true',
+        help='Logging will be set to INFO instead of WARNING')
+    parser.add_argument('-s', '--show', action='store_true',
+        help='Show solved solution in terminal')
+    parser.add_argument('-f', '--force', action='store_true',
+        help='Do not ask before overwriting files')
+    parser.add_argument('-o', '--output', default=None, type=str,
+        help='Path to save maze to')
+    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str,
+        choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'),
+        help='Pathfinding algorithm to use')
 
 
     # parse it
@@ -95,72 +106,110 @@ def main() -> None:
     show = args.show
     force = args.force
 
-    # verbose print: only print if verbose mode is on
-    def vprint(*args, **kwargs):
-        if verbose:
-            print(*args, **kwargs)
+    # set log_level (for other leves, set it manually)
+    log_level = logging.INFO if verbose else logging.WARNING
+
+
+    logger = logging.getLogger('pathfinding')
+    logger.setLevel(log_level)
+    # file handler
+    fh = logging.FileHandler('pathfinding.log')
+    fh.setLevel(log_level)
+    # console handler
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.ERROR)
+    # formatter for the handlers
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    # add the handlers
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+
+    # logger.debug('debug info her')
+    # logger.info('Dette er info')
+    # logger.warning('dette er en advarsel')
+    # logger.error('Dette er en fejl')
+    # logger.critical('dette er kritisk')
 
 
     # load input from file
     if args.input:
 
+        # determine function to load file
         f = load(args.input)
 
+        # load time
         start_time = time()
-        vprint('Loading input')
         struct = f(args.input)
+        load_time = time()
 
-        construct_time = time()
-        vprint('Loading took {} ms'.format(round((construct_time - start_time)*1000)))
-        vprint()
+        # log the time
+        logger.info('Loading took {} ms'.format(
+            round((load_time - start_time)*1000)))
 
 
     # Generate maze from size parameter
     else:
+        # if g flag is set, try importing the pydaedalus module
         try:
             import generate
         except ImportError:
-            raise ImportError('Module "pydaedalus" not found, please ensure a C++ compiler is installed')
+            raise ImportError('Module "pydaedalus" not found, \
+                please ensure a C++ compiler is installed')
 
+        # generate maze and time it
         start_time = time()
-        vprint('Generating maze')
         struct = generate.gen_maze(args.generate)
+        load_time = time()
 
-        construct_time = time()
-        vprint('Generating took {} ms'.format(round((construct_time - start_time)*1000)))
-        vprint()
+        # log the time
+        logger.info('Generating took {} ms'.format(
+            round((load_time - start_time)*1000)))
 
 
-
-    vprint('Constructing graph')
+    # generate the structure
     maze = solve.Graph(struct)
 
-    end_time = time()
-    vprint('Constructing took {} ms'.format(round((end_time - construct_time)*1000)))
-    vprint('Nodes found:', maze.node_count)
-    vprint()
+    # log time taken to generate sturcture and nodes found
+    struct_time = time()
+    logger.info('Constructing took {} ms'.format(
+        round((struct_time - load_time)*1000)))
+    logger.info('Nodes found:', maze.node_count)
 
+    # set solveing method
     method = methods[algorithm]
 
+    # solve...
     explored, path, nodes, length = method(maze)
+    # ms to solve
+    solve_time = round(time() - struct_time, 5)*1000
 
-    s = 'Success!' if maze.solved else 'The algorithm did not find a solution...'
+    print('{file} took {time} using {method}'.format(
+        file=args.input, time=solve_time, method=args.algorithm))
 
-    print(s)
 
-    if maze.solved:
+    # self explanatory
+    if not maze.solved:
+        logger.error('The algorithm did not find a solution...')
+        sys.exit(1)
 
-        vprint('Nodes explored:', explored)
-        vprint('Nodes in path:', nodes)
-        vprint('Length of path:', length)
 
-        if show:
-            maze.show_solution()
+    logger.info('Nodes explored:', explored)
+    logger.info('Nodes in path:', nodes)
+    logger.info('Length of path:', length)
 
-        vprint('Total time elapsed: {} ms'.format(round((time()-start_time)*1000)))
+    # if s flag set, show the solution in terminal
+    if show:
+        maze.show_solution()
 
-        if output:
-            maze.save_solution(output, force)
+    logger.info('Total time elapsed: {} ms'.format(
+        round((time()-start_time)*1000)))
+
+    # if o flag is set, save the output (force if f is also set)
+    if output:
+        maze.save_solution(output, force)
 
 
 

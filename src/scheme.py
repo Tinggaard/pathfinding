@@ -33,7 +33,7 @@ class Node:
         return self.location == other.location
 
 
-    # heapq comparison for dijkstra
+    # heapq comparison for dijkstra and a*
     def __lt__(self, other) -> bool:
         return self.combined < other.combined
 
@@ -85,7 +85,7 @@ class Graph:
 
 
     # find nodes on map
-    def get_nodes(self) -> list:
+    def get_nodes(self) -> dict:
         # initiate dict
         nodes = {self.first: Node(self.first), self.last: Node(self.last)}
 
@@ -178,7 +178,9 @@ class Graph:
                         node.nearby[3] = ((tmp, x), up+1)
                         break
                     # if right or left are path or above is not, save length and exit
-                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp-1, x]:
+                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] \
+                        or not self.maze[tmp-1, x]:
+
                         node.nearby[3] = ((tmp, x), up+1)
                         break
 
@@ -192,7 +194,9 @@ class Graph:
                         break
 
                     # if right or left are path or below is not, save length and exit
-                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] or not self.maze[tmp+1, x]:
+                    if self.maze[tmp, x+1] or self.maze[tmp, x-1] \
+                        or not self.maze[tmp+1, x]:
+
                         node.nearby[1] = ((tmp, x), dn+1)
                         break
 
@@ -201,7 +205,9 @@ class Graph:
                 for lt in range(x):
                     tmp = x-lt-1
                     # if up or down are path or left is not, save length and exit
-                    if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp-1]:
+                    if self.maze[y+1, tmp] or self.maze[y-1, tmp] \
+                        or not self.maze[y, tmp-1]:
+
                         node.nearby[0] = ((y, tmp), lt+1)
                         break
 
@@ -210,7 +216,9 @@ class Graph:
                 for rt in range(self.x - x):
                     tmp = x+rt+1
                     # if up or down are path or right is not, save length and exit
-                    if self.maze[y+1, tmp] or self.maze[y-1, tmp] or not self.maze[y, tmp+1]:
+                    if self.maze[y+1, tmp] or self.maze[y-1, tmp] \
+                        or not self.maze[y, tmp+1]:
+
                         node.nearby[2] = ((y, tmp), rt+1)
                         break
 
@@ -235,7 +243,8 @@ class Graph:
 
         # print it all
         for row in sol:
-            print(''.join(row).replace('0', '▒').replace('1', ' ')) # character: u"\u2592"
+            # character: u"\u2592"
+            print(''.join(row).replace('0', '▒').replace('1', ' '))
 
 
 
@@ -264,7 +273,8 @@ class Graph:
     def save(self, destination: str, force: bool = False) -> None:
         if not force:
             if os.path.isfile(destination):
-                i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(destination)).lower()
+                i = input('WARNING: File "{}" already exists, \
+                    overwrite (yes/no)? '.format(destination)).lower()
                 # if not yes or y
                 if i != 'yes' and i != 'y':
                     print('Aborting')
@@ -412,10 +422,13 @@ class Graph:
 
 
     # convenient function that reads the filetype, and the save it as an image
-    def save_solution(self, destination: str, force: bool = False, fancy: bool = False) -> None:
+    def save_solution(self, destination: str,
+        force: bool = False, fancy: bool = False) -> None:
+
         if not force:
             if os.path.isfile(destination):
-                i = input('WARNING: File "{}" already exists, overwrite (yes/no)? '.format(destination)).lower()
+                i = input('WARNING: File "{}" already exists, \
+                    overwrite (yes/no)? '.format(destination)).lower()
                 # if not yes or y
                 if i != 'yes' and i != 'y':
                     print('Aborting')
