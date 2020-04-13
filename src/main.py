@@ -42,7 +42,7 @@ def load_txt(path: str) -> np.ndarray:
 # black (0) begin wall and white (255) being path
 def load_img(path: str) -> np.ndarray:
     # convert to binary array
-    return np.array(Image.open(path)) // 255
+    return np.array(Image.open(path).convert('1')).astype(np.uint8)
 
 
 def load(path: str) -> object:
