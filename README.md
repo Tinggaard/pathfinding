@@ -13,7 +13,7 @@ I'd recommend creating a virtual environment:
 ```shell
 git clone https://github.com/Tinggaard/pathfinding.git
 cd pathfinding
-python3 -m venv venv
+virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 ```
