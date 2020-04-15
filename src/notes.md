@@ -8,7 +8,6 @@
 
 # lib
 - [ ] import `click`
-- [ ] import `logging`
 - [ ] generation methods
 
 # features
@@ -23,5 +22,4 @@
 - [ ] steps to solve
 - [ ] support different types of input (1 and 0 as image)
 - [ ] scale smaller images
-- [ ] timings
-  - Shell script
+- `setup.py`

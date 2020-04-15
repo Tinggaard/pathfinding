@@ -2,10 +2,10 @@
 A school project on pathfinding algorithms based on mazes, by Jens Tinggaard.
 
 ## Prerequisites
-Requires installation of `numpy`, `pillow` and `pydaedalus`.
+Requires installation of `numpy`, `pillow`, `matplotlib` and `pydaedalus`.
 Furthermore `pydaedalus` requires a `C++` compiler to be installed.
 The program will run without the library, however some of the functionality (maze generation) will be limited.
-
+`matplotlib` is only used to visualize the stats on the different algorithms, the pathfinding can run without it.
 
 I'd recommend creating a virtual environment:
 
@@ -25,12 +25,12 @@ which python
 
 # Usage
 ```shell
-./main.py [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
+./src/main.py [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
           [-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
 ```
 E.g.
 ```shell
-./main.py -i ../mazes/perfect/101.png -o ../out/solution.png -vs
+./src/main.py -i /mazes/perfect/101.png -o /out/solution.png -vs
 ```
 
 The script accepts bitmap files and portable network graphics (`.bmp` and `.png`) as images.
@@ -42,18 +42,26 @@ The file `generate.py` can be used to generate mazes of a specific size (and alg
 
 Use it with:
 ```shell
-./generate.py width height location
+./src/generate.py width height location
 ```
 E.g.
 ```shell
-./generate.py 151 101 ../mazes/maze.bmp
+./src/generate.py 151 101 /mazes/maze.bmp
 ```
 
 ## Comparing algorithms
-I've created the script called [`timings.sh`](https://github.com/Tinggaard/pathfinding/blob/master/timer.sh), which can time all images in a subfolder of the `mazes` folder, using all the available algorithms.
+I've created the script called [`timer.sh`](https://github.com/Tinggaard/pathfinding/blob/master/timer.sh), which can time all images in a subfolder of the `mazes` folder, using all the available algorithms.
 
 The script can be called like as follows:
 ```shell
 ./timings.sh [-v]
 ```
-After running, a textfile (`timings.txt`) is created, with stats on all the runs. This output can then be filtered out.
+After running, a textfile ([`timings.txt`](https://github.com/Tinggaard/pathfinding/blob/master/timings.txt)) is created, with stats on all the runs. This output can then be filtered out.
+
+### Visualising the differences
+The file [`src/visualizer.py`](https://github.com/Tinggaard/pathfinding/blob/master/src/visualizer.py), can either plot or print some of the stats generated from the output of the shell script above.
+
+```shell
+./src/visualizer.py (-p | -s)
+```
+`-p` to plot or `-s` to show in the terminal.
