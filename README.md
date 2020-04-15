@@ -14,17 +14,10 @@ I'd recommend creating a virtual environment:
 git clone https://github.com/Tinggaard/pathfinding.git
 cd pathfinding
 python3 -m venv venv
-source venv/bin/activate
+. venv/bin/activate
 pip install -r requirements.txt
 ```
-### Using pypy
-```shell
-git clone https://github.com/Tinggaard/pathfinding.git
-cd pathfinding
-pypy -m venv venv-pypy
-source venv-pypy/bin/activate
-pip install -r requirements.txt
-```
+
 Check that the virtual environment is working:
 ```shell
 which python
@@ -37,7 +30,7 @@ which python
 ```
 E.g.
 ```shell
-python main.py -i ../mazes/perfect/101.png -o ../out/solution.png -vs
+./main.py -i ../mazes/perfect/101.png -o ../out/solution.png -vs
 ```
 
 The script accepts bitmap files and portable network graphics (`.bmp` and `.png`) as images.
@@ -55,3 +48,12 @@ E.g.
 ```shell
 ./generate.py 151 101 ../mazes/maze.bmp
 ```
+
+## Comparing algorithms
+I've created the script called [`timings.sh`](https://github.com/Tinggaard/pathfinding/blob/master/timer.sh), which can time all images in a subfolder of the `mazes` folder, using all the available algorithms.
+
+The script can be called like as follows:
+```shell
+./timings.sh [-v]
+```
+After running, a textfile (`timings.txt`) is created, with stats on all the runs. This output can then be filtered out.

@@ -36,7 +36,11 @@ for folder in mazes/*/ ; do
   fi
 
   # iterate files in each folder (after size order)
-  for img in `ls -v $folder`; do
+  # for img in `ls -v $folder`; do
+
+  # skip the very large images
+  for im in 51 101 501 1001 2501 ; do
+    img="$im.png"
 
     # iterate algorithms
     for alg in $algs ; do
@@ -50,8 +54,8 @@ for folder in mazes/*/ ; do
       $verbose && echo "Working on '$i' with algorithm $alg"
 
       # append the output to a file
-      # ./src/main.py -i $i -a $alg -o $o -vf >> timings.txt
-      echo "./src/main.py -i $i -a $alg -o $o -vf" >> timings.txt
+      ./src/main.py -i $i -a $alg -o $o -vf >> timings.txt
+      # echo "./src/main.py -i $i -a $alg -o $o -vf" >> timings.txt
 
     done
   done

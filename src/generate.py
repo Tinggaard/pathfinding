@@ -37,7 +37,7 @@ def auto_gen():
         Maze.create_recursive,
         Maze.create_sidewinder,
         Maze.create_spiral,
-        Maze.create_unicursal,
+        # Maze.create_unicursal,
     ]
 
     sizes = [
@@ -55,7 +55,7 @@ def auto_gen():
 
             loc = '../mazes/' + method.__name__.split('_', 1)[1] + \
                 '/' + str(size) + '.png'
-                
+
             print('Saving to: ', loc)
 
             Image.fromarray((mz*255).astype(np.uint8)).save(loc)
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         # if not yes or y
         if i != 'yes' and i != 'y':
             print('Aborting')
-            return
+            sys.exit(1)
 
     maze = gen_maze((width, height))
 

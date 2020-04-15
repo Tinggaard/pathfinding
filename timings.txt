@@ -1,271 +1,201 @@
-Mon Apr 13 21:04:20 CEST 2020
-./src/main.py -i mazes/braid/51.png -a dijkstra -o solutions/braid/dijkstra/51.png -vf
-./src/main.py -i mazes/braid/51.png -a astar -o solutions/braid/astar/51.png -vf
-./src/main.py -i mazes/braid/51.png -a breadthfirst -o solutions/braid/breadthfirst/51.png -vf
-./src/main.py -i mazes/braid/51.png -a depthfirst -o solutions/braid/depthfirst/51.png -vf
-./src/main.py -i mazes/braid/51.png -a rightturn -o solutions/braid/rightturn/51.png -vf
-./src/main.py -i mazes/braid/101.png -a dijkstra -o solutions/braid/dijkstra/101.png -vf
-./src/main.py -i mazes/braid/101.png -a astar -o solutions/braid/astar/101.png -vf
-./src/main.py -i mazes/braid/101.png -a breadthfirst -o solutions/braid/breadthfirst/101.png -vf
-./src/main.py -i mazes/braid/101.png -a depthfirst -o solutions/braid/depthfirst/101.png -vf
-./src/main.py -i mazes/braid/101.png -a rightturn -o solutions/braid/rightturn/101.png -vf
-./src/main.py -i mazes/braid/501.png -a dijkstra -o solutions/braid/dijkstra/501.png -vf
-./src/main.py -i mazes/braid/501.png -a astar -o solutions/braid/astar/501.png -vf
-./src/main.py -i mazes/braid/501.png -a breadthfirst -o solutions/braid/breadthfirst/501.png -vf
-./src/main.py -i mazes/braid/501.png -a depthfirst -o solutions/braid/depthfirst/501.png -vf
-./src/main.py -i mazes/braid/501.png -a rightturn -o solutions/braid/rightturn/501.png -vf
-./src/main.py -i mazes/braid/1001.png -a dijkstra -o solutions/braid/dijkstra/1001.png -vf
-./src/main.py -i mazes/braid/1001.png -a astar -o solutions/braid/astar/1001.png -vf
-./src/main.py -i mazes/braid/1001.png -a breadthfirst -o solutions/braid/breadthfirst/1001.png -vf
-./src/main.py -i mazes/braid/1001.png -a depthfirst -o solutions/braid/depthfirst/1001.png -vf
-./src/main.py -i mazes/braid/1001.png -a rightturn -o solutions/braid/rightturn/1001.png -vf
-./src/main.py -i mazes/braid/2501.png -a dijkstra -o solutions/braid/dijkstra/2501.png -vf
-./src/main.py -i mazes/braid/2501.png -a astar -o solutions/braid/astar/2501.png -vf
-./src/main.py -i mazes/braid/2501.png -a breadthfirst -o solutions/braid/breadthfirst/2501.png -vf
-./src/main.py -i mazes/braid/2501.png -a depthfirst -o solutions/braid/depthfirst/2501.png -vf
-./src/main.py -i mazes/braid/2501.png -a rightturn -o solutions/braid/rightturn/2501.png -vf
-./src/main.py -i mazes/braid/5001.png -a dijkstra -o solutions/braid/dijkstra/5001.png -vf
-./src/main.py -i mazes/braid/5001.png -a astar -o solutions/braid/astar/5001.png -vf
-./src/main.py -i mazes/braid/5001.png -a breadthfirst -o solutions/braid/breadthfirst/5001.png -vf
-./src/main.py -i mazes/braid/5001.png -a depthfirst -o solutions/braid/depthfirst/5001.png -vf
-./src/main.py -i mazes/braid/5001.png -a rightturn -o solutions/braid/rightturn/5001.png -vf
-./src/main.py -i mazes/braid_tilt/51.png -a dijkstra -o solutions/braid_tilt/dijkstra/51.png -vf
-./src/main.py -i mazes/braid_tilt/51.png -a astar -o solutions/braid_tilt/astar/51.png -vf
-./src/main.py -i mazes/braid_tilt/51.png -a breadthfirst -o solutions/braid_tilt/breadthfirst/51.png -vf
-./src/main.py -i mazes/braid_tilt/51.png -a depthfirst -o solutions/braid_tilt/depthfirst/51.png -vf
-./src/main.py -i mazes/braid_tilt/51.png -a rightturn -o solutions/braid_tilt/rightturn/51.png -vf
-./src/main.py -i mazes/braid_tilt/101.png -a dijkstra -o solutions/braid_tilt/dijkstra/101.png -vf
-./src/main.py -i mazes/braid_tilt/101.png -a astar -o solutions/braid_tilt/astar/101.png -vf
-./src/main.py -i mazes/braid_tilt/101.png -a breadthfirst -o solutions/braid_tilt/breadthfirst/101.png -vf
-./src/main.py -i mazes/braid_tilt/101.png -a depthfirst -o solutions/braid_tilt/depthfirst/101.png -vf
-./src/main.py -i mazes/braid_tilt/101.png -a rightturn -o solutions/braid_tilt/rightturn/101.png -vf
-./src/main.py -i mazes/braid_tilt/501.png -a dijkstra -o solutions/braid_tilt/dijkstra/501.png -vf
-./src/main.py -i mazes/braid_tilt/501.png -a astar -o solutions/braid_tilt/astar/501.png -vf
-./src/main.py -i mazes/braid_tilt/501.png -a breadthfirst -o solutions/braid_tilt/breadthfirst/501.png -vf
-./src/main.py -i mazes/braid_tilt/501.png -a depthfirst -o solutions/braid_tilt/depthfirst/501.png -vf
-./src/main.py -i mazes/braid_tilt/501.png -a rightturn -o solutions/braid_tilt/rightturn/501.png -vf
-./src/main.py -i mazes/braid_tilt/1001.png -a dijkstra -o solutions/braid_tilt/dijkstra/1001.png -vf
-./src/main.py -i mazes/braid_tilt/1001.png -a astar -o solutions/braid_tilt/astar/1001.png -vf
-./src/main.py -i mazes/braid_tilt/1001.png -a breadthfirst -o solutions/braid_tilt/breadthfirst/1001.png -vf
-./src/main.py -i mazes/braid_tilt/1001.png -a depthfirst -o solutions/braid_tilt/depthfirst/1001.png -vf
-./src/main.py -i mazes/braid_tilt/1001.png -a rightturn -o solutions/braid_tilt/rightturn/1001.png -vf
-./src/main.py -i mazes/braid_tilt/2501.png -a dijkstra -o solutions/braid_tilt/dijkstra/2501.png -vf
-./src/main.py -i mazes/braid_tilt/2501.png -a astar -o solutions/braid_tilt/astar/2501.png -vf
-./src/main.py -i mazes/braid_tilt/2501.png -a breadthfirst -o solutions/braid_tilt/breadthfirst/2501.png -vf
-./src/main.py -i mazes/braid_tilt/2501.png -a depthfirst -o solutions/braid_tilt/depthfirst/2501.png -vf
-./src/main.py -i mazes/braid_tilt/2501.png -a rightturn -o solutions/braid_tilt/rightturn/2501.png -vf
-./src/main.py -i mazes/braid_tilt/5001.png -a dijkstra -o solutions/braid_tilt/dijkstra/5001.png -vf
-./src/main.py -i mazes/braid_tilt/5001.png -a astar -o solutions/braid_tilt/astar/5001.png -vf
-./src/main.py -i mazes/braid_tilt/5001.png -a breadthfirst -o solutions/braid_tilt/breadthfirst/5001.png -vf
-./src/main.py -i mazes/braid_tilt/5001.png -a depthfirst -o solutions/braid_tilt/depthfirst/5001.png -vf
-./src/main.py -i mazes/braid_tilt/5001.png -a rightturn -o solutions/braid_tilt/rightturn/5001.png -vf
-./src/main.py -i mazes/diagonal/51.png -a dijkstra -o solutions/diagonal/dijkstra/51.png -vf
-./src/main.py -i mazes/diagonal/51.png -a astar -o solutions/diagonal/astar/51.png -vf
-./src/main.py -i mazes/diagonal/51.png -a breadthfirst -o solutions/diagonal/breadthfirst/51.png -vf
-./src/main.py -i mazes/diagonal/51.png -a depthfirst -o solutions/diagonal/depthfirst/51.png -vf
-./src/main.py -i mazes/diagonal/51.png -a rightturn -o solutions/diagonal/rightturn/51.png -vf
-./src/main.py -i mazes/diagonal/101.png -a dijkstra -o solutions/diagonal/dijkstra/101.png -vf
-./src/main.py -i mazes/diagonal/101.png -a astar -o solutions/diagonal/astar/101.png -vf
-./src/main.py -i mazes/diagonal/101.png -a breadthfirst -o solutions/diagonal/breadthfirst/101.png -vf
-./src/main.py -i mazes/diagonal/101.png -a depthfirst -o solutions/diagonal/depthfirst/101.png -vf
-./src/main.py -i mazes/diagonal/101.png -a rightturn -o solutions/diagonal/rightturn/101.png -vf
-./src/main.py -i mazes/diagonal/501.png -a dijkstra -o solutions/diagonal/dijkstra/501.png -vf
-./src/main.py -i mazes/diagonal/501.png -a astar -o solutions/diagonal/astar/501.png -vf
-./src/main.py -i mazes/diagonal/501.png -a breadthfirst -o solutions/diagonal/breadthfirst/501.png -vf
-./src/main.py -i mazes/diagonal/501.png -a depthfirst -o solutions/diagonal/depthfirst/501.png -vf
-./src/main.py -i mazes/diagonal/501.png -a rightturn -o solutions/diagonal/rightturn/501.png -vf
-./src/main.py -i mazes/diagonal/1001.png -a dijkstra -o solutions/diagonal/dijkstra/1001.png -vf
-./src/main.py -i mazes/diagonal/1001.png -a astar -o solutions/diagonal/astar/1001.png -vf
-./src/main.py -i mazes/diagonal/1001.png -a breadthfirst -o solutions/diagonal/breadthfirst/1001.png -vf
-./src/main.py -i mazes/diagonal/1001.png -a depthfirst -o solutions/diagonal/depthfirst/1001.png -vf
-./src/main.py -i mazes/diagonal/1001.png -a rightturn -o solutions/diagonal/rightturn/1001.png -vf
-./src/main.py -i mazes/diagonal/2501.png -a dijkstra -o solutions/diagonal/dijkstra/2501.png -vf
-./src/main.py -i mazes/diagonal/2501.png -a astar -o solutions/diagonal/astar/2501.png -vf
-./src/main.py -i mazes/diagonal/2501.png -a breadthfirst -o solutions/diagonal/breadthfirst/2501.png -vf
-./src/main.py -i mazes/diagonal/2501.png -a depthfirst -o solutions/diagonal/depthfirst/2501.png -vf
-./src/main.py -i mazes/diagonal/2501.png -a rightturn -o solutions/diagonal/rightturn/2501.png -vf
-./src/main.py -i mazes/diagonal/5001.png -a dijkstra -o solutions/diagonal/dijkstra/5001.png -vf
-./src/main.py -i mazes/diagonal/5001.png -a astar -o solutions/diagonal/astar/5001.png -vf
-./src/main.py -i mazes/diagonal/5001.png -a breadthfirst -o solutions/diagonal/breadthfirst/5001.png -vf
-./src/main.py -i mazes/diagonal/5001.png -a depthfirst -o solutions/diagonal/depthfirst/5001.png -vf
-./src/main.py -i mazes/diagonal/5001.png -a rightturn -o solutions/diagonal/rightturn/5001.png -vf
-./src/main.py -i mazes/perfect/51.png -a dijkstra -o solutions/perfect/dijkstra/51.png -vf
-./src/main.py -i mazes/perfect/51.png -a astar -o solutions/perfect/astar/51.png -vf
-./src/main.py -i mazes/perfect/51.png -a breadthfirst -o solutions/perfect/breadthfirst/51.png -vf
-./src/main.py -i mazes/perfect/51.png -a depthfirst -o solutions/perfect/depthfirst/51.png -vf
-./src/main.py -i mazes/perfect/51.png -a rightturn -o solutions/perfect/rightturn/51.png -vf
-./src/main.py -i mazes/perfect/101.png -a dijkstra -o solutions/perfect/dijkstra/101.png -vf
-./src/main.py -i mazes/perfect/101.png -a astar -o solutions/perfect/astar/101.png -vf
-./src/main.py -i mazes/perfect/101.png -a breadthfirst -o solutions/perfect/breadthfirst/101.png -vf
-./src/main.py -i mazes/perfect/101.png -a depthfirst -o solutions/perfect/depthfirst/101.png -vf
-./src/main.py -i mazes/perfect/101.png -a rightturn -o solutions/perfect/rightturn/101.png -vf
-./src/main.py -i mazes/perfect/501.png -a dijkstra -o solutions/perfect/dijkstra/501.png -vf
-./src/main.py -i mazes/perfect/501.png -a astar -o solutions/perfect/astar/501.png -vf
-./src/main.py -i mazes/perfect/501.png -a breadthfirst -o solutions/perfect/breadthfirst/501.png -vf
-./src/main.py -i mazes/perfect/501.png -a depthfirst -o solutions/perfect/depthfirst/501.png -vf
-./src/main.py -i mazes/perfect/501.png -a rightturn -o solutions/perfect/rightturn/501.png -vf
-./src/main.py -i mazes/perfect/1001.png -a dijkstra -o solutions/perfect/dijkstra/1001.png -vf
-./src/main.py -i mazes/perfect/1001.png -a astar -o solutions/perfect/astar/1001.png -vf
-./src/main.py -i mazes/perfect/1001.png -a breadthfirst -o solutions/perfect/breadthfirst/1001.png -vf
-./src/main.py -i mazes/perfect/1001.png -a depthfirst -o solutions/perfect/depthfirst/1001.png -vf
-./src/main.py -i mazes/perfect/1001.png -a rightturn -o solutions/perfect/rightturn/1001.png -vf
-./src/main.py -i mazes/perfect/2501.png -a dijkstra -o solutions/perfect/dijkstra/2501.png -vf
-./src/main.py -i mazes/perfect/2501.png -a astar -o solutions/perfect/astar/2501.png -vf
-./src/main.py -i mazes/perfect/2501.png -a breadthfirst -o solutions/perfect/breadthfirst/2501.png -vf
-./src/main.py -i mazes/perfect/2501.png -a depthfirst -o solutions/perfect/depthfirst/2501.png -vf
-./src/main.py -i mazes/perfect/2501.png -a rightturn -o solutions/perfect/rightturn/2501.png -vf
-./src/main.py -i mazes/perfect/5001.png -a dijkstra -o solutions/perfect/dijkstra/5001.png -vf
-./src/main.py -i mazes/perfect/5001.png -a astar -o solutions/perfect/astar/5001.png -vf
-./src/main.py -i mazes/perfect/5001.png -a breadthfirst -o solutions/perfect/breadthfirst/5001.png -vf
-./src/main.py -i mazes/perfect/5001.png -a depthfirst -o solutions/perfect/depthfirst/5001.png -vf
-./src/main.py -i mazes/perfect/5001.png -a rightturn -o solutions/perfect/rightturn/5001.png -vf
-./src/main.py -i mazes/prim/51.png -a dijkstra -o solutions/prim/dijkstra/51.png -vf
-./src/main.py -i mazes/prim/51.png -a astar -o solutions/prim/astar/51.png -vf
-./src/main.py -i mazes/prim/51.png -a breadthfirst -o solutions/prim/breadthfirst/51.png -vf
-./src/main.py -i mazes/prim/51.png -a depthfirst -o solutions/prim/depthfirst/51.png -vf
-./src/main.py -i mazes/prim/51.png -a rightturn -o solutions/prim/rightturn/51.png -vf
-./src/main.py -i mazes/prim/101.png -a dijkstra -o solutions/prim/dijkstra/101.png -vf
-./src/main.py -i mazes/prim/101.png -a astar -o solutions/prim/astar/101.png -vf
-./src/main.py -i mazes/prim/101.png -a breadthfirst -o solutions/prim/breadthfirst/101.png -vf
-./src/main.py -i mazes/prim/101.png -a depthfirst -o solutions/prim/depthfirst/101.png -vf
-./src/main.py -i mazes/prim/101.png -a rightturn -o solutions/prim/rightturn/101.png -vf
-./src/main.py -i mazes/prim/501.png -a dijkstra -o solutions/prim/dijkstra/501.png -vf
-./src/main.py -i mazes/prim/501.png -a astar -o solutions/prim/astar/501.png -vf
-./src/main.py -i mazes/prim/501.png -a breadthfirst -o solutions/prim/breadthfirst/501.png -vf
-./src/main.py -i mazes/prim/501.png -a depthfirst -o solutions/prim/depthfirst/501.png -vf
-./src/main.py -i mazes/prim/501.png -a rightturn -o solutions/prim/rightturn/501.png -vf
-./src/main.py -i mazes/prim/1001.png -a dijkstra -o solutions/prim/dijkstra/1001.png -vf
-./src/main.py -i mazes/prim/1001.png -a astar -o solutions/prim/astar/1001.png -vf
-./src/main.py -i mazes/prim/1001.png -a breadthfirst -o solutions/prim/breadthfirst/1001.png -vf
-./src/main.py -i mazes/prim/1001.png -a depthfirst -o solutions/prim/depthfirst/1001.png -vf
-./src/main.py -i mazes/prim/1001.png -a rightturn -o solutions/prim/rightturn/1001.png -vf
-./src/main.py -i mazes/prim/2501.png -a dijkstra -o solutions/prim/dijkstra/2501.png -vf
-./src/main.py -i mazes/prim/2501.png -a astar -o solutions/prim/astar/2501.png -vf
-./src/main.py -i mazes/prim/2501.png -a breadthfirst -o solutions/prim/breadthfirst/2501.png -vf
-./src/main.py -i mazes/prim/2501.png -a depthfirst -o solutions/prim/depthfirst/2501.png -vf
-./src/main.py -i mazes/prim/2501.png -a rightturn -o solutions/prim/rightturn/2501.png -vf
-./src/main.py -i mazes/prim/5001.png -a dijkstra -o solutions/prim/dijkstra/5001.png -vf
-./src/main.py -i mazes/prim/5001.png -a astar -o solutions/prim/astar/5001.png -vf
-./src/main.py -i mazes/prim/5001.png -a breadthfirst -o solutions/prim/breadthfirst/5001.png -vf
-./src/main.py -i mazes/prim/5001.png -a depthfirst -o solutions/prim/depthfirst/5001.png -vf
-./src/main.py -i mazes/prim/5001.png -a rightturn -o solutions/prim/rightturn/5001.png -vf
-./src/main.py -i mazes/recursive/51.png -a dijkstra -o solutions/recursive/dijkstra/51.png -vf
-./src/main.py -i mazes/recursive/51.png -a astar -o solutions/recursive/astar/51.png -vf
-./src/main.py -i mazes/recursive/51.png -a breadthfirst -o solutions/recursive/breadthfirst/51.png -vf
-./src/main.py -i mazes/recursive/51.png -a depthfirst -o solutions/recursive/depthfirst/51.png -vf
-./src/main.py -i mazes/recursive/51.png -a rightturn -o solutions/recursive/rightturn/51.png -vf
-./src/main.py -i mazes/recursive/101.png -a dijkstra -o solutions/recursive/dijkstra/101.png -vf
-./src/main.py -i mazes/recursive/101.png -a astar -o solutions/recursive/astar/101.png -vf
-./src/main.py -i mazes/recursive/101.png -a breadthfirst -o solutions/recursive/breadthfirst/101.png -vf
-./src/main.py -i mazes/recursive/101.png -a depthfirst -o solutions/recursive/depthfirst/101.png -vf
-./src/main.py -i mazes/recursive/101.png -a rightturn -o solutions/recursive/rightturn/101.png -vf
-./src/main.py -i mazes/recursive/501.png -a dijkstra -o solutions/recursive/dijkstra/501.png -vf
-./src/main.py -i mazes/recursive/501.png -a astar -o solutions/recursive/astar/501.png -vf
-./src/main.py -i mazes/recursive/501.png -a breadthfirst -o solutions/recursive/breadthfirst/501.png -vf
-./src/main.py -i mazes/recursive/501.png -a depthfirst -o solutions/recursive/depthfirst/501.png -vf
-./src/main.py -i mazes/recursive/501.png -a rightturn -o solutions/recursive/rightturn/501.png -vf
-./src/main.py -i mazes/recursive/1001.png -a dijkstra -o solutions/recursive/dijkstra/1001.png -vf
-./src/main.py -i mazes/recursive/1001.png -a astar -o solutions/recursive/astar/1001.png -vf
-./src/main.py -i mazes/recursive/1001.png -a breadthfirst -o solutions/recursive/breadthfirst/1001.png -vf
-./src/main.py -i mazes/recursive/1001.png -a depthfirst -o solutions/recursive/depthfirst/1001.png -vf
-./src/main.py -i mazes/recursive/1001.png -a rightturn -o solutions/recursive/rightturn/1001.png -vf
-./src/main.py -i mazes/recursive/2501.png -a dijkstra -o solutions/recursive/dijkstra/2501.png -vf
-./src/main.py -i mazes/recursive/2501.png -a astar -o solutions/recursive/astar/2501.png -vf
-./src/main.py -i mazes/recursive/2501.png -a breadthfirst -o solutions/recursive/breadthfirst/2501.png -vf
-./src/main.py -i mazes/recursive/2501.png -a depthfirst -o solutions/recursive/depthfirst/2501.png -vf
-./src/main.py -i mazes/recursive/2501.png -a rightturn -o solutions/recursive/rightturn/2501.png -vf
-./src/main.py -i mazes/recursive/5001.png -a dijkstra -o solutions/recursive/dijkstra/5001.png -vf
-./src/main.py -i mazes/recursive/5001.png -a astar -o solutions/recursive/astar/5001.png -vf
-./src/main.py -i mazes/recursive/5001.png -a breadthfirst -o solutions/recursive/breadthfirst/5001.png -vf
-./src/main.py -i mazes/recursive/5001.png -a depthfirst -o solutions/recursive/depthfirst/5001.png -vf
-./src/main.py -i mazes/recursive/5001.png -a rightturn -o solutions/recursive/rightturn/5001.png -vf
-./src/main.py -i mazes/sidewinder/51.png -a dijkstra -o solutions/sidewinder/dijkstra/51.png -vf
-./src/main.py -i mazes/sidewinder/51.png -a astar -o solutions/sidewinder/astar/51.png -vf
-./src/main.py -i mazes/sidewinder/51.png -a breadthfirst -o solutions/sidewinder/breadthfirst/51.png -vf
-./src/main.py -i mazes/sidewinder/51.png -a depthfirst -o solutions/sidewinder/depthfirst/51.png -vf
-./src/main.py -i mazes/sidewinder/51.png -a rightturn -o solutions/sidewinder/rightturn/51.png -vf
-./src/main.py -i mazes/sidewinder/101.png -a dijkstra -o solutions/sidewinder/dijkstra/101.png -vf
-./src/main.py -i mazes/sidewinder/101.png -a astar -o solutions/sidewinder/astar/101.png -vf
-./src/main.py -i mazes/sidewinder/101.png -a breadthfirst -o solutions/sidewinder/breadthfirst/101.png -vf
-./src/main.py -i mazes/sidewinder/101.png -a depthfirst -o solutions/sidewinder/depthfirst/101.png -vf
-./src/main.py -i mazes/sidewinder/101.png -a rightturn -o solutions/sidewinder/rightturn/101.png -vf
-./src/main.py -i mazes/sidewinder/501.png -a dijkstra -o solutions/sidewinder/dijkstra/501.png -vf
-./src/main.py -i mazes/sidewinder/501.png -a astar -o solutions/sidewinder/astar/501.png -vf
-./src/main.py -i mazes/sidewinder/501.png -a breadthfirst -o solutions/sidewinder/breadthfirst/501.png -vf
-./src/main.py -i mazes/sidewinder/501.png -a depthfirst -o solutions/sidewinder/depthfirst/501.png -vf
-./src/main.py -i mazes/sidewinder/501.png -a rightturn -o solutions/sidewinder/rightturn/501.png -vf
-./src/main.py -i mazes/sidewinder/1001.png -a dijkstra -o solutions/sidewinder/dijkstra/1001.png -vf
-./src/main.py -i mazes/sidewinder/1001.png -a astar -o solutions/sidewinder/astar/1001.png -vf
-./src/main.py -i mazes/sidewinder/1001.png -a breadthfirst -o solutions/sidewinder/breadthfirst/1001.png -vf
-./src/main.py -i mazes/sidewinder/1001.png -a depthfirst -o solutions/sidewinder/depthfirst/1001.png -vf
-./src/main.py -i mazes/sidewinder/1001.png -a rightturn -o solutions/sidewinder/rightturn/1001.png -vf
-./src/main.py -i mazes/sidewinder/2501.png -a dijkstra -o solutions/sidewinder/dijkstra/2501.png -vf
-./src/main.py -i mazes/sidewinder/2501.png -a astar -o solutions/sidewinder/astar/2501.png -vf
-./src/main.py -i mazes/sidewinder/2501.png -a breadthfirst -o solutions/sidewinder/breadthfirst/2501.png -vf
-./src/main.py -i mazes/sidewinder/2501.png -a depthfirst -o solutions/sidewinder/depthfirst/2501.png -vf
-./src/main.py -i mazes/sidewinder/2501.png -a rightturn -o solutions/sidewinder/rightturn/2501.png -vf
-./src/main.py -i mazes/sidewinder/5001.png -a dijkstra -o solutions/sidewinder/dijkstra/5001.png -vf
-./src/main.py -i mazes/sidewinder/5001.png -a astar -o solutions/sidewinder/astar/5001.png -vf
-./src/main.py -i mazes/sidewinder/5001.png -a breadthfirst -o solutions/sidewinder/breadthfirst/5001.png -vf
-./src/main.py -i mazes/sidewinder/5001.png -a depthfirst -o solutions/sidewinder/depthfirst/5001.png -vf
-./src/main.py -i mazes/sidewinder/5001.png -a rightturn -o solutions/sidewinder/rightturn/5001.png -vf
-./src/main.py -i mazes/spiral/51.png -a dijkstra -o solutions/spiral/dijkstra/51.png -vf
-./src/main.py -i mazes/spiral/51.png -a astar -o solutions/spiral/astar/51.png -vf
-./src/main.py -i mazes/spiral/51.png -a breadthfirst -o solutions/spiral/breadthfirst/51.png -vf
-./src/main.py -i mazes/spiral/51.png -a depthfirst -o solutions/spiral/depthfirst/51.png -vf
-./src/main.py -i mazes/spiral/51.png -a rightturn -o solutions/spiral/rightturn/51.png -vf
-./src/main.py -i mazes/spiral/101.png -a dijkstra -o solutions/spiral/dijkstra/101.png -vf
-./src/main.py -i mazes/spiral/101.png -a astar -o solutions/spiral/astar/101.png -vf
-./src/main.py -i mazes/spiral/101.png -a breadthfirst -o solutions/spiral/breadthfirst/101.png -vf
-./src/main.py -i mazes/spiral/101.png -a depthfirst -o solutions/spiral/depthfirst/101.png -vf
-./src/main.py -i mazes/spiral/101.png -a rightturn -o solutions/spiral/rightturn/101.png -vf
-./src/main.py -i mazes/spiral/501.png -a dijkstra -o solutions/spiral/dijkstra/501.png -vf
-./src/main.py -i mazes/spiral/501.png -a astar -o solutions/spiral/astar/501.png -vf
-./src/main.py -i mazes/spiral/501.png -a breadthfirst -o solutions/spiral/breadthfirst/501.png -vf
-./src/main.py -i mazes/spiral/501.png -a depthfirst -o solutions/spiral/depthfirst/501.png -vf
-./src/main.py -i mazes/spiral/501.png -a rightturn -o solutions/spiral/rightturn/501.png -vf
-./src/main.py -i mazes/spiral/1001.png -a dijkstra -o solutions/spiral/dijkstra/1001.png -vf
-./src/main.py -i mazes/spiral/1001.png -a astar -o solutions/spiral/astar/1001.png -vf
-./src/main.py -i mazes/spiral/1001.png -a breadthfirst -o solutions/spiral/breadthfirst/1001.png -vf
-./src/main.py -i mazes/spiral/1001.png -a depthfirst -o solutions/spiral/depthfirst/1001.png -vf
-./src/main.py -i mazes/spiral/1001.png -a rightturn -o solutions/spiral/rightturn/1001.png -vf
-./src/main.py -i mazes/spiral/2501.png -a dijkstra -o solutions/spiral/dijkstra/2501.png -vf
-./src/main.py -i mazes/spiral/2501.png -a astar -o solutions/spiral/astar/2501.png -vf
-./src/main.py -i mazes/spiral/2501.png -a breadthfirst -o solutions/spiral/breadthfirst/2501.png -vf
-./src/main.py -i mazes/spiral/2501.png -a depthfirst -o solutions/spiral/depthfirst/2501.png -vf
-./src/main.py -i mazes/spiral/2501.png -a rightturn -o solutions/spiral/rightturn/2501.png -vf
-./src/main.py -i mazes/spiral/5001.png -a dijkstra -o solutions/spiral/dijkstra/5001.png -vf
-./src/main.py -i mazes/spiral/5001.png -a astar -o solutions/spiral/astar/5001.png -vf
-./src/main.py -i mazes/spiral/5001.png -a breadthfirst -o solutions/spiral/breadthfirst/5001.png -vf
-./src/main.py -i mazes/spiral/5001.png -a depthfirst -o solutions/spiral/depthfirst/5001.png -vf
-./src/main.py -i mazes/spiral/5001.png -a rightturn -o solutions/spiral/rightturn/5001.png -vf
-./src/main.py -i mazes/unicursal/51.png -a dijkstra -o solutions/unicursal/dijkstra/51.png -vf
-./src/main.py -i mazes/unicursal/51.png -a astar -o solutions/unicursal/astar/51.png -vf
-./src/main.py -i mazes/unicursal/51.png -a breadthfirst -o solutions/unicursal/breadthfirst/51.png -vf
-./src/main.py -i mazes/unicursal/51.png -a depthfirst -o solutions/unicursal/depthfirst/51.png -vf
-./src/main.py -i mazes/unicursal/51.png -a rightturn -o solutions/unicursal/rightturn/51.png -vf
-./src/main.py -i mazes/unicursal/101.png -a dijkstra -o solutions/unicursal/dijkstra/101.png -vf
-./src/main.py -i mazes/unicursal/101.png -a astar -o solutions/unicursal/astar/101.png -vf
-./src/main.py -i mazes/unicursal/101.png -a breadthfirst -o solutions/unicursal/breadthfirst/101.png -vf
-./src/main.py -i mazes/unicursal/101.png -a depthfirst -o solutions/unicursal/depthfirst/101.png -vf
-./src/main.py -i mazes/unicursal/101.png -a rightturn -o solutions/unicursal/rightturn/101.png -vf
-./src/main.py -i mazes/unicursal/501.png -a dijkstra -o solutions/unicursal/dijkstra/501.png -vf
-./src/main.py -i mazes/unicursal/501.png -a astar -o solutions/unicursal/astar/501.png -vf
-./src/main.py -i mazes/unicursal/501.png -a breadthfirst -o solutions/unicursal/breadthfirst/501.png -vf
-./src/main.py -i mazes/unicursal/501.png -a depthfirst -o solutions/unicursal/depthfirst/501.png -vf
-./src/main.py -i mazes/unicursal/501.png -a rightturn -o solutions/unicursal/rightturn/501.png -vf
-./src/main.py -i mazes/unicursal/1001.png -a dijkstra -o solutions/unicursal/dijkstra/1001.png -vf
-./src/main.py -i mazes/unicursal/1001.png -a astar -o solutions/unicursal/astar/1001.png -vf
-./src/main.py -i mazes/unicursal/1001.png -a breadthfirst -o solutions/unicursal/breadthfirst/1001.png -vf
-./src/main.py -i mazes/unicursal/1001.png -a depthfirst -o solutions/unicursal/depthfirst/1001.png -vf
-./src/main.py -i mazes/unicursal/1001.png -a rightturn -o solutions/unicursal/rightturn/1001.png -vf
-./src/main.py -i mazes/unicursal/2501.png -a dijkstra -o solutions/unicursal/dijkstra/2501.png -vf
-./src/main.py -i mazes/unicursal/2501.png -a astar -o solutions/unicursal/astar/2501.png -vf
-./src/main.py -i mazes/unicursal/2501.png -a breadthfirst -o solutions/unicursal/breadthfirst/2501.png -vf
-./src/main.py -i mazes/unicursal/2501.png -a depthfirst -o solutions/unicursal/depthfirst/2501.png -vf
-./src/main.py -i mazes/unicursal/2501.png -a rightturn -o solutions/unicursal/rightturn/2501.png -vf
-./src/main.py -i mazes/unicursal/5001.png -a dijkstra -o solutions/unicursal/dijkstra/5001.png -vf
-./src/main.py -i mazes/unicursal/5001.png -a astar -o solutions/unicursal/astar/5001.png -vf
-./src/main.py -i mazes/unicursal/5001.png -a breadthfirst -o solutions/unicursal/breadthfirst/5001.png -vf
-./src/main.py -i mazes/unicursal/5001.png -a depthfirst -o solutions/unicursal/depthfirst/5001.png -vf
-./src/main.py -i mazes/unicursal/5001.png -a rightturn -o solutions/unicursal/rightturn/5001.png -vf
+Wed Apr 15 08:36:52 CEST 2020
+mazes/braid/51.png took 1.53327 using dijkstra
+mazes/braid/51.png took 2.38252 using astar
+mazes/braid/51.png took 1.2176 using breadthfirst
+mazes/braid/51.png took 0.45991 using depthfirst
+mazes/braid/51.png took 0.54693 using rightturn
+mazes/braid/101.png took 4.37784 using dijkstra
+mazes/braid/101.png took 27.81963 using astar
+mazes/braid/101.png took 2.46072 using breadthfirst
+mazes/braid/101.png took 3.02935 using depthfirst
+mazes/braid/101.png took 1.02496 using rightturn
+mazes/braid/501.png took 187.10279 using dijkstra
+mazes/braid/501.png took 223.91772 using astar
+mazes/braid/501.png took 65.76729 using breadthfirst
+mazes/braid/501.png took 6.38771 using depthfirst
+mazes/braid/501.png took 3.13997 using rightturn
+mazes/braid/1001.png took 920.8889 using dijkstra
+mazes/braid/1001.png took 1328.37176 using astar
+mazes/braid/1001.png took 402.57716 using breadthfirst
+mazes/braid/1001.png took 26.02625 using depthfirst
+mazes/braid/1001.png took 10.36477 using rightturn
+mazes/braid/2501.png took 5557.81054 using dijkstra
+mazes/braid/2501.png took 7413.92612 using astar
+mazes/braid/2501.png took 2619.21263 using breadthfirst
+mazes/braid/2501.png took 58.7213 using depthfirst
+mazes/braid/2501.png took 19.64927 using rightturn
+mazes/braid_tilt/51.png took 1.18351 using dijkstra
+mazes/braid_tilt/51.png took 1.36733 using astar
+mazes/braid_tilt/51.png took 0.65637 using breadthfirst
+mazes/braid_tilt/51.png took 0.44537 using depthfirst
+mazes/braid_tilt/51.png took 0.5188 using rightturn
+mazes/braid_tilt/101.png took 5.95188 using dijkstra
+mazes/braid_tilt/101.png took 16.00695 using astar
+mazes/braid_tilt/101.png took 3.7179 using breadthfirst
+mazes/braid_tilt/101.png took 1.64056 using depthfirst
+mazes/braid_tilt/101.png took 3.54004 using rightturn
+mazes/braid_tilt/501.png took 146.93499 using dijkstra
+mazes/braid_tilt/501.png took 283.23746 using astar
+mazes/braid_tilt/501.png took 70.26458 using breadthfirst
+mazes/braid_tilt/501.png took 33.28991 using depthfirst
+mazes/braid_tilt/501.png took 28.03969 using rightturn
+mazes/braid_tilt/1001.png took 349.98798 using dijkstra
+mazes/braid_tilt/1001.png took 667.60063 using astar
+mazes/braid_tilt/1001.png took 167.62972 using breadthfirst
+mazes/braid_tilt/1001.png took 186.68604 using depthfirst
+mazes/braid_tilt/1001.png took 185.87899 using rightturn
+mazes/braid_tilt/2501.png took 3867.50054 using dijkstra
+mazes/braid_tilt/2501.png took 5929.43311 using astar
+mazes/braid_tilt/2501.png took 1474.31231 using breadthfirst
+mazes/braid_tilt/2501.png took 1035.03394 using depthfirst
+mazes/braid_tilt/2501.png took 1894.93132 using rightturn
+mazes/diagonal/51.png took 2.01917 using dijkstra
+mazes/diagonal/51.png took 3.15285 using astar
+mazes/diagonal/51.png took 1.5862 using breadthfirst
+mazes/diagonal/51.png took 0.39935 using depthfirst
+mazes/diagonal/51.png took 0.98658 using rightturn
+mazes/diagonal/101.png took 9.11474 using dijkstra
+mazes/diagonal/101.png took 12.90369 using astar
+mazes/diagonal/101.png took 4.18282 using breadthfirst
+mazes/diagonal/101.png took 1.21379 using depthfirst
+mazes/diagonal/101.png took 1.6129 using rightturn
+mazes/diagonal/501.png took 200.76108 using dijkstra
+mazes/diagonal/501.png took 354.42996 using astar
+mazes/diagonal/501.png took 86.97963 using breadthfirst
+mazes/diagonal/501.png took 47.26291 using depthfirst
+mazes/diagonal/501.png took 65.08017 using rightturn
+mazes/diagonal/1001.png took 954.35166 using dijkstra
+mazes/diagonal/1001.png took 1822.61682 using astar
+mazes/diagonal/1001.png took 431.11396 using breadthfirst
+mazes/diagonal/1001.png took 138.43322 using depthfirst
+mazes/diagonal/1001.png took 197.93129 using rightturn
+mazes/diagonal/2501.png took 5090.06572 using dijkstra
+mazes/diagonal/2501.png took 9535.86507 using astar
+mazes/diagonal/2501.png took 2392.46607 using breadthfirst
+mazes/diagonal/2501.png took 997.25461 using depthfirst
+mazes/diagonal/2501.png took 2204.62918 using rightturn
+mazes/perfect/51.png took 1.8723 using dijkstra
+mazes/perfect/51.png took 4.25434 using astar
+mazes/perfect/51.png took 1.55044 using breadthfirst
+mazes/perfect/51.png took 0.54216 using depthfirst
+mazes/perfect/51.png took 0.65017 using rightturn
+mazes/perfect/101.png took 3.87812 using dijkstra
+mazes/perfect/101.png took 7.10034 using astar
+mazes/perfect/101.png took 1.7004 using breadthfirst
+mazes/perfect/101.png took 2.76399 using depthfirst
+mazes/perfect/101.png took 3.53456 using rightturn
+mazes/perfect/501.png took 102.42748 using dijkstra
+mazes/perfect/501.png took 184.74269 using astar
+mazes/perfect/501.png took 49.66044 using breadthfirst
+mazes/perfect/501.png took 73.277 using depthfirst
+mazes/perfect/501.png took 96.87185 using rightturn
+mazes/perfect/1001.png took 295.76516 using dijkstra
+mazes/perfect/1001.png took 555.01151 using astar
+mazes/perfect/1001.png took 139.28604 using breadthfirst
+mazes/perfect/1001.png took 303.96795 using depthfirst
+mazes/perfect/1001.png took 405.50804 using rightturn
+mazes/perfect/2501.png took 5634.21869 using dijkstra
+mazes/perfect/2501.png took 10657.69005 using astar
+mazes/perfect/2501.png took 2533.24604 using breadthfirst
+mazes/perfect/2501.png took 895.08557 using depthfirst
+mazes/perfect/2501.png took 1608.58369 using rightturn
+mazes/prim/51.png took 5.37038 using dijkstra
+mazes/prim/51.png took 8.84795 using astar
+mazes/prim/51.png took 1.62148 using breadthfirst
+mazes/prim/51.png took 1.22309 using depthfirst
+mazes/prim/51.png took 1.12367 using rightturn
+mazes/prim/101.png took 8.94523 using dijkstra
+mazes/prim/101.png took 11.39045 using astar
+mazes/prim/101.png took 3.64876 using breadthfirst
+mazes/prim/101.png took 2.23327 using depthfirst
+mazes/prim/101.png took 3.02124 using rightturn
+mazes/prim/501.png took 237.90073 using dijkstra
+mazes/prim/501.png took 300.85921 using astar
+mazes/prim/501.png took 94.64526 using breadthfirst
+mazes/prim/501.png took 41.91947 using depthfirst
+mazes/prim/501.png took 98.4025 using rightturn
+mazes/prim/1001.png took 1175.48299 using dijkstra
+mazes/prim/1001.png took 1048.14124 using astar
+mazes/prim/1001.png took 457.50999 using breadthfirst
+mazes/prim/1001.png took 116.14203 using depthfirst
+mazes/prim/1001.png took 128.36194 using rightturn
+mazes/prim/2501.png took 2850.07453 using dijkstra
+mazes/prim/2501.png took 1998.51775 using astar
+mazes/prim/2501.png took 1301.7683 using breadthfirst
+mazes/prim/2501.png took 1851.83501 using depthfirst
+mazes/prim/2501.png took 3039.84427 using rightturn
+mazes/recursive/51.png took 1.70875 using dijkstra
+mazes/recursive/51.png took 2.97189 using astar
+mazes/recursive/51.png took 0.67377 using breadthfirst
+mazes/recursive/51.png took 0.9861 using depthfirst
+mazes/recursive/51.png took 1.3206 using rightturn
+mazes/recursive/101.png took 5.62382 using dijkstra
+mazes/recursive/101.png took 12.10976 using astar
+mazes/recursive/101.png took 2.76899 using breadthfirst
+mazes/recursive/101.png took 1.92738 using depthfirst
+mazes/recursive/101.png took 2.44284 using rightturn
+mazes/recursive/501.png took 115.46612 using dijkstra
+mazes/recursive/501.png took 216.14075 using astar
+mazes/recursive/501.png took 59.08823 using breadthfirst
+mazes/recursive/501.png took 47.16372 using depthfirst
+mazes/recursive/501.png took 60.92644 using rightturn
+mazes/recursive/1001.png took 281.6546 using dijkstra
+mazes/recursive/1001.png took 517.70163 using astar
+mazes/recursive/1001.png took 135.19239 using breadthfirst
+mazes/recursive/1001.png took 73.37976 using depthfirst
+mazes/recursive/1001.png took 54.50726 using rightturn
+mazes/recursive/2501.png took 4618.59536 using dijkstra
+mazes/recursive/2501.png took 8559.44848 using astar
+mazes/recursive/2501.png took 4069.12422 using breadthfirst
+mazes/recursive/2501.png took 1240.19146 using depthfirst
+mazes/recursive/2501.png took 2818.24493 using rightturn
+mazes/sidewinder/51.png took 2.44403 using dijkstra
+mazes/sidewinder/51.png took 4.36068 using astar
+mazes/sidewinder/51.png took 1.93739 using breadthfirst
+mazes/sidewinder/51.png took 1.06168 using depthfirst
+mazes/sidewinder/51.png took 1.29724 using rightturn
+mazes/sidewinder/101.png took 11.70063 using dijkstra
+mazes/sidewinder/101.png took 21.65914 using astar
+mazes/sidewinder/101.png took 6.60014 using breadthfirst
+mazes/sidewinder/101.png took 3.0539 using depthfirst
+mazes/sidewinder/101.png took 4.8759 using rightturn
+mazes/sidewinder/501.png took 261.85369 using dijkstra
+mazes/sidewinder/501.png took 450.95038 using astar
+mazes/sidewinder/501.png took 120.50676 using breadthfirst
+mazes/sidewinder/501.png took 84.68151 using depthfirst
+mazes/sidewinder/501.png took 102.31042 using rightturn
+mazes/sidewinder/1001.png took 1197.85714 using dijkstra
+mazes/sidewinder/1001.png took 1524.40095 using astar
+mazes/sidewinder/1001.png took 402.80366 using breadthfirst
+mazes/sidewinder/1001.png took 221.98606 using depthfirst
+mazes/sidewinder/1001.png took 292.71245 using rightturn
+mazes/sidewinder/2501.png took 6587.42356 using dijkstra
+mazes/sidewinder/2501.png took 8603.47223 using astar
+mazes/sidewinder/2501.png took 2537.71019 using breadthfirst
+mazes/sidewinder/2501.png took 791.81838 using depthfirst
+mazes/sidewinder/2501.png took 1102.31972 using rightturn
+mazes/spiral/51.png took 1.10769 using dijkstra
+mazes/spiral/51.png took 1.91498 using astar
+mazes/spiral/51.png took 5.15699 using breadthfirst
+mazes/spiral/51.png took 0.983 using depthfirst
+mazes/spiral/51.png took 1.1127 using rightturn
+mazes/spiral/101.png took 3.62802 using dijkstra
+mazes/spiral/101.png took 4.47154 using astar
+mazes/spiral/101.png took 0.45848 using breadthfirst
+mazes/spiral/101.png took 1.91236 using depthfirst
+mazes/spiral/101.png took 1.477 using rightturn
+mazes/spiral/501.png took 2.55561 using dijkstra
+mazes/spiral/501.png took 1.99366 using astar
+mazes/spiral/501.png took 0.78797 using breadthfirst
+mazes/spiral/501.png took 27.59767 using depthfirst
+mazes/spiral/501.png took 0.64731 using rightturn
+mazes/spiral/1001.png took 26.01814 using dijkstra
+mazes/spiral/1001.png took 28.98812 using astar
+mazes/spiral/1001.png took 4.96006 using breadthfirst
+mazes/spiral/1001.png took 102.67496 using depthfirst
+mazes/spiral/1001.png took 148.60821 using rightturn
+mazes/spiral/2501.png took 128.901 using dijkstra
+mazes/spiral/2501.png took 168.21361 using astar
+mazes/spiral/2501.png took 9.96852 using breadthfirst
+mazes/spiral/2501.png took 524.71924 using depthfirst
+mazes/spiral/2501.png took 777.4663 using rightturn
