@@ -30,7 +30,7 @@ which python
 ```
 E.g.
 ```shell
-./src/main.py -i mazes/perfect/101.png -o out/solution.png -vs
+./src/main.py -i /mazes/perfect/101.png -o /out/solution.png -vs
 ```
 
 The script accepts bitmap files and portable network graphics (`.bmp` and `.png`) as images.
@@ -46,7 +46,7 @@ Use it with:
 ```
 E.g.
 ```shell
-./src/generate.py 151 101 mazes/maze.bmp
+./src/generate.py 151 101 /mazes/maze.bmp
 ```
 
 ## Comparing algorithms
