@@ -9,7 +9,7 @@ from PIL import Image
 import logging
 
 # own code
-import solve
+from . import solve
 
 
 # convert textfile to maze

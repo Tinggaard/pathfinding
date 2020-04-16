@@ -15,7 +15,6 @@ git clone https://github.com/Tinggaard/pathfinding.git
 cd pathfinding
 virtualenv venv
 . venv/bin/activate
-pip install -r requirements.txt
 ```
 
 Check that the virtual environment is working:
@@ -23,14 +22,21 @@ Check that the virtual environment is working:
 which python
 ```
 
+The easiest way to use the program is simply
+```shell
+pip install .
+```
+After running the above command, one can, by typing `pathfinding` access the main function of the program.
+*Please note* that the program is still under heavy development, so the installation is only intented simplify the installation of 3rd party libraries, as well as making a convenient alias for executing the script.
+
 # Usage
 ```shell
-./src/main.py [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
-          [-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
+pathfinding [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
+            [-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
 ```
 E.g.
 ```shell
-./src/main.py -i /mazes/perfect/101.png -o /out/solution.png -vs
+pathfinding -i /mazes/perfect/101.png -o /out/solution.png -vs
 ```
 
 The script accepts bitmap files and portable network graphics (`.bmp` and `.png`) as images.

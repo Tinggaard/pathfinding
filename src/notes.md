@@ -5,6 +5,8 @@
 - [x] dijkstra
 - [x] rigtturn
 - [ ] monte carlo?
+  - https://en.wikipedia.org/wiki/Monte_Carlo_tree_search
+  - https://en.wikipedia.org/wiki/Monte_Carlo_algorithm
 
 # lib
 - [ ] import `click`

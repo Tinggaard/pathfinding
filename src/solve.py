@@ -1,5 +1,5 @@
-import scheme
-import algs
+from . import scheme
+from . import algs
 
 class Graph(scheme.Graph):
 
