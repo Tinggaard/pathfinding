@@ -18,7 +18,7 @@ setup(
 
     zip_safe=False,
 
-    py_modules=['src/main'],
+    py_modules=['pathfinding/main'],
     install_requires=[
        'numpy',
        'pillow',
