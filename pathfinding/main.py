@@ -9,7 +9,7 @@ from PIL import Image
 import logging
 
 # own code
-from . import solve
+from pathfinding.solve import Graph
 
 
 # convert textfile to maze
@@ -66,11 +66,11 @@ def main() -> None:
 
     # methods, based on argparse
     methods = {
-    'astar': solve.Graph.astar,
-    'dijkstra': solve.Graph.dijkstra,
-    'breadthfirst': solve.Graph.breadthfirst,
-    'depthfirst': solve.Graph.depthfirst,
-    'rightturn': solve.Graph.rightturn
+    'astar': Graph.astar,
+    'dijkstra': Graph.dijkstra,
+    'breadthfirst': Graph.breadthfirst,
+    'depthfirst': Graph.depthfirst,
+    'rightturn': Graph.rightturn
     }
 
     # argparse
@@ -170,7 +170,7 @@ def main() -> None:
 
 
     # generate the structure
-    maze = solve.Graph(struct)
+    maze = Graph(struct)
 
     # log time taken to generate sturcture and nodes found
     struct_time = time()

@@ -1,5 +1,5 @@
-from . import scheme
-from . import algs
+from pathfinding import scheme
+from pathfinding import algs
 
 class Graph(scheme.Graph):
 

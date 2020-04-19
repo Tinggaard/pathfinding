@@ -1,11 +1,5 @@
 from setuptools import setup
 
-with open('README.md', encoding='utf-8') as f:
-    LONG_DESCRIPTION = f.read()
-
-with open('LICENSE') as f:
-    LICENSE = f.read()
-
 setup(
     name='pathfinding',
     version='0.0.1',
@@ -17,8 +11,8 @@ setup(
     keywords='pathfinding maze labyrith astar dijkstra breadthfirst depthfirst solving daedalus',
     url='https://github.com/Tinggaard/pathfinding',
 
-    license=LICENSE,
-    long_description=LONG_DESCRIPTION,
+    license=open('LICENSE').read(),
+    long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     python_requires='>=3.6', #tested with
 
@@ -32,7 +26,7 @@ setup(
        'matplotlib',
         ],
     entry_points={
-        'console_scripts': ['pathfinding=src.main:main']
+        'console_scripts': ['pathfinding=pathfinding.main:main']
     },
 
 )

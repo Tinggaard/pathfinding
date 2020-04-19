@@ -24,7 +24,7 @@ which python
 
 The easiest way to use the program is simply
 ```shell
-pip install .
+pip install -e .
 ```
 After running the above command, one can, by typing `pathfinding` access the main function of the program.
 *Please note* that the program is still under heavy development, so the installation is only intented simplify the installation of 3rd party libraries, as well as making a convenient alias for executing the script.

@@ -24,4 +24,3 @@
 - [ ] steps to solve
 - [ ] support different types of input (1 and 0 as image)
 - [ ] scale smaller images
-- `setup.py`
