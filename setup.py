@@ -18,7 +18,13 @@ setup(
 
     zip_safe=False,
 
-    py_modules=['pathfinding/main'],
+    py_modules=[
+    'pathfinding/main',
+    'pathfinding/solve',
+    'pathfinding/scheme',
+    'pathfinding/generate',
+    # 'pathfinding/algs'
+    ],
     install_requires=[
        'numpy',
        'pillow',
