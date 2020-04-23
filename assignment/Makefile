@@ -2,7 +2,7 @@
 # I am probably not using the full potential of latexmk yet
 # looking into it, and using make every time for now
 
-root = final
+root = synopsis
 compileoptions = -xelatex -use-make -shell-escape
 
 .PHONY: $(root).pdf all clean
