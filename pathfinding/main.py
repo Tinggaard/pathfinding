@@ -9,7 +9,7 @@ from PIL import Image
 import logging
 
 # own code
-from pathfinding.solve import Graph
+from pathfinding.scheme import Graph
 
 
 # convert textfile to maze
@@ -92,7 +92,7 @@ def main() -> None:
         help='Do not ask before overwriting files')
     parser.add_argument('-o', '--output', default=None, type=str,
         help='Path to save maze to')
-    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str,
+    parser.add_argument('-a', '--algorithm', default='depthfirst', type=str,
         choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'),
         help='Pathfinding algorithm to use')
 
@@ -171,6 +171,7 @@ def main() -> None:
 
     # generate the structure
     maze = Graph(struct)
+    maze.visualize('test.mp4')
 
     # log time taken to generate sturcture and nodes found
     struct_time = time()

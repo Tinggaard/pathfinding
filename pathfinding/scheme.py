@@ -1,6 +1,17 @@
-import numpy as np
-from PIL import Image
+# official 3rd party
 import os.path
+
+# 3rd party
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import animation
+from celluloid import Camera
+
+
+# 1st party
+from pathfinding import algs
+
 
 # class containing neccesary information on every node
 class Node:
@@ -58,6 +69,7 @@ class Graph:
 
     def __init__(self, maze: np.ndarray):
         self.maze = maze
+        self.animate = False
 
         self.x = maze.shape[1]
         self.y = maze.shape[0]
@@ -449,6 +461,59 @@ class Graph:
             print('use the ".txt" or ".text" extension to dismiss this note')
 
         return self.save_solution_text(destination, fancy)
+
+
+    # set the animate var to true
+    def visualize(self, filename):
+        self.animate = True
+        # initialize ffmpeg
+        self.filename = filename
+
+        self.mz = self.maze.copy()*255
+        # make array 3D
+        self.mz = self.mz[..., np.newaxis]
+        self.mz = np.concatenate((self.mz, self.mz, self.mz), axis=2)
+
+        # colors
+        self.EXPLORED = np.array([255, 0 , 0], dtype=np.uint8) #red
+        self.CURRENT = np.array([0, 255, 0], dtype=np.uint8) #green
+        self.START = np.array([0, 0, 255], dtype=np.uint8) #blue
+        self.END = np.array([0, 255, 255], dtype=np.uint8) #cyan
+
+        self.cam = Camera(plt.figure())
+
+        self.mz[self.first] = self.START
+        self.mz[self.last] = self.END
+
+
+        self.implot = plt.imshow(self.mz, interpolation='nearest', aspect='equal', vmin=0, vmax=255, cmap="RdBu")
+        self.implot.set_cmap('hot')
+        plt.axis('off')
+        self.cam.snap()
+
+    def frame(self, arr):
+        pass
+
+
+
+    def rightturn(self):
+        return algs.rightturn(self)
+
+
+    def breadthfirst(self):
+        return algs.breadthfirst(self)
+
+
+    def depthfirst(self):
+        return algs.depthfirst(self)
+
+
+    def dijkstra(self):
+        return algs.dijkstra(self)
+
+
+    def astar(self):
+        return algs.astar(self)
 
 
     # remove nodes on a dead end completely

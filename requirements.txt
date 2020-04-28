@@ -2,3 +2,4 @@ numpy>=1.18.2
 pillow>=7.1.0
 pydaedalus>=0.1.5
 matplotlib>=3.2.1
+celluloid>=0.2.0

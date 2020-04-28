@@ -1,6 +1,6 @@
 from .rightturn import solve as right
 from .breadthfirst import solve as breadth
-from .depthfirst import solve as depth
+from .depthfirst import solve_visualize as depth
 from .dijkstra import solve as dijk
 from .astar import solve as ast
 
