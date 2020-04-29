@@ -456,6 +456,9 @@ class Graph:
         elif ext.lower() in ['.png', '.bmp']:
             return self.save_solution_image(destination)
 
+        elif ext.lower() in ['.mp4', '.avi', '.flv']:
+            return self.save_solution_video(destination)
+
         if ext.lower() not in ['.txt', '.text']:
             print('NOTE: writing as textfile, as format was not understood')
             print('use the ".txt" or ".text" extension to dismiss this note')
@@ -464,10 +467,8 @@ class Graph:
 
 
     # set the animate var to true
-    def visualize(self, filename):
+    def visualize(self):
         self.animate = True
-        # initialize ffmpeg
-        self.filename = filename
 
         self.mz = self.maze.copy()*255
         # make array 3D
@@ -476,24 +477,42 @@ class Graph:
 
         # colors
         self.EXPLORED = np.array([255, 0 , 0], dtype=np.uint8) #red
-        self.CURRENT = np.array([0, 255, 0], dtype=np.uint8) #green
-        self.START = np.array([0, 0, 255], dtype=np.uint8) #blue
-        self.END = np.array([0, 255, 255], dtype=np.uint8) #cyan
+        self.CURRENT = np.array([255, 255, 0], dtype=np.uint8) #green
+        self.PARENT = np.array([0, 255, 0], dtype=np.uint8) # green
+        self.mz[self.last] = np.array([0, 0, 255], dtype=np.uint8) #blue
 
         self.cam = Camera(plt.figure())
-
-        self.mz[self.first] = self.START
-        self.mz[self.last] = self.END
-
 
         self.implot = plt.imshow(self.mz, interpolation='nearest', aspect='equal', vmin=0, vmax=255, cmap="RdBu")
         self.implot.set_cmap('hot')
         plt.axis('off')
         self.cam.snap()
 
-    def frame(self, arr):
-        pass
 
+    # decorator, to check if animate flag is set...
+    def _animate(func):
+        def checker(self, *args, **kwargs):
+            if self.animate:
+                return func(self, *args, **kwargs)
+        return checker
+
+
+    @_animate
+    def frame(self, cy, cx, ny, nx):
+        miny, maxy = sorted([cy, ny])
+        minx, maxx = sorted([cx, nx])
+        self.mz[miny:maxy+1, minx:maxx+1] = self.EXPLORED
+        self.mz[ny, nx] = self.CURRENT
+        self.mz[cy, cx] = self.PARENT
+        plt.imshow(self.mz)
+        self.cam.snap()
+        self.mz[ny, nx] = self.EXPLORED
+        self.mz[cy, cx] = self.EXPLORED
+
+
+    def save_solution_video(self, destination):
+        anim = self.cam.animate(blit=True, interval=40)
+        anim.save(destination)
 
 
     def rightturn(self):

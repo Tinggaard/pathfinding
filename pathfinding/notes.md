@@ -24,3 +24,7 @@
 - [ ] steps to solve
 - [ ] support different types of input (1 and 0 as image)
 - [ ] scale smaller images
+- [ ] implement more methods in class for generating and so on...
+- [ ] decorator to time scripts see https://pypi.org/project/decorator/
+- [ ] decorator to check if solved
+- [ ] decorator to check if generated maze

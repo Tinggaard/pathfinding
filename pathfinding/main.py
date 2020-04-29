@@ -92,7 +92,7 @@ def main() -> None:
         help='Do not ask before overwriting files')
     parser.add_argument('-o', '--output', default=None, type=str,
         help='Path to save maze to')
-    parser.add_argument('-a', '--algorithm', default='depthfirst', type=str,
+    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str,
         choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'),
         help='Pathfinding algorithm to use')
 
@@ -171,7 +171,8 @@ def main() -> None:
 
     # generate the structure
     maze = Graph(struct)
-    maze.visualize('test.mp4')
+    if os.path.splitext(output)[1] in ['.mp4', '.flv', ['.avi']]:
+        maze.visualize()
 
     # log time taken to generate sturcture and nodes found
     struct_time = time()
@@ -204,6 +205,7 @@ def main() -> None:
     # if s flag set, show the solution in terminal
     if show:
         maze.show_solution()
+
 
     logger.info('Total time elapsed: {} ms'.format(
         round((time()-start_time)*1000)))
