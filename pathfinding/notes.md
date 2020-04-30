@@ -26,5 +26,13 @@
 - [ ] scale smaller images
 - [ ] implement more methods in class for generating and so on...
 - [ ] decorator to time scripts see https://pypi.org/project/decorator/
-- [ ] decorator to check if solved
+- [x] decorator to check if solved
 - [ ] decorator to check if generated maze
+- [ ] decorator to check override
+- [ ] more precise logging - errors on save and such
+- `graphviz`
+- remove nodes with only 2 edges
+
+
+# struct
+cli -> handler -> importing and calling

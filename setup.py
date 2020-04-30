@@ -19,20 +19,21 @@ setup(
     zip_safe=False,
 
     py_modules=[
-    'pathfinding/main',
-    'pathfinding/solve',
+    # 'pathfinding/main',
     'pathfinding/scheme',
-    'pathfinding/generate',
-    # 'pathfinding/algs'
+    'pathfinding/caller',
+    'pathfinding/algs'
     ],
     install_requires=[
        'numpy',
        'pillow',
        'pydaedalus',
        'matplotlib',
+       'celluloid',
+       'click',
         ],
     entry_points={
-        'console_scripts': ['pathfinding=pathfinding.main:main']
+        'console_scripts': ['pathfinding=pathfinding.caller:cli']
     },
 
 )

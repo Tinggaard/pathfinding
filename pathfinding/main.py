@@ -9,7 +9,7 @@ from PIL import Image
 import logging
 
 # own code
-from pathfinding.scheme import Graph
+from pathfinding import Graph
 
 
 # convert textfile to maze
@@ -171,8 +171,9 @@ def main() -> None:
 
     # generate the structure
     maze = Graph(struct)
-    if os.path.splitext(output)[1] in ['.mp4', '.flv', ['.avi']]:
+    if os.path.splitext(output)[1] in ['.mp4', '.flv', '.avi']:
         maze.visualize()
+
 
     # log time taken to generate sturcture and nodes found
     struct_time = time()

@@ -1,5 +1,9 @@
-# official 3rd party
+# std lib
+import sys
 import os.path
+import logging
+import re
+from time import time
 
 # 3rd party
 from PIL import Image
@@ -11,62 +15,11 @@ from celluloid import Camera
 
 # 1st party
 from pathfinding import algs
-
-
-# class containing neccesary information on every node
-class Node:
-    def __init__(self, location: tuple):
-        self.location = location # (y, x)
-
-        # w s e n
-        # [location, dist]
-        self.nearby = [None] * 4
-
-        # location of node travelled by
-        self.via = None
-        # tracking distance travelled
-        self.dist = np.inf
-
-        # a*
-        self.dist_goal = np.inf
-
-        # set to be combined self.dist_goal and self.dist
-        self.combined = np.inf
-
-
-    # if printing the Node class, return it's location
-    def __repr__(self) -> str:
-        return 'Node{}'.format(self.location)
-
-
-    # two nodes are equal if they have the same location
-    def __eq__(self, other) -> bool:
-        return self.location == other.location
-
-
-    # heapq comparison for dijkstra and a*
-    def __lt__(self, other) -> bool:
-        return self.combined < other.combined
-
-
-    # used to creating sets for counting explored nodes
-    def __hash__(self) -> hash:
-        return hash(self.location)
-
-
-    # # iterate the neighbours
-    # def __iter__(self):
-    #     pass
-    #
-    # # self.location[index]
-    # def __getitem__(self, index):
-    #     pass
-
+from .node import Node
 
 
 # class containing the whole data structure
 class Graph:
-
     def __init__(self, maze: np.ndarray):
         self.maze = maze
         self.animate = False
@@ -264,49 +217,13 @@ class Graph:
     #     return cv.resize(self.maze, (0,0), fx=scale, fy=scale)
 
 
-    # write maze to disk as image
-    def save_image(self, destination: str) -> None:
-        Image.fromarray((self.maze*255).astype(np.uint8)).save(destination)
-
-
-    # write maze to disk as text file
-    def save_text(self, destination: str) -> None:
-        # create (and truncate) file
-        with open(destination, 'w+') as f:
-            # create normal python list, that are type independent
-            for row in self.maze:
-                tmp = []
-                for val in row:
-                    tmp.append(str(val))
-                f.write(''.join(tmp).replace('0', '#').replace('1', ' ') + '\n')
-
-
-    # convenient function that reads the filetype, and the save it as an image
-    def save(self, destination: str, force: bool = False) -> None:
-        if not force:
-            if os.path.isfile(destination):
-                i = input('WARNING: File "{}" already exists, \
-                    overwrite (yes/no)? '.format(destination)).lower()
-                # if not yes or y
-                if i != 'yes' and i != 'y':
-                    print('Aborting')
-                    return
-
-        file, ext = os.path.splitext(destination)
-
-        if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
-            print('NOTE: will only write images to types of ".bmp" and ".png"')
-            print('other formats compress the image, and makes it unusable')
-            return False
-
-        elif ext.lower() in ['.png', '.bmp']:
-            return self.save_image(destination)
-
-        if ext.lower() not in ['.txt', '.text']:
-            print('NOTE: writing as textfile, as format was not understood')
-            print('use the ".txt" or ".text" extension to dismiss this note')
-
-        return self.save_text(destination)
+    # decorator, to check if solved flag is set...
+    def _solved(func):
+        def checker(self, *args, **kwargs):
+            if self.solved:
+                return func(self, *args, **kwargs)
+            print('ERROR: Graph not solved, cannot show solution')
+        return checker
 
 
     # write maze solution to disk as image
@@ -434,6 +351,7 @@ class Graph:
 
 
     # convenient function that reads the filetype, and the save it as an image
+    @_solved
     def save_solution(self, destination: str,
         force: bool = False, fancy: bool = False) -> None:
 
