@@ -8,10 +8,6 @@
   - https://en.wikipedia.org/wiki/Monte_Carlo_tree_search
   - https://en.wikipedia.org/wiki/Monte_Carlo_algorithm
 
-# lib
-- [ ] import `click`
-- [ ] generation methods
-
 # features
 - [ ] start on coordinate in maze
 - [ ] stats on maze
@@ -24,3 +20,8 @@
 - [ ] steps to solve
 - [ ] support different types of input (1 and 0 as image)
 - [ ] scale smaller images
+- [ ] implement more methods in class for generating and so on...
+- [ ] more precise logging - errors on save and such
+- `graphviz`
+- remove nodes with only 2 edges
+- remove dead ends

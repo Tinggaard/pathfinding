@@ -1,4 +1,4 @@
-def solve(self):
+def rightturn(self):
     assert not self.solved
 
     start = self.start
@@ -34,9 +34,13 @@ def solve(self):
         if direction % 4 == 0:
             # if there is a node the that side
             if current.nearby[0] is not None:
+                cy, cx = current.location
+
                 following = current.nearby[0]
                 current = self.get_node(following[0])
                 current.via = following
+
+                self.frame(cy, cx, *current.location)
 
                 travelled += following[1]
 
@@ -48,9 +52,13 @@ def solve(self):
         # south
         if direction % 4 == 1:
             if current.nearby[1] is not None:
+                cy, cx = current.location
+
                 following = current.nearby[1]
                 current = self.get_node(following[0])
                 current.via = following
+
+                self.frame(cy, cx, *current.location)
 
                 travelled += following[1]
 
@@ -62,9 +70,13 @@ def solve(self):
         # east
         if direction % 4 == 2:
             if current.nearby[2] is not None:
+                cy, cx = current.location
+
                 following = current.nearby[2]
                 current = self.get_node(following[0])
                 current.via = following
+
+                self.frame(cy, cx, *current.location)
 
                 travelled += following[1]
 
@@ -76,9 +88,13 @@ def solve(self):
         # north
         if direction % 4 == 3:
             if current.nearby[3] is not None:
+                cy, cx = current.location
+
                 following = current.nearby[3]
                 current = self.get_node(following[0])
                 current.via = following
+
+                self.frame(cy, cx, *current.location)
 
                 travelled += following[1]
 

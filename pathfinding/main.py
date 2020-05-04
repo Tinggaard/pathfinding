@@ -1,22 +1,214 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
-import os.path
 import re
-import argparse
+import os.path
 from time import time
+# import logging
+
+import click
 import numpy as np
 from PIL import Image
-import logging
+from daedalus import Maze
 
-# own code
-from pathfinding.solve import Graph
+from .scheme import Graph
+
+
+# vars for determining filetype
+IMAGE = 1
+TEXT = 2
+VIDEO = 3
+
+METHODS = {
+'astar': Graph.astar,
+'dijkstra': Graph.dijkstra,
+'breadthfirst': Graph.breadthfirst,
+'depthfirst': Graph.depthfirst,
+'rightturn': Graph.rightturn
+}
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@click.argument('filename', type=click.Path(exists=True))
+@click.option('-v', '--verbose', is_flag=True, help='Ramp up verbosity level')
+@click.option('-f', '--force', is_flag=True, help='Do not ask before overwriting files')
+@click.option('-o', '--output', type=click.STRING, help='Path to save maze to')
+@click.option('-a', '--algorithm', type=click.Choice(['astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn']), default='dijkstra', show_default=True, help='Pathfinding algorithm to use')
+def solve(filename, verbose, force, output, algorithm):
+    """Solve maze from given inputfile, using options listed below"""
+    maze = load(filename) #loading
+
+    struct = Graph(maze) #generate struct
+    alg = METHODS[algorithm] # alg to use
+    start = time()
+    explored, path, nodes, length = alg(struct) #solve!
+    end = time()
+    elapsed = round((end-start)*1000, 5)
+
+    if not struct.solved:
+        click.secho('ERROR: The algorithm could not solve the maze', fg='red', err=True)
+
+
+    click.secho(f'SUCCESS: Solved {filename} in {elapsed} ms using {algorithm}', fg='green')
+
+    if verbose:
+        click.echo(f'Nodes explored: {explored}')
+        click.echo(f'Nodes in path: {nodes}')
+        click.echo(f'Length of path: {length}')
+
+    if output:
+        file_exists(output, force)
+        struct.save_solution(output, filetype(output))
+
+
+@cli.command()
+@click.argument('filename', type=click.Path(exists=True))
+@click.option('-v', '--verbose', is_flag=True, help='Ramp up verbosity level')
+@click.option('-f', '--force', is_flag=True, help='Do not ask before overwriting files')
+@click.option('-o', '--output', default='solution.mp4', type=click.STRING, show_default=True, help='Path to save maze to')
+@click.option('-a', '--algorithm', type=click.Choice(['astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn']), default='dijkstra', show_default=True, help='Pathfinding algorithm to use')
+def visualize(filename, verbose, force, output, algorithm):
+    """Visualize pathfinding algorithm as videofile on given filename"""
+    maze = load(filename) #loading
+
+    if not filetype(output) == VIDEO:
+        click.secho('ERROR: Outputfile not a vide extension, valid extensions are: .flv, .mp4, .avi', fg='red', err=True)
+        sys.exit(1)
+
+    struct = Graph(maze) #generate struct
+    struct.visualize()
+    alg = METHODS[algorithm] # alg to use
+    start = time()
+    explored, path, nodes, length = alg(struct) #solve!
+    end = time()
+    elapsed = round((end-start)*1000, 5)
+
+    if not struct.solved:
+        click.secho('ERROR: The algorithm could not solve the maze', fg='red', err=True)
+
+
+    click.secho(f'SUCCESS: Solved {filename} in {elapsed} ms using {algorithm}', fg='green')
+
+    if verbose:
+        click.echo(f'Nodes explored: {explored}')
+        click.echo(f'Nodes in path: {nodes}')
+        click.echo(f'Length of path: {length}')
+
+    if output == 'solution.mp4':
+        click.secho('INFO: No outputfile given, saving as default', fg='yellow')
+
+    file_exists(output, force)
+    struct.save_solution(output, filetype(output))
+
+
+@cli.command()
+@click.argument('filename', type=click.Path(allow_dash=True))
+@click.argument('size', nargs=2, type=click.INT)
+@click.option('-m', '--method', type=click.Choice(['braid', 'braid_tilt', 'diagonal', 'perfect', 'prim', 'recursive', 'sidewinder', 'spiral']), default='perfect', show_default=True, help='Generation method to use')
+@click.option('-f', '--force', is_flag=True, help='Do not ask before overwriting files')
+def generate(filename, size, method, force):
+    """
+    Generate maze from scratch
+
+    Takes outputfile and maze size as arguments
+    """
+    file_exists(filename, force)
+    write(filename, gen_maze(size, method))
+
+
+# Prompt user if file already exists and force is unset
+def file_exists(filename: str, force: bool) -> None:
+    if os.path.isfile(filename) and not force:
+        click.confirm(f'The file "{filename}" already exists, overwrite?', abort=True)
+
+
+def gen_maze(size: tuple, method: str = 'perfect') -> np.ndarray:
+    width, height = size
+
+    methods = {
+        'braid': Maze.create_braid,
+        'braid_tilt': Maze.create_braid_tilt,
+        'diagonal': Maze.create_diagonal,
+        'perfect': Maze.create_perfect,
+        'prim': Maze.create_prim,
+        'recursive': Maze.create_recursive,
+        'sidewinder': Maze.create_sidewinder,
+        'spiral': Maze.create_spiral,
+        # 'unicursal': Maze.create_unicursal,
+    }
+
+    method = methods[method]
+
+    # basic chekcs
+    # maybe use logging instead...?
+    if not height % 2:
+        click.secho('NOTE: height must be odd, automatically incremented by 1', fg='yellow')
+        height += 1
+
+    if not width % 2:
+        click.secho('NOTE: width must be odd, automatically incremented by 1', fg='yellow')
+        width += 1
+
+    # genereate maze accordingly
+    maze = Maze(width, height)
+
+    # the actual generation
+    method(maze)
+
+    # invert array, as library treats 0 as path and 1 as wall
+    inv = np.array(maze, dtype=np.bool)
+    return np.logical_not(inv).astype(int)
+
+
+def filetype(filename: str) -> int:
+    file, ext = os.path.splitext(filename)
+    ext = ext.lower()
+    # some image files not supported
+    if ext in ['.png', '.bmp']:
+        return IMAGE
+    elif ext in ['.txt', '.text']:
+        return TEXT
+    elif ext in ['.mp4', '.flv', '.avi']:
+        return VIDEO
+
+    elif ext in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
+        click.secho('ERROR: Imagefile must be of type ".png" og ".bmp"', fg='red', err=True)
+        sys.exit(1)
+
+    else:
+        click.secho(f'ERROR: The filetype of the file "{filename}" is not supported, please try something else. Valid extensions include .png, .bmp, .txt, .text, .mp4, .flv and .avi', fg='red', err=True)
+        sys.exit(1)
+
+
+def load(filename: str) -> np.ndarray:
+    extension = filetype(filename)
+
+    if extension == IMAGE:
+        return _load_img(filename)
+    elif extension == TEXT:
+        return _load_txt(filename)
+
+    else:
+        click.secho('ERROR: Cannot load a videofile.', fg='red', err=True)
+        sys.exit(1)
+
+
+# convert binary image to maze
+# black (0) begin wall and white (255) being path
+def _load_img(filename: str) -> np.ndarray:
+    # convert to binary array
+    return np.array(Image.open(filename).convert('1')).astype(np.uint8)
 
 
 # convert textfile to maze
 # Taking pound (#) as wall and space ( ) as path
-def load_txt(path: str) -> np.ndarray:
+def _load_txt(filename: str) -> np.ndarray:
     # open file
-    with open(path, 'r') as f:
+    with open(filename, 'r') as f:
         # replace # with 1 and " " with 0
         lines = [l.strip().replace("#", "0").replace(" ", "1")
             for l in f.readlines()]
@@ -27,192 +219,46 @@ def load_txt(path: str) -> np.ndarray:
 
         #regex validation
         if not re.match(r'^[01]*$', line):
-            print('ERROR: Textfile can only contain pounds and spaces \
-                ("#" and " "), failed on line {}'.format(no+1))
+            print('ERROR: Textfile can only contain pounds and spaces ("#" and " "), failed on line {}'.format(no+1))
             sys.exit(1)
 
         # converting to ints
         for num in line:
             maze[no].append(int(num))
 
-    return np.array(maze)
+    maze = np.array(maze)
 
 
-# convert binary image to maze
-# black (0) begin wall and white (255) being path
-def load_img(path: str) -> np.ndarray:
-    # convert to binary array
-    return np.array(Image.open(path).convert('1')).astype(np.uint8)
+# convenient function that reads the filetype, and the save it as an image
+def write(filename: str, maze: np.ndarray) -> None:
+    extension = filetype(filename)
 
+    if extension == IMAGE:
+        return _write_img(filename, maze)
+    elif extension == TEXT:
+        return _write_txt(filename, maze)
 
-def load(path: str) -> object:
-
-    # try locating the file
-    if not os.path.isfile(path):
-        raise FileNotFoundError('The requested file was not found')
-
-    file, ext = os.path.splitext(path)
-    # some image files not supported
-    if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
-        print('ERROR: Imagefile must be of type ".png" og ".bmp"')
-        sys.exit(1)
-
-    # method to use
-    return load_img if ext.lower() == '.png' or ext.lower() == '.bmp' else load_txt
-
-
-def main() -> None:
-
-
-    # methods, based on argparse
-    methods = {
-    'astar': Graph.astar,
-    'dijkstra': Graph.dijkstra,
-    'breadthfirst': Graph.breadthfirst,
-    'depthfirst': Graph.depthfirst,
-    'rightturn': Graph.rightturn
-    }
-
-    # argparse
-    parser = argparse.ArgumentParser(
-        description='Visualize pathfinding algorithms using mazes')
-
-    # must take exatly 1 input
-    i = parser.add_mutually_exclusive_group(required=True)
-    i.add_argument('-i', '--input', type=str, help='Path to load maze from')
-    i.add_argument('-g', '--generate', nargs=2, metavar=('width', 'height'),
-        type=int, help='Generate maze of size (width * height)')
-
-    # other stuff
-    parser.add_argument('-v', '--verbose', action='store_true',
-        help='Logging will be set to INFO instead of WARNING')
-    parser.add_argument('-s', '--show', action='store_true',
-        help='Show solved solution in terminal')
-    parser.add_argument('-f', '--force', action='store_true',
-        help='Do not ask before overwriting files')
-    parser.add_argument('-o', '--output', default=None, type=str,
-        help='Path to save maze to')
-    parser.add_argument('-a', '--algorithm', default='dijkstra', type=str,
-        choices=('astar', 'dijkstra', 'breadthfirst', 'depthfirst', 'rightturn'),
-        help='Pathfinding algorithm to use')
-
-
-    # parse it
-    args = parser.parse_args()
-
-    verbose = args.verbose
-    output = args.output
-    algorithm = args.algorithm
-    show = args.show
-    force = args.force
-
-    # set log_level (for other leves, set it manually)
-    log_level = logging.INFO if verbose else logging.WARNING
-
-
-    logger = logging.getLogger('pathfinding')
-    logger.setLevel(log_level)
-    # file handler
-    fh = logging.FileHandler('pathfinding.log')
-    fh.setLevel(log_level)
-    # console handler
-    ch = logging.StreamHandler(sys.stdout)
-    ch.setLevel(logging.ERROR)
-    # formatter for the handlers
-    formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    fh.setFormatter(formatter)
-    ch.setFormatter(formatter)
-    # add the handlers
-    logger.addHandler(fh)
-    logger.addHandler(ch)
-
-    # logger.debug('debug info her')
-    # logger.info('Dette er info')
-    # logger.warning('dette er en advarsel')
-    # logger.error('Dette er en fejl')
-    # logger.critical('dette er kritisk')
-
-
-    # load input from file
-    if args.input:
-
-        # determine function to load file
-        f = load(args.input)
-
-        # load time
-        start_time = time()
-        struct = f(args.input)
-        load_time = time()
-
-        # log the time
-        logger.info('Loading took {} ms'.format(
-            round((load_time - start_time)*1000)))
-
-
-    # Generate maze from size parameter
     else:
-        # if g flag is set, try importing the pydaedalus module
-        try:
-            import generate
-        except ImportError:
-            raise ImportError('Module "pydaedalus" not found, \
-                please ensure a C++ compiler is installed')
-
-        # generate maze and time it
-        start_time = time()
-        struct = generate.gen_maze(args.generate)
-        load_time = time()
-
-        # log the time
-        logger.info('Generating took {} ms'.format(
-            round((load_time - start_time)*1000)))
-
-
-    # generate the structure
-    maze = Graph(struct)
-
-    # log time taken to generate sturcture and nodes found
-    struct_time = time()
-    logger.info('Constructing took {} ms'.format(
-        round((struct_time - load_time)*1000)))
-    logger.info('Nodes found: {}'.format(maze.node_count))
-
-    # set solveing method
-    method = methods[algorithm]
-
-    # solve...
-    explored, path, nodes, length = method(maze)
-    # ms to solve
-    solve_time = round((time() - struct_time)*1000, 5)
-
-    print('{file} took {time} using {method}'.format(
-        file=args.input, time=solve_time, method=args.algorithm))
-
-
-    # self explanatory
-    if not maze.solved:
-        logger.error('The algorithm did not find a solution...')
+        click.secho('ERROR: Trying to write imagefile in the wrong context', fg='red', err=True)
         sys.exit(1)
 
 
-    logger.info('Nodes explored: {}'.format(explored))
-    logger.info('Nodes in path: {}'.format(nodes))
-    logger.info('Length of path: {}'.format(length))
-
-    # if s flag set, show the solution in terminal
-    if show:
-        maze.show_solution()
-
-    logger.info('Total time elapsed: {} ms'.format(
-        round((time()-start_time)*1000)))
-
-    # if o flag is set, save the output (force if f is also set)
-    if output:
-        maze.save_solution(output, force)
+# write maze to disk as image
+def _write_img(self, destination: str, maze: np.ndarray) -> None:
+    Image.fromarray((maze*255).astype(np.uint8)).save(destination)
 
 
+# write maze to disk as text file
+def _write_txt(self, destination: str, maze: np.ndarray) -> None:
+    # create (and truncate) file
+    with open(destination, 'w+') as f:
+        # create normal python list, that are type independent
+        for row in maze:
+            tmp = []
+            for val in row:
+                tmp.append(str(val))
+            f.write(''.join(tmp).replace('0', '#').replace('1', ' ') + '\n')
 
 
 if __name__ == '__main__':
-    main()
+    cli()
