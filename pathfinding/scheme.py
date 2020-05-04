@@ -1,6 +1,24 @@
-import numpy as np
-from PIL import Image
+# std lib
+import sys
 import os.path
+from time import time
+
+# 3rd party
+import click
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+from celluloid import Camera
+
+# 1st party
+from pathfinding import algs
+
+
+# vars for determining filetype
+IMAGE = 1
+TEXT = 2
+VIDEO = 3
+
 
 # class containing neccesary information on every node
 class Node:
@@ -52,12 +70,11 @@ class Node:
     #     pass
 
 
-
 # class containing the whole data structure
 class Graph:
-
     def __init__(self, maze: np.ndarray):
         self.maze = maze
+        self.animate = False
 
         self.x = maze.shape[1]
         self.y = maze.shape[0]
@@ -114,14 +131,6 @@ class Graph:
                 nodes[(y,x)] = Node((y,x))
 
         return nodes
-
-
-    # debugging function used to change number on found nodes
-    def show_nodes(self) -> None:
-        tmp = self.maze.copy()
-        for node in self.nodes:
-            tmp[node[0], node[1]] = 8
-        print(tmp)
 
 
     # used to get a node, from a specified index
@@ -223,91 +232,31 @@ class Graph:
                         break
 
 
-    def show_solution(self) -> None:
-        if not self.solved:
-            print('ERROR: Graph not solved, cannot show solution')
-            return False
-
-        sol = []
-        # create normal python list, that are type independent
-        for row in self.maze:
-            tmp = []
-            for val in row:
-                tmp.append(str(val))
-            sol.append(tmp)
-
-        # mark all nodes
-        for node in self.path:
-            y, x = node.location
-            sol[y][x] = 'n'
-
-        # print it all
-        for row in sol:
-            # character: u"\u2592"
-            print(''.join(row).replace('0', '▒').replace('1', ' '))
-
-
-
-    # def scale_image(self, scale):
-    #     return cv.resize(self.maze, (0,0), fx=scale, fy=scale)
-
-
-    # write maze to disk as image
-    def save_image(self, destination: str) -> None:
-        Image.fromarray((self.maze*255).astype(np.uint8)).save(destination)
-
-
-    # write maze to disk as text file
-    def save_text(self, destination: str) -> None:
-        # create (and truncate) file
-        with open(destination, 'w+') as f:
-            # create normal python list, that are type independent
-            for row in self.maze:
-                tmp = []
-                for val in row:
-                    tmp.append(str(val))
-                f.write(''.join(tmp).replace('0', '#').replace('1', ' ') + '\n')
+    # decorator, to check if solved flag is set...
+    def _solved(func):
+        def checker(self, *args, **kwargs):
+            if self.solved:
+                return func(self, *args, **kwargs)
+            click.secho('ERROR: Graph not solved, cannot show solution', fg='red', err=True)
+        return checker
 
 
     # convenient function that reads the filetype, and the save it as an image
-    def save(self, destination: str, force: bool = False) -> None:
-        if not force:
-            if os.path.isfile(destination):
-                i = input('WARNING: File "{}" already exists, \
-                    overwrite (yes/no)? '.format(destination)).lower()
-                # if not yes or y
-                if i != 'yes' and i != 'y':
-                    print('Aborting')
-                    return
+    @_solved
+    def save_solution(self, destination: str, extension: int) -> None:
 
-        file, ext = os.path.splitext(destination)
+        if extension == IMAGE:
+            return self._save_solution_img(destination)
 
-        if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
-            print('NOTE: will only write images to types of ".bmp" and ".png"')
-            print('other formats compress the image, and makes it unusable')
-            return False
+        elif extension == TEXT:
+            self._save_solution_text(destination)
 
-        elif ext.lower() in ['.png', '.bmp']:
-            return self.save_image(destination)
-
-        if ext.lower() not in ['.txt', '.text']:
-            print('NOTE: writing as textfile, as format was not understood')
-            print('use the ".txt" or ".text" extension to dismiss this note')
-
-        return self.save_text(destination)
+        elif extension == VIDEO:
+            return self._save_solution_vid(destination)
 
 
     # write maze solution to disk as image
-    def save_solution_image(self, destination: str) -> None:
-        if not self.solved:
-            print('ERROR: Graph not solved, cannot show solution')
-            return False
-
-        file, ext = os.path.splitext(destination)
-        if not ext.lower() in ['.bmp', '.png']:
-            print('ERROR: Can only save images to ".bmp" or ".png" type')
-            return False
-
+    def _save_solution_img(self, destination: str) -> None:
         mz = self.maze.copy()*255
 
         # make array 3D
@@ -337,11 +286,7 @@ class Graph:
         Image.fromarray(mz).save(destination)
 
 
-    def save_solution_text(self, destination: str, fancy: bool = True) -> None:
-        if not self.solved:
-            print('ERROR: Graph not solved, cannot show solution')
-            return False
-
+    def _save_solution_txt(self, destination: str) -> None:
         sol = []
         # create normal python list, that are type independent
         for row in self.maze:
@@ -362,99 +307,82 @@ class Graph:
                     f.write(''.join(line).replace('0', '#').replace('1', ' ') + '\n')
             return
 
-        # otherwise, we makin' it fancy!
 
-        # filling out the nodes
-        def filled(field):
-            return field not in ['0', '1']
+    def _save_solution_vid(self, destination: str):
+        assert self.animate
 
-
-        for i in range(len(self.path) - 1):
-            c = self.path[i].location #current
-            n = self.path[i+1].location #next
-
-            # y vals are the same: going horizontal
-            if c[0] == n[0]:
-                # new_v = False
-                for loc in range(min(c[1], n[1]), max(c[1], n[1]) + 1):
-                    sol[c[0]][loc] = '━'
-
-            # x vals are the same: going vertical
-            else:
-                # new_v = True
-                for loc in range(min(c[0], n[0]), max(c[0], n[0]) + 1):
-                    sol[loc][c[1]] = '┃'
-
-            top = filled(sol[c[0]-1][c[1]])
-            btm = filled(sol[c[0]+1][c[1]])
-            lft = filled(sol[c[0]][c[1]-1])
-            rht = filled(sol[c[0]][c[1]+1])
-
-            if top and btm:
-                sol[c[0]][c[1]] = '┃'
-                continue
-
-            if lft and rht:
-                sol[c[0]][c[1]] = '━'
-                continue
-
-            if lft and top:
-                sol[c[0]][c[1]] = '┛'
-                continue
-
-            if rht and top:
-                sol[c[0]][c[1]] = '┗'
-                continue
-
-            if rht and btm:
-                sol[c[0]][c[1]] = '┏'
-                continue
-
-            if lft and btm:
-                sol[c[0]][c[1]] = '┓'
-                continue
-
-        # create (and truncate) file
-        with open(destination, 'w+') as f:
-            # create normal python list, that are type independent
-            for line in sol:
-                f.write(''.join(line).replace('0', '▒').replace('1', ' ') + '\n')
+        for _ in range(20): # video finishes too early - cannot see solution
+            plt.imshow(self.mz)
+            self.cam.snap()
+        count = len(self.cam._photos)
+        if count > 2000:
+            click.confirm(f'Videofile will take some time to render, due to the amount of frames in solution ({count} frames in total), continue?', abort=True)
+        anim = self.cam.animate(blit=True, interval=30)
+        anim.save(destination)
 
 
-    # convenient function that reads the filetype, and the save it as an image
-    def save_solution(self, destination: str,
-        force: bool = False, fancy: bool = False) -> None:
+    # set the animate var to true
+    def visualize(self):
+        if self.x * self.y >= 100000:
+            click.confirm('Maze is very large, are you sure you want to animate it?', abort=True)
 
-        if not force:
-            if os.path.isfile(destination):
-                i = input('WARNING: File "{}" already exists, \
-                    overwrite (yes/no)? '.format(destination)).lower()
-                # if not yes or y
-                if i != 'yes' and i != 'y':
-                    print('Aborting')
-                    return
+        self.animate = True
 
-        file, ext = os.path.splitext(destination)
+        self.mz = self.maze.copy()*255
+        # make array 3D
+        self.mz = self.mz[..., np.newaxis]
+        self.mz = np.concatenate((self.mz, self.mz, self.mz), axis=2)
 
-        if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
-            print('NOTE: will only write images to types of ".bmp" and ".png"')
-            print('other formats compress the image, and makes it unusable')
-            return False
+        # colors
+        self.EXPLORED = np.array([255, 0 , 0], dtype=np.uint8) #red
+        self.CURRENT = np.array([255, 255, 0], dtype=np.uint8) #green
+        self.PARENT = np.array([0, 255, 0], dtype=np.uint8) # green
+        self.mz[self.last] = np.array([0, 0, 255], dtype=np.uint8) #blue
 
-        elif ext.lower() in ['.png', '.bmp']:
-            return self.save_solution_image(destination)
+        self.cam = Camera(plt.figure())
 
-        if ext.lower() not in ['.txt', '.text']:
-            print('NOTE: writing as textfile, as format was not understood')
-            print('use the ".txt" or ".text" extension to dismiss this note')
-
-        return self.save_solution_text(destination, fancy)
+        self.implot = plt.imshow(self.mz, interpolation='nearest', aspect='equal', vmin=0, vmax=255, cmap="RdBu")
+        self.implot.set_cmap('hot')
+        plt.axis('off')
+        self.cam.snap()
 
 
-    # remove nodes on a dead end completely
-    # may implement later...
-    def rm_dead_ends(self):
-        # for node in self.nodes:
-        #     if len(node.adj) > 2:
-        #         pass
-        pass
+    # decorator, to check if animate flag is set...
+    def _animate(func):
+        def checker(self, *args, **kwargs):
+            if self.animate:
+                return func(self, *args, **kwargs)
+        return checker
+
+
+    @_animate
+    def frame(self, cy, cx, ny, nx):
+        miny, maxy = sorted([cy, ny])
+        minx, maxx = sorted([cx, nx])
+        self.mz[miny:maxy+1, minx:maxx+1] = self.EXPLORED
+        self.mz[ny, nx] = self.CURRENT
+        self.mz[cy, cx] = self.PARENT
+        plt.imshow(self.mz)
+        self.cam.snap()
+        self.mz[ny, nx] = self.EXPLORED
+        self.mz[cy, cx] = self.EXPLORED
+
+
+    def rightturn(self):
+        return algs.rightturn(self)
+
+
+    def breadthfirst(self):
+        return algs.breadthfirst(self)
+
+
+    def depthfirst(self):
+        return algs.depthfirst(self)
+
+
+    def dijkstra(self):
+        return algs.dijkstra(self)
+
+
+    def astar(self):
+        return algs.astar(self)

@@ -65,9 +65,9 @@ The script can be called like as follows:
 After running, a textfile ([`timings.txt`](https://github.com/Tinggaard/pathfinding/blob/master/timings.txt)) is created, with stats on all the runs. This output can then be filtered out.
 
 ### Visualising the differences
-The file [`pathfinding/visualizer.py`](https://github.com/Tinggaard/pathfinding/blob/master/pathfinding/visualizer.py), can either plot or print some of the stats generated from the output of the shell script above.
+The file [`pathfinding/comparer.py`](https://github.com/Tinggaard/pathfinding/blob/master/pathfinding/comparer.py), can either plot or print some of the stats generated from the output of the shell script above.
 
 ```shell
-./src/visualizer.py (-p | -s)
+./src/comparer.py (-p | -s)
 ```
 `-p` to plot or `-s` to show in the terminal.

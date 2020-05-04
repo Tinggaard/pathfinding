@@ -1,7 +1,7 @@
 import numpy as np
 from _collections import deque as dq
 
-def solve(self):
+def breadthfirst(self):
     assert not self.solved
 
     start = self.start
@@ -43,6 +43,10 @@ def solve(self):
 
                     cy, cx = current.location
                     ny, nx = node.location
+
+                    # animate stuff
+                    self.frame(cy, cx, ny, nx)
+
                     # calculate difference in locations (one is always 0)
                     distance = abs(cy-ny) + abs(cx-nx)
                     # set total distance and via node

@@ -1,7 +1,7 @@
 import numpy as np
 import heapq as hq
 
-def solve(self):
+def astar(self):
 
     start = self.start
     end = self.end
@@ -53,6 +53,10 @@ def solve(self):
 
                     cy, cx = current.location
                     ny, nx = node.location
+
+                    # animate stuff
+                    self.frame(cy, cx, ny, nx)
+
                     # calculate difference in locations (one is always 0)
                     distance = abs(cy-ny) + abs(cx-nx)
                     # set total distance and via node
