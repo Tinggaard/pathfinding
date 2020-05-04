@@ -1,7 +1,7 @@
 import numpy as np
 import heapq as hq
 
-def solve(self):
+def dijkstra(self):
     assert not self.solved
 
     start = self.start
@@ -52,7 +52,7 @@ def solve(self):
 
                     # animate stuff
                     self.frame(cy, cx, ny, nx)
-                    
+
                     # calculate difference in locations (one is always 0)
                     distance = abs(cy-ny) + abs(cx-nx)
                     # set total distance and via node

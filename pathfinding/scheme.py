@@ -1,21 +1,73 @@
 # std lib
 import sys
 import os.path
-import logging
-import re
 from time import time
 
 # 3rd party
+import click
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import animation
 from celluloid import Camera
-
 
 # 1st party
 from pathfinding import algs
-from .node import Node
+
+
+# vars for determining filetype
+IMAGE = 1
+TEXT = 2
+VIDEO = 3
+
+
+# class containing neccesary information on every node
+class Node:
+    def __init__(self, location: tuple):
+        self.location = location # (y, x)
+
+        # w s e n
+        # [location, dist]
+        self.nearby = [None] * 4
+
+        # location of node travelled by
+        self.via = None
+        # tracking distance travelled
+        self.dist = np.inf
+
+        # a*
+        self.dist_goal = np.inf
+
+        # set to be combined self.dist_goal and self.dist
+        self.combined = np.inf
+
+
+    # if printing the Node class, return it's location
+    def __repr__(self) -> str:
+        return 'Node{}'.format(self.location)
+
+
+    # two nodes are equal if they have the same location
+    def __eq__(self, other) -> bool:
+        return self.location == other.location
+
+
+    # heapq comparison for dijkstra and a*
+    def __lt__(self, other) -> bool:
+        return self.combined < other.combined
+
+
+    # used to creating sets for counting explored nodes
+    def __hash__(self) -> hash:
+        return hash(self.location)
+
+
+    # # iterate the neighbours
+    # def __iter__(self):
+    #     pass
+    #
+    # # self.location[index]
+    # def __getitem__(self, index):
+    #     pass
 
 
 # class containing the whole data structure
@@ -79,14 +131,6 @@ class Graph:
                 nodes[(y,x)] = Node((y,x))
 
         return nodes
-
-
-    # debugging function used to change number on found nodes
-    def show_nodes(self) -> None:
-        tmp = self.maze.copy()
-        for node in self.nodes:
-            tmp[node[0], node[1]] = 8
-        print(tmp)
 
 
     # used to get a node, from a specified index
@@ -188,55 +232,31 @@ class Graph:
                         break
 
 
-    def show_solution(self) -> None:
-        if not self.solved:
-            print('ERROR: Graph not solved, cannot show solution')
-            return False
-
-        sol = []
-        # create normal python list, that are type independent
-        for row in self.maze:
-            tmp = []
-            for val in row:
-                tmp.append(str(val))
-            sol.append(tmp)
-
-        # mark all nodes
-        for node in self.path:
-            y, x = node.location
-            sol[y][x] = 'n'
-
-        # print it all
-        for row in sol:
-            # character: u"\u2592"
-            print(''.join(row).replace('0', '▒').replace('1', ' '))
-
-
-
-    # def scale_image(self, scale):
-    #     return cv.resize(self.maze, (0,0), fx=scale, fy=scale)
-
-
     # decorator, to check if solved flag is set...
     def _solved(func):
         def checker(self, *args, **kwargs):
             if self.solved:
                 return func(self, *args, **kwargs)
-            print('ERROR: Graph not solved, cannot show solution')
+            click.secho('ERROR: Graph not solved, cannot show solution', fg='red', err=True)
         return checker
 
 
+    # convenient function that reads the filetype, and the save it as an image
+    @_solved
+    def save_solution(self, destination: str, extension: int) -> None:
+
+        if extension == IMAGE:
+            return self._save_solution_img(destination)
+
+        elif extension == TEXT:
+            self._save_solution_text(destination)
+
+        elif extension == VIDEO:
+            return self._save_solution_vid(destination)
+
+
     # write maze solution to disk as image
-    def save_solution_image(self, destination: str) -> None:
-        if not self.solved:
-            print('ERROR: Graph not solved, cannot show solution')
-            return False
-
-        file, ext = os.path.splitext(destination)
-        if not ext.lower() in ['.bmp', '.png']:
-            print('ERROR: Can only save images to ".bmp" or ".png" type')
-            return False
-
+    def _save_solution_img(self, destination: str) -> None:
         mz = self.maze.copy()*255
 
         # make array 3D
@@ -266,11 +286,7 @@ class Graph:
         Image.fromarray(mz).save(destination)
 
 
-    def save_solution_text(self, destination: str, fancy: bool = True) -> None:
-        if not self.solved:
-            print('ERROR: Graph not solved, cannot show solution')
-            return False
-
+    def _save_solution_txt(self, destination: str) -> None:
         sol = []
         # create normal python list, that are type independent
         for row in self.maze:
@@ -291,101 +307,25 @@ class Graph:
                     f.write(''.join(line).replace('0', '#').replace('1', ' ') + '\n')
             return
 
-        # otherwise, we makin' it fancy!
 
-        # filling out the nodes
-        def filled(field):
-            return field not in ['0', '1']
+    def _save_solution_vid(self, destination: str):
+        assert self.animate
 
-
-        for i in range(len(self.path) - 1):
-            c = self.path[i].location #current
-            n = self.path[i+1].location #next
-
-            # y vals are the same: going horizontal
-            if c[0] == n[0]:
-                # new_v = False
-                for loc in range(min(c[1], n[1]), max(c[1], n[1]) + 1):
-                    sol[c[0]][loc] = '━'
-
-            # x vals are the same: going vertical
-            else:
-                # new_v = True
-                for loc in range(min(c[0], n[0]), max(c[0], n[0]) + 1):
-                    sol[loc][c[1]] = '┃'
-
-            top = filled(sol[c[0]-1][c[1]])
-            btm = filled(sol[c[0]+1][c[1]])
-            lft = filled(sol[c[0]][c[1]-1])
-            rht = filled(sol[c[0]][c[1]+1])
-
-            if top and btm:
-                sol[c[0]][c[1]] = '┃'
-                continue
-
-            if lft and rht:
-                sol[c[0]][c[1]] = '━'
-                continue
-
-            if lft and top:
-                sol[c[0]][c[1]] = '┛'
-                continue
-
-            if rht and top:
-                sol[c[0]][c[1]] = '┗'
-                continue
-
-            if rht and btm:
-                sol[c[0]][c[1]] = '┏'
-                continue
-
-            if lft and btm:
-                sol[c[0]][c[1]] = '┓'
-                continue
-
-        # create (and truncate) file
-        with open(destination, 'w+') as f:
-            # create normal python list, that are type independent
-            for line in sol:
-                f.write(''.join(line).replace('0', '▒').replace('1', ' ') + '\n')
-
-
-    # convenient function that reads the filetype, and the save it as an image
-    @_solved
-    def save_solution(self, destination: str,
-        force: bool = False, fancy: bool = False) -> None:
-
-        if not force:
-            if os.path.isfile(destination):
-                i = input('WARNING: File "{}" already exists, \
-                    overwrite (yes/no)? '.format(destination)).lower()
-                # if not yes or y
-                if i != 'yes' and i != 'y':
-                    print('Aborting')
-                    return
-
-        file, ext = os.path.splitext(destination)
-
-        if ext.lower() in ['.jpg', '.gif', '.tiff', '.jpeg', '.svg', '.jfif']:
-            print('NOTE: will only write images to types of ".bmp" and ".png"')
-            print('other formats compress the image, and makes it unusable')
-            return False
-
-        elif ext.lower() in ['.png', '.bmp']:
-            return self.save_solution_image(destination)
-
-        elif ext.lower() in ['.mp4', '.avi', '.flv']:
-            return self.save_solution_video(destination)
-
-        if ext.lower() not in ['.txt', '.text']:
-            print('NOTE: writing as textfile, as format was not understood')
-            print('use the ".txt" or ".text" extension to dismiss this note')
-
-        return self.save_solution_text(destination, fancy)
+        for _ in range(20): # video finishes too early - cannot see solution
+            plt.imshow(self.mz)
+            self.cam.snap()
+        count = len(self.cam._photos)
+        if count > 2000:
+            click.confirm(f'Videofile will take some time to render, due to the amount of frames in solution ({count} frames in total), continue?', abort=True)
+        anim = self.cam.animate(blit=True, interval=30)
+        anim.save(destination)
 
 
     # set the animate var to true
     def visualize(self):
+        if self.x * self.y >= 100000:
+            click.confirm('Maze is very large, are you sure you want to animate it?', abort=True)
+
         self.animate = True
 
         self.mz = self.maze.copy()*255
@@ -428,11 +368,6 @@ class Graph:
         self.mz[cy, cx] = self.EXPLORED
 
 
-    def save_solution_video(self, destination):
-        anim = self.cam.animate(blit=True, interval=40)
-        anim.save(destination)
-
-
     def rightturn(self):
         return algs.rightturn(self)
 
@@ -451,12 +386,3 @@ class Graph:
 
     def astar(self):
         return algs.astar(self)
-
-
-    # remove nodes on a dead end completely
-    # may implement later...
-    def rm_dead_ends(self):
-        # for node in self.nodes:
-        #     if len(node.adj) > 2:
-        #         pass
-        pass

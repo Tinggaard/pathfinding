@@ -1,7 +1,7 @@
 import numpy as np
 import heapq as hq
 
-def solve(self):
+def astar(self):
 
     start = self.start
     end = self.end

@@ -1,4 +1,4 @@
-def solve(self):
+def rightturn(self):
     assert not self.solved
 
     start = self.start

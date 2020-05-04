@@ -1,7 +1,7 @@
 import numpy as np
 from _collections import deque as dq
 
-def solve(self):
+def breadthfirst(self):
     assert not self.solved
 
     start = self.start

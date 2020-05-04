@@ -1,7 +1,7 @@
 from _collections import deque as dq
 import numpy as np
 
-def solve(self):
+def depthfirst(self):
     assert not self.solved
 
     start = self.start

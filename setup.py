@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pathfinding',
-    version='0.0.1',
+    version='0.1.0',
 
     # metadata
     author='Jens Tinggaard',
@@ -19,21 +19,19 @@ setup(
     zip_safe=False,
 
     py_modules=[
-    # 'pathfinding/main',
-    'pathfinding/scheme',
-    'pathfinding/caller',
-    'pathfinding/algs'
+    'pathfinding/main',
     ],
     install_requires=[
-       'numpy',
-       'pillow',
-       'pydaedalus',
-       'matplotlib',
-       'celluloid',
-       'click',
+       'numpy', # basic structure of Graph
+       'pillow', # image loader and writer
+       'pydaedalus', # maze generator
+       'matplotlib', # video handler and plotter
+       'celluloid', # video renderer wrapper
+       'click', # arg handler
+       'colorama' # windows colors in terminal
         ],
     entry_points={
-        'console_scripts': ['pathfinding=pathfinding.caller:cli']
+        'console_scripts': ['pathfinding=pathfinding.main:cli']
     },
 
 )
