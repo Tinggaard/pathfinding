@@ -59,7 +59,7 @@ def organize(load: str) -> dict:
 
 
 def plot_stats(stats: dict) -> None:
-    fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
+    fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(10, 15))
 
     n = 1
     for s in stats.items():
@@ -68,7 +68,7 @@ def plot_stats(stats: dict) -> None:
         observations = list(a.values())
 
         # row and column
-        r, c = n // 3, n % 3
+        r, c = n // 2, n % 2
         n+=1
 
         bx = axes[r, c].boxplot(observations, labels = algs, patch_artist=True)

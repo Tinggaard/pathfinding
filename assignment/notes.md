@@ -12,3 +12,6 @@
 - Omskift til dict i stedet for en liste.
 - `visualize.py`
 - Hvorfor er A* langsom?
+- Optimering
+    - Fjerne dead ends
+    - Fjerne sving

@@ -1,5 +1,6 @@
 \documentclass[a4paper, 12pt]{article}
 \usepackage[danish]{babel} % Language
+\usepackage[utf8]{inputenc} % Encoding
 \usepackage{minted} % Code inclusion
 \usepackage{lastpage} % Pagenumbering
 \usepackage{fancyhdr} % Custom header/footer
@@ -14,7 +15,9 @@
 \usepackage[margin=1in]{geometry} %Margins
 \usepackage{xcolor} % bg for minted
 \usepackage{graphicx} % includegraphics
-% \usepackage{attachfile} % Attach files in sources
+\usepackage{subcaption} % captions in subfigures
+\usepackage{attachfile} % Attach files in sources
+\usepackage{pgf} % pgf picture
 
 % Biblografi
 \usepackage{csquotes}
@@ -25,8 +28,8 @@
 \emergencystretch=1em  % hbox not too wide
 
 
-\pagestyle{fancy} % Set custom page layout
-\fancyhf{}% to clear existing header/footer
+% \pagestyle{fancy} % Set custom page layout
+% \fancyhf{}% to clear existing header/footer
 % Set line on header and footer width
 % \renewcommand{\headrulewidth}{2pt}
 % \renewcommand{\footrulewidth}{1pt}
@@ -43,19 +46,19 @@
   \vskip 1em
   }
 
-% \attachfilesetup{ % Setup af attachfile pakken.
-% author={Jens Tinggaard},
-% color={1 0 0},
-% icon={Paperclip}
-% }
+\attachfilesetup{ % Setup af attachfile pakken.
+author={Jens Tinggaard},
+color={1 0 0},
+icon={Paperclip}
+}
 
 % Headers and footers
-\lhead{Jens Tinggaard 3.E\\ Odense Tekniske Gymnasium}
-\rhead{Vejleder: JCJE\\ 1. maj 2020}
+% \lhead{Jens Tinggaard 3.E\\ Odense Tekniske Gymnasium}
+% \rhead{Vejleder: JCJE\\ 1. maj 2020}
 
 % \lfoot{\rightmark} % Subsection
-\lfoot{\rightmark} % SECTION
-\rfoot{Side \thepage\ af \pageref{LastPage}}
+% \lfoot{\rightmark} % SECTION
+% \rfoot{Side \thepage\ af \pageref{LastPage}}
 
 
 % Navn på indholdsfortegnelse
@@ -78,14 +81,13 @@
 \begin{document}
 
 \begin{titlepage}
-  \maketitle
+    \maketitle
+    \begin{figure}[h]
+        \centering
+        \resizebox{\textwidth}{!}{\input{img/comp.pgf}}
+    \end{figure}
 
-  \begin{figure}[h]
-    \includegraphics[width=\textwidth]{img/fp.png}
-    \centering
-  \end{figure}
-
-  \thispagestyle{empty} % no page number at bottom of page
+    \thispagestyle{empty} % no page number at bottom of page
 \end{titlepage}
 
 
@@ -100,15 +102,15 @@
 Jeg vil gerne lave et program, der er i stand til at illustrere en pathfinding algoritme. Jeg vil gerne vise fordelen ved en pathfinding algoritme, dette kunne f.eks. gøres ved at sammenligne med en bruteforce algoritme. Umiddelbart vil det tage udgangspunkt i labyrinter, hvor jeg vil vise hvordan de forskellige algoritmer virker.
 \subsection{Krav til programmet}
 \begin{itemize}
-  \item Implementering af en pathfinding algoritme
-  \item Kunne løse en labyrint
-  \item Sammenligning med andre metoder til at løse en labyrint
-  \item Visuel repræsentation af løsningen
+    \item Implementering af en pathfinding algoritme
+    \item Kunne løse en labyrint
+    \item Sammenligning med andre metoder til at løse en labyrint
+    \item Visuel repræsentation af løsningen
 \end{itemize}
 \subsection{Udviddelser}
 \begin{itemize}
-  \item Visualisering af hastighed vs. størrelse af labyrint for forskellige metoder
-  \item Implementering af flere algoritmer (nogle af dem fra ovenstående liste)
+    \item Visualisering af hastighed vs. størrelse af labyrint for forskellige metoder
+    \item Implementering af flere algoritmer (nogle af dem fra ovenstående liste)
 \end{itemize}
 
 
@@ -118,8 +120,22 @@ En pathfinding algoritme er en algoritme, som bruges til at finde vej over en gr
 Pathfinding er brugt til alt muligt i dag, et klassisk eksempel er navigationstjenester som Google Maps. Når brugeren har indtastet en startposition og et mål, er det nu computerens opgave at finde den korteste vej derhen. Hvis man skal fra København til Rom er der måske en idé i, at optimere algoritmen, så den ikke starter med at kigge over St. Petersborg i Rusland. Alle disse overvejelser er vigtige at gøre sig, når man skal implementere en pathfinding algoritme, da forskellige algoritmer er stærke til hver deres ting.
 
 \subsection{Grafer, noder og kanter}
-Når man snakker om pathfinding algoritmer, vil termerne \textit{graf} og \textit{node} fremkomme. Begge disse typer er abstrakte og dækker over et større område inden for datalogien. En \textit{graf} er en struktur, som indeholder et endeligt antal hjørner, også kaldet \textit{noder}. Alle disse noder har ofte nogle bestemte attributter eller egenskaber, afhængig af hvilken type graf, der er tale om. Derudover er disse noder forbundet gennem hvad der kaldes \textit{kanter} en kant er i bund og grund en forbindelse mellem to noder, man sætter ofte en vægt på kanterne (medmindre alle kanter er vægtet ligeligt). Denne vægt bruges også i beskæfigelsen med grafer --- den er meget essentiel i forbindelse med pathfinding algoritmer.\cite{graph}\ny % billede af graf: https://commons.wikimedia.org/wiki/File:Sample_Graph_for_path_finding.png
-Når man har med pathfinding algoritmer at gøre, vil alle noder have følgende attributter: \textbf{Naboer} alle noder er klar over hvilke noder de ligger op ad. \textbf{Via} alle noder er klar over hvilken node der forbinder dem til startnoden. \textbf{Pris} alle noder er klar over hvor langt de har til startnoden -- målt i samlet vægt af kanter op til denne -- inden denne pris er bestemt vil den være $\infty$. \textbf{Afstand til mål} når man bruger \textit{A*}, vil alle noder også være klar over deres afstand til målnoden, denne afstand er målt direkte, såkaldt fugleflugt, hvorimod at \textit{pris} er målt i den samlede pris fra de foregående noder + vægten af kanten fra den foregående node (\textit{via}) til den nuværende.
+Når man snakker om pathfinding algoritmer, vil termerne \textit{graf} og \textit{node} fremkomme. Begge disse typer er abstrakte og dækker over et større område inden for datalogien. En \textit{graf} er en struktur, som indeholder et endeligt antal hjørner, også kaldet \textit{noder}. Alle disse noder har ofte nogle bestemte attributter eller egenskaber, afhængig af hvilken type graf, der er tale om. Derudover er disse noder forbundet gennem hvad der kaldes \textit{kanter} en kant er i bund og grund en forbindelse mellem to noder, man sætter ofte en vægt på kanterne (medmindre alle kanter er vægtet ligeligt). Denne vægt bruges også i beskæfigelsen med grafer --- den er meget essentiel i forbindelse med pathfinding algoritmer.\cite{graph}\ny
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/example.png}
+        \caption{Referencebillede}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/example_nodes.png}
+        \caption{Noder vist med rødt}
+        \label{fig:egnodes}
+    \end{subfigure}
+    \caption{19 noder markeret med rødt, alt hvidt er kant}
+    \label{fig:nodes}
+\end{figure}
+Når man har med pathfinding algoritmer at gøre, vil alle noder have følgende attributter: \textbf{Naboer} alle noder er klar over hvilke noder de ligger op ad. \textbf{Via} alle noder er klar over hvilken node der forbinder dem til startnoden. \textbf{Pris} alle noder er klar over hvor langt de har til startnoden -- målt i samlet vægt af kanter op til denne -- inden denne pris er bestemt vil den være $\infty$. \textbf{Afstand til mål} når man bruger \textit{A*}, vil alle noder også være klar over deres afstand til målnoden, denne afstand er målt direkte, såkaldt fugleflugt, hvorimod at \textit{pris} er målt i den samlede pris fra de foregående noder + vægten af kanten fra den foregående node (\textit{via}) til den nuværende. \textbf{ID} slutteligt er det naturligvis vigtigt at kunne identificere sine noder, jeg har markeret mine ved deres lokation $(y; x)$ koordinat.
 
 \subsection{Prioritetskø}\label{subsec:pq}
 Algoritmerne \textit{Dijkstra} og \textit{A*} gør begge brug af en prioritetskø, kaldet en \textit{priority queue} på engelsk. En prioritetskø skal ses som en liste, som er dynamisk sorteret efter et parameter. I dette tilfælde er de sorteret efter en afstand, præcis hvilken afhænger af algoritmen --- mere herom senere.
@@ -144,28 +160,34 @@ $ git clone https://github.com/Tinggaard/pathfinding
 $ cd pathfinding && virtualenv venv && . venv/bin/activate
 $ pip install -e .
 \end{minted}
-Herefter vil det være muligt at køre hovedprogrammet (forudsat at brugeren stadig er i virtualenvironment), ved blot at kalde:
+Herefter vil det være muligt at køre hovedprogrammet (forudsat at brugeren stadig er i virtualenvironment). Strukturen for at kalde det er som følger:
 \begin{minted}[fontsize=\footnotesize, bgcolor=bg]{bash}
-$ pathfinding [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
-              [-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
+$ pathfinding [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  generate   Generate maze from scratch Takes outputfile and maze size as...
+  solve      Solve maze from given inputfile, using options listed below
+  visualize  Visualize pathfinding algorithm as videofile on given filename
+
 \end{minted}
-For at få en detaljeret beskrivelse af alle flagene, sættes flaget \texttt{-h} blot.\ny
+For at få en detaljeret beskrivelse af alle flagene, sættes flaget \texttt{-h} blot --- dette kan sættes ved alle kommandoerne, for at få mere information om hvordan de hver især virker.\ny
 Alternativt kan programmet installeres ved
 \begin{minted}[fontsize=\footnotesize, bgcolor=bg]{bash}
 $ pip install -r requirements.txt
 \end{minted}
-Herefter kaldes programmet som følger:
-\begin{minted}[fontsize=\footnotesize, bgcolor=bg]{bash}
-$ # cd pathfinding
-$ ./main.py [-h] (-i INPUT | -g width height) [-v] [-s] [-f] [-o OUTPUT]
-            [-a {astar,dijkstra,breadthfirst,depthfirst,rightturn}]
-\end{minted}
+Herefter køres ovenstående program, ved at eksekvere \texttt{./pathfinding/main.py} filen.
+
 
 \subsection{Eksempel}
 Ønsker man at finde vej gennem \texttt{\href{https://github.com/Tinggaard/pathfinding/blob/master/mazes/perfect/1001.png}{mazes/perfect/1001.png}}, ved hjælp af breadthfirst algoritmen, samt at gemme outputtet igen som f.eks. \texttt{out/eksempel.png}, køres programmet som følger:
 \begin{minted}[fontsize=\footnotesize, bgcolor=bg]{bash}
-$ pathfinding -i mazes/perfect/1001.png -a breadthfirst -o out/eksempel.png
+$ pathfinding solve mazes/perfect/1001.png -a breadthfirst -o out/eksempel.png
 \end{minted}
+Kommandoen \texttt{visualize} kan generere videofiler, som viser hvordan algoritmen har fundet frem til den givne løsning. Det fungerer helt klart bedst på billeder af størrelsen 50x50, evt. 100x100, da alternativet er at computeren kører i en evighed, pga mangel på RAM. Se et eksempel på output, i filen \texttt{\href{https://github.com/Tinggaard/pathfinding/raw/master/out/solution.mp4}{out/solution.mp4}}, eller hent den her (dobbeltklik klipsen):
+\attachfile[description={Eksempel output videofil}]{../out/solution.mp4}
 % Indsæt billede!
 % Indsæt billede!
 % Indsæt billede!
@@ -236,6 +258,9 @@ Dette er blot en kort gennemgang af hvordan jeg har implementeret Dijkstra, den 
 \newpage
 \section{Konklusion}
 
+\subsection{Forbehold}
+Programmet håndterer ikke fejlfinding af filer eller lignende, som er navngivet forkert. Derudover melder programmet også fejl, hvis der ikke er installeret en \texttt{C++} compiler. Samtidig antages det også at starten af labyrinten er i toppen og at slutningen er i bunden. Dette er dog overkommelige forbehold, til fremtiden kunne de være sjove at implementere.
+
 
 \newpage
 \setlength\bibitemsep{10pt}
@@ -247,6 +272,32 @@ title={Litteratur}, %Titel
 
 \newpage
 \begin{appendices}
+    \section{Kildekode}
+
+    % \subsection{pathfinding/main.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/main.py}
+    %
+    % \subsection{pathfinding/scheme.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/scheme.py}
+    %
+    % \subsection{pathfinding/algs/\_\_init\_\_.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/__init__.py}
+    %
+    % \subsection{pathfinding/algs/astar.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/astar.py}
+    %
+    % \subsection{pathfinding/algs/breadthfirst.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/breadthfirst.py}
+    %
+    % \subsection{pathfinding/algs/depthfirst.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/depthfirst.py}
+    %
+    % \subsection{pathfinding/algs/dijkstra.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/dijkstra.py}
+    %
+    % \subsection{pathfinding/algs/rightturn.py}
+    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/rightturn.py}
+
 \end{appendices}
 
 \end{document}

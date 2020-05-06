@@ -244,12 +244,12 @@ def write(filename: str, maze: np.ndarray) -> None:
 
 
 # write maze to disk as image
-def _write_img(self, destination: str, maze: np.ndarray) -> None:
+def _write_img(destination: str, maze: np.ndarray) -> None:
     Image.fromarray((maze*255).astype(np.uint8)).save(destination)
 
 
 # write maze to disk as text file
-def _write_txt(self, destination: str, maze: np.ndarray) -> None:
+def _write_txt(destination: str, maze: np.ndarray) -> None:
     # create (and truncate) file
     with open(destination, 'w+') as f:
         # create normal python list, that are type independent
