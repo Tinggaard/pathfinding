@@ -54,8 +54,8 @@ for folder in mazes/*/ ; do
       $verbose && echo "Working on '$i' with algorithm $alg"
 
       # append the output to a file
-      ./src/main.py -i $i -a $alg -o $o -vf >> timings.txt
-      # echo "./src/main.py -i $i -a $alg -o $o -vf" >> timings.txt
+      pathfinding solve $i -a $alg -o $o -f >> timings.txt
+      # echo "pathfinding solve $i -a $alg -o $o -f" >> timings.txt
 
     done
   done

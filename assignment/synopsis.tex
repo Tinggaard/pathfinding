@@ -115,7 +115,7 @@ Jeg vil gerne lave et program, der er i stand til at illustrere en pathfinding a
 
 
 \newpage
-\section{Om pathfinding algoritmer}\label{subsec:about}
+\section{Om pathfinding algoritmer}\label{sec:about}
 En pathfinding algoritme er en algoritme, som bruges til at finde vej over en graf. Der findes mange forskellige algoritmer, som alle har fordele og ulemper. Et par af de mest kendte er \textit{Dijkstra}, \textit{depthfirst}, \textit{breadthfirst} og \textit{A*}. Alle disse algoritmer har til fælles, at de beskriver en fremgangsmåde, til at finde den korteste vej mellem to noder på en graf.\ny
 Pathfinding er brugt til alt muligt i dag, et klassisk eksempel er navigationstjenester som Google Maps. Når brugeren har indtastet en startposition og et mål, er det nu computerens opgave at finde den korteste vej derhen. Hvis man skal fra København til Rom er der måske en idé i, at optimere algoritmen, så den ikke starter med at kigge over St. Petersborg i Rusland. Alle disse overvejelser er vigtige at gøre sig, når man skal implementere en pathfinding algoritme, da forskellige algoritmer er stærke til hver deres ting.
 
@@ -147,16 +147,18 @@ Depthfirst er en algoritme, som -- som navnet antager -- scanner dybden først. 
 \subsubsection{Breadthfirst}
 Breadthfirst fungerer lige modsat af depthfirst, breadthfirst kigger nemlig i bredden først. Det vil altså sige at efter Noden $B$ er undersøgt, går algoritmen videre til $C$ i stedet for $D$ som depthfirst. Bagefter kigger algoritmen på $D$ og så $E$ og derefter de Noder som er forbundet til $C$.
 \subsubsection{Dijkstra}\label{subsubsec:dijk}
-Dijkstra er en algoritme opkaldt efter dens skaber; \textit{Edsger W. Dijkstra}.\cite{dijkstra} Dijkstra tager fat i problemstillingen med vægting af sider på en graf, da disse spiller en rolle i udfaldet af algoritmen. Algoritmen er garenteret, til altid at finde den korteste vej fra start til slut. Algoritmen gør brug af en \nameref{subsec:pq}, som er sorteret efter afstand på alle de foregående kanter. Man tager altid fat i den lavest rangede Node i køen, hvilket vil sige at man får Noden, som er nået kortest uanset antal af foregående Noder. Man kan sige at Dijkstra er breadthfirst vægtet efter afstand i stedet for antal noder. Det betyder altså at når man har fundet en løsning, behøver man blot at markere den aktuelle kantlængde og tømme sin prioritetskø op til denne størrelse. Finder man en kortere vej, gemmes denne på samme vis. Man er på denne måde garanteret, at finde den korteste vej.
+Dijkstra er en algoritme opkaldt efter dens skaber; \textit{Edsger W. Dijkstra}.\cite{dijkstra} Dijkstra tager fat i problemstillingen med vægting af sider på en graf, da disse spiller en rolle i udfaldet af algoritmen. Algoritmen er garenteret, til altid at finde den korteste vej fra start til slut. Algoritmen gør brug af en \nameref{subsec:pq}, som er sorteret efter afstand på alle de foregående kanter. Man tager altid fat i den lavest rangede Node i køen, hvilket vil sige at man får Noden, som er nået kortest uanset antal af foregående Noder. Man kan sige at Dijkstra er breadthfirst vægtet efter afstand i stedet for antal noder. Det betyder altså at når man har fundet en løsning, behøver man blot at markere den aktuelle kantlængde og tømme sin prioritetskø op til denne størrelse. Finder man en kortere vej, gemmes denne på samme vis. Man er på denne måde garanteret, at finde den korteste vej. \cite{algs}
 \subsubsection{A*}
-A* er Dijkstra med en opgradering. Afstanden til målet regnes nemlig med, målt i fugleflugt. For hver Node gemmes den foregående Node, samt den samlede afstand stadig. Derudover gemmes afstanden til målet også (er alle Noder defineret i koordinater, kan Pythagoras bruges). Vægtningen af prioritetskøen foregår nu efter den samlede værdi af den tilbagelagte afstand, samt afstanden til målet. A* kræver altså lidt mere regnerkaft, men forbedrer samtidig målrettetheden af algoritmen, som forklaret i afsnittet "\nameref{subsec:about}".
+A* er Dijkstra med en opgradering. Afstanden til målet regnes nemlig med, målt i fugleflugt. For hver Node gemmes den foregående Node, samt den samlede afstand stadig. Derudover gemmes afstanden til målet også (er alle Noder defineret i koordinater, kan Pythagoras bruges). Vægtningen af prioritetskøen foregår nu efter den samlede værdi af den tilbagelagte afstand, samt afstanden til målet. A* kræver altså lidt mere regnerkaft, men forbedrer samtidig målrettetheden af algoritmen, som forklaret i afsnittet "\nameref{sec:about}".
 
 
 \newpage
 \section{Installation og brug}
+\textit{Forud for installation, skal der være installeret en C++ 11 compiler på systemet (som f.eks. gcc (v.4.7+)). Installationen vil fejle, hvis dette ikke er opfyldt, da \href{https://github.com/wroberts/pydaedalus/}{pydaedalus} bibloteket er en wrapper for \href{http://www.astrolog.org/labyrnth/daedalus.htm}{daedalus}, som er skrevet i C++.}\\
 Den letteste måde at bruge programmet på er:
 \begin{minted}[fontsize=\footnotesize, bgcolor=bg]{bash}
 $ git clone https://github.com/Tinggaard/pathfinding
+$ git checkout assignment # repo fremstår som ved aflevering
 $ cd pathfinding && virtualenv venv && . venv/bin/activate
 $ pip install -e .
 \end{minted}
@@ -186,16 +188,22 @@ Herefter køres ovenstående program, ved at eksekvere \texttt{./pathfinding/mai
 \begin{minted}[fontsize=\footnotesize, bgcolor=bg]{bash}
 $ pathfinding solve mazes/perfect/1001.png -a breadthfirst -o out/eksempel.png
 \end{minted}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-20pt}
+    \includegraphics[width=0.48\textwidth]{img/output.png}
+    \caption{Eksempel output, fra programmet}
+    \label{fig:output}
+    \vspace{-20pt}
+\end{wrapfigure}
 Kommandoen \texttt{visualize} kan generere videofiler, som viser hvordan algoritmen har fundet frem til den givne løsning. Det fungerer helt klart bedst på billeder af størrelsen 50x50, evt. 100x100, da alternativet er at computeren kører i en evighed, pga mangel på RAM. Se et eksempel på output, i filen \texttt{\href{https://github.com/Tinggaard/pathfinding/raw/master/out/solution.mp4}{out/solution.mp4}}, eller hent den her (dobbeltklik klipsen):
 \attachfile[description={Eksempel output videofil}]{../out/solution.mp4}
-% Indsæt billede!
-% Indsæt billede!
-% Indsæt billede!
+Billedoutputtet kan se ud som på figur \ref{fig:output}.
 
 
 \newpage
 \section{Udarbejdning af projektet}
-I forbindelse med projektet har jeg lavet et repository på GitHub (\url{https://git.io/JfINU}). Det medfølger naturligvis en README-fil, som også er vedlagt i Appendiks. Jeg vil kort gennemgå krav samt brug af programmet her, en uddybning kan findes i README-filen.
+I forbindelse med projektet har jeg lavet et repository på GitHub (\url{https://git.io/JfWyA}). Det medfølger naturligvis en README-fil, som også er vedlagt i Appendiks. Jeg vil kort gennemgå brugen af programmet her, en uddybning kan findes i README-filen.
 
 \subsection{Baggrund for projektet}
 Projektet startede ud med instpiration fra denne video \cite{yt}, hvor Dr. Mike Pound, viser hvordan han har lavet et Python program, som kan finde vej gennem labyrinter. Faktisk har han også offentliggjort koden på GitHub \cite{ytgh}, hvilken jeg også har ladet mig inspirere fra.\ny
@@ -231,7 +239,7 @@ Klassen tager altså ét argument, til sin constructor, ud fra hvilken hele klas
 \subsection{Implementering af algoritmer}
 Den første algoritme jeg implementerede, er faktisk ikke en af de ovennævnte, men i stedet en "højresvingsmetode", som blot drejer til højre ved hvert kryds og på den måde altid følger den sammve væg. Det er en klassisk taktik, hvis man ikke kan se hele labyrinten, f.eks. som menneske inde i en. Metoden blev implementeret under commit \texttt{\href{https://github.com/Tinggaard/pathfinding/commit/ea5096e2b794b00aa5d763989cb4e1e20371a383}{ea5096e}}. Det er dog ikke den algoritme jeg vil gennemgå her, men i stedet Dijkstra, som blev implementeret ved commit \texttt{\href{https://github.com/Tinggaard/pathfinding/commit/cd33a780b68f2ce17c7fac8a2f9f56d4f25ec44d}{cd33a78}}.\ny
 Som det kort blev gennemgået i afsnittet "\nameref{subsubsec:dijk}", virker Dijkstra ved brug af en prioritetskø, som holder styr på den tilbagelagte længde, for hver Node og at algoritmen altid arbejder med den Node, som har tilbagelagt kortest afstand.\\
-Nedenstående kode, viser et kort udtræk (linje 27-58) af filen \texttt{\href{https://github.com/Tinggaard/pathfinding/blob/cd33a780b68f2ce17c7fac8a2f9f56d4f25ec44d/src/algs/dijkstra.py\#L27-L58}{pathfinding/algs/dijkstra.py}}, som den så ud ved pågældende commit (tomme linjer og kommentarer fjernet).
+Nedenstående kode, viser et kort udtræk (linje 27-58) af filen \href{https://github.com/Tinggaard/pathfinding/blob/cd33a780b68f2ce17c7fac8a2f9f56d4f25ec44d/src/algs/dijkstra.py\#L27-L58}{\texttt{pathfinding/algs/dijkstra.py}}, som den så ud ved pågældende commit (tomme linjer og kommentarer fjernet).
 \begin{minted}[fontsize=\footnotesize, bgcolor=bg, linenos]{python3}
 while pq:
     current = hq.heappop(pq)
@@ -254,12 +262,20 @@ while pq:
 \textit{Forud for denne kode, bliver der erklæret nogle variabler, som bruges i løbet af loopet.} I linje 1, sættes et loop til at køre, så længe der stadig er indhold i listen \texttt{pq}, da en liste evalueres til at være \textit{sand}, hvis den indeholder noget, ellers er den \textit{falsk} i hvilket tilfælde loopet stopper. Variablen \texttt{current} bliver sat til det første index af prioritetskøen (modulet \texttt{heapq}\cite{heapq} er importeret som \texttt{hq}), som er en instance af \texttt{Node} klassen, de bliver sorteret, da \texttt{\_\_lt\_\_()} metoden er erklæret for klassen, som kan sammenligne \texttt{self.dist} mellem to \texttt{Node} objekter, tak til \cite{so:hqsort}.
 Line 3-4 fortæller loopet at stopper, hvis \texttt{current}s distance er lig med \texttt{goal} (initialiseret til $\infty$). Linje 5-6 sætter \texttt{goal} til at være lig \texttt{current}s distance, hvis den aktuelle node er identisk med slutnoden. På linje 7 initialiseres et for-loop, som itererer over alle nabonoderne for den aktuelle node. Linje 8 tjekker om naboen er en node (ikke blot en mur) og sætter så \texttt{node} til at være lig nabonoden vha. metoden \texttt{\href{https://github.com/Tinggaard/pathfinding/blob/cd33a780b68f2ce17c7fac8a2f9f56d4f25ec44d/src/scheme.py\#L121-L122}{get\_node()}}, som returnerer en \texttt{Node}, baseret på et index i \texttt{self.nodes}. Inden while-loopet har jeg også lavet et array af samme størrelse som \texttt{self.maze}, bestående af boolske udtryk, på om det enkelte felt har været besøgt før (alle felter initialiseret til \texttt{False}). På linje 10 tjekker jeg så om det aktuelle nabofelt har været besøgt førhen, ellers sættes feltet til at være besøgt på linje 11. Afstanden mellem den aktuelle node og nabonoden findes på linje 12-14 og nabonodens afstand sættes til at være denne + den tidligere afstand til \texttt{current} på linje 15. Linje 16 sætter nabonodens \texttt{via} til at være koordinaterne for \texttt{current} og slutteligt lægges nabonoden ind i prioritetskøen på linje 17.\ny
 Dette er blot en kort gennemgang af hvordan jeg har implementeret Dijkstra, den endelige version af koden har lidt småændringer hist og her, men konceptet er det samme. Det med at have et boolsk array er dog lidt specielt og kan kun tillades, da kanternes vægt er lig med den faktiske afstand. Ellers kunne der være en smutvej mellem to noder, som blot blev sprunget over, hvorved den korteste afstand faktisk ikke blev fundet.
+\subsubsection{Optimering}
+Efter noget tid, indså jeg at mit program kørte meget langsomt og fandt hurtigt ud af at det var måden jeg havde valgt at opbygge min nodestruktur på i \texttt{Graph} klassen. Det var nemlig opdelt i en liste og alle nodes naboer var opgivet efter et index i denne liste. Koden brute-forcede sig altså vej gennem alle disse noder, hver gang den skulle finde en nabo. Jeg fandt derfor på at bruge et dictionary, hvilket er en python wrapper for et hashmap, hvor opslagstiden er 1. Alt dette blev implementeret under commit \href{https://github.com/Tinggaard/pathfinding/commit/2028cb7fdc7c73762ac39b162498c58113a7b1b3}{\texttt{2028cb7}}.
+\subsection{Sammenligning}
+Jeg har skrevet et lille shell script, til at kalde alle algoritmer, på alle billeder i \texttt{mazes/}, outputtet, redirectes over i tekstfilen \texttt{timings.txt}, som filen \texttt{comparer.py} kan tage sig af. Filen skal kaldes fra det directory, hvori den ligger, da den er hardcoded til at finde en fil, en mappe oppe, ved navn \texttt{timings.txt}. Ud fra denne, bruges der regular expressions, til at finde informationer om hvert kald af programmet og ud fra dette plotte boksplot, til sammenligning af algoritmerne.
+\subsubsection{A* er langsom}
+Som man tydeligt kan se på plottet, er A* i gennemsnit den langsomste algoritme, ved alle labyrintstørrelser, derefter følger Dijkstra. Årsager til dette, formoder jeg er at er labyrinternes opbygning. De starter alle i toppen og skal alle til bunden, dog er det ikke den nogen lige vej de skal igennem. Derfor er det hurtigere at brute-force sig igennem løsningen, frem for at forsøge beregne sig frem til løsningen. Alt dette resulterer i at Dijkstra og A* kører langsommere, da de har flere beregninger med, i form af en prioritetskø, samt en afstandsberegning ved brug af A*.\ny
+Hvis man ville ændre dette udfald, kunne man omskrive programmet, så det kan starte labyrnten på et givent punkt (midt i et sted) og derfra finde sig vej ud. Men selv der, er det ikke givet at A* ville være hurtigere, grundet de mange tilfældige sving, der tages på vej ud af labyrinten.
+
 
 \newpage
 \section{Konklusion}
-
-\subsection{Forbehold}
-Programmet håndterer ikke fejlfinding af filer eller lignende, som er navngivet forkert. Derudover melder programmet også fejl, hvis der ikke er installeret en \texttt{C++} compiler. Samtidig antages det også at starten af labyrinten er i toppen og at slutningen er i bunden. Dette er dog overkommelige forbehold, til fremtiden kunne de være sjove at implementere.
+Alt i alt, har jeg fået opfyldt de mål, jeg satte mig for i min målsætning. Dog har det vist sig at være brute-force algoritmerne, som måtte tage sejren over A* og Dijkstra. Jeg har også formået at visualisere min løsning, både den færdige, men også en "vejledning", til hvordan løsningen blev fundet --- videofil outputtet.\ny
+Jeg har først forklaret hvad pathfinding er og lidt om hvor det anvendes, i afsnittet "\nameref{sec:about}", udover naturligvis at have forklaret hvordan man bruger programmet, har jeg også forklaret lidt om udviklingen af programmet, i form af hvordan jeg har valgt at opbygge Dijkstra algoritmen, samt en optimering heraf. Slutteligt har jeg vist hvordan min sammenligning af algoritmerne virker, samt diskuteret hvorfor udfaldet var sådan.\ny
+Udviddelser til programmet, kunne inkludere at fjerne noder, som blot er forbundet til to eller færre andre noder og derved optimere hastigheden af samtlige algoritmer. Derudover kunne det vært sjovt at implementere en metode, til at lade startpunktet ligge et sted inde midt i labyrinten, da man måske ville se A* og Dijkstra, være hurtigere.
 
 
 \newpage
@@ -274,29 +290,33 @@ title={Litteratur}, %Titel
 \begin{appendices}
     \section{Kildekode}
 
-    % \subsection{pathfinding/main.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/main.py}
-    %
-    % \subsection{pathfinding/scheme.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/scheme.py}
-    %
-    % \subsection{pathfinding/algs/\_\_init\_\_.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/__init__.py}
-    %
-    % \subsection{pathfinding/algs/astar.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/astar.py}
-    %
-    % \subsection{pathfinding/algs/breadthfirst.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/breadthfirst.py}
-    %
-    % \subsection{pathfinding/algs/depthfirst.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/depthfirst.py}
-    %
-    % \subsection{pathfinding/algs/dijkstra.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/dijkstra.py}
-    %
-    % \subsection{pathfinding/algs/rightturn.py}
-    % \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/rightturn.py}
+    \subsection{pathfinding/main.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/main.py}
+
+    \subsection{pathfinding/scheme.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/scheme.py}
+
+    \subsection{pathfinding/algs/\_\_init\_\_.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/__init__.py}
+
+    \subsection{pathfinding/algs/astar.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/astar.py}
+
+    \subsection{pathfinding/algs/breadthfirst.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/breadthfirst.py}
+
+    \subsection{pathfinding/algs/depthfirst.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/depthfirst.py}
+
+    \subsection{pathfinding/algs/dijkstra.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/dijkstra.py}
+
+    \subsection{pathfinding/algs/rightturn.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/algs/rightturn.py}
+
+    \subsection{pathfinding/comparer.py}
+    \inputminted[python3, linenos, breaklines, frame=lines, fontsize=\footnotesize]{python}{../pathfinding/comparer.py}
+
 
 \end{appendices}
 

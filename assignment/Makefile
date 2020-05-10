@@ -3,7 +3,7 @@
 # looking into it, and using make every time for now
 
 root = synopsis
-compileoptions = -xelatex -use-make -shell-escape
+compileoptions = -pdf -shell-escape
 
 .PHONY: $(root).pdf all clean
 

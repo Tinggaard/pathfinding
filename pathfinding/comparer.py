@@ -87,64 +87,11 @@ def plot_stats(stats: dict) -> None:
     plt.show()
 
 
-def print_stats(stats: dict) -> None:
-    for s in stats.items():
-        size, a = s
-
-        # method, time
-        minimum = ('', np.inf)
-        maximum = ('', -np.inf)
-        average = ('', np.inf)
-        variance = ('', np.inf)
-
-        for o in a.items():
-            alg, timings = o
-
-            mi = min(timings)
-            ma = max(timings)
-            avg = round(np.average(timings), 5)
-            var = round(np.var(timings), 5)
-
-            if mi < minimum[1]:
-                minimum = (alg, mi)
-            if ma > maximum[1]:
-                maximum = (alg, ma)
-            if avg < average[1]:
-                average = (alg, avg)
-            if var < variance[1]:
-                variance = (alg, var)
-
-        print('### MAZE SIZE: {} ###'.format(size))
-        print('The fastest algorithm were {}, at only {} ms'.format(*minimum))
-        print('The slowest algorithm were {}, at {} ms'.format(*maximum))
-        print('The fastest algorithm on average were {}, at only {} ms'.format(*average))
-        print('The most reliable algorithm were {}, with a variance of {}'.format(*variance))
-        print()
-
-
 def main(filename) -> None:
     load = from_file(filename)
     stats = organize(load)
-
-    try:
-        m = sys.argv[1].lower()
-
-    except:
-        print('ERROR: No arguments given...')
-        print('Usage: ./visualizer.py (-p | -s)')
-        print('E.g.')
-        print('python generate.py -p')
-        sys.exit(1)
-
-    if m == '-p':
-        plot_stats(stats)
-
-    elif m == '-s':
-        print_stats(stats)
-
-    else:
-        print('Argument not understood (use -p or -s) to plot or show stats.')
-
+    
+    plot_stats(stats)
 
 
 if __name__ == '__main__':
