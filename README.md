@@ -83,6 +83,5 @@ After running, a textfile ([`timings.txt`](https://github.com/Tinggaard/pathfind
 The file [`pathfinding/comparer.py`](https://github.com/Tinggaard/pathfinding/blob/master/pathfinding/comparer.py), can either plot or print some of the stats generated from the output of the shell script above.
 
 ```shell
-./src/comparer.py (-p | -s)
+./src/comparer.py
 ```
-`-p` to plot or `-s` to show in the terminal.
