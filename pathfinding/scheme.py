@@ -232,6 +232,22 @@ class Graph:
                         break
 
 
+
+    # used to write image, used in assignment...
+    def save_nodes(self, destination: str):
+        writable = self.maze.copy()*255
+
+        # make array 3D
+        writable = writable[..., np.newaxis]
+        writable = np.concatenate((writable, writable, writable), axis=2)
+
+        for location in self.nodes.keys():
+            writable[location] = np.array([255, 0, 0])
+
+        Image.fromarray(writable).save(destination)
+
+
+
     # decorator, to check if solved flag is set...
     def _solved(func):
         def checker(self, *args, **kwargs):

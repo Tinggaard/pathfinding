@@ -1,201 +1,201 @@
 Wed Apr 15 08:36:52 CEST 2020
-mazes/braid/51.png took 1.53327 using dijkstra
-mazes/braid/51.png took 2.38252 using astar
-mazes/braid/51.png took 1.2176 using breadthfirst
-mazes/braid/51.png took 0.45991 using depthfirst
-mazes/braid/51.png took 0.54693 using rightturn
-mazes/braid/101.png took 4.37784 using dijkstra
-mazes/braid/101.png took 27.81963 using astar
-mazes/braid/101.png took 2.46072 using breadthfirst
-mazes/braid/101.png took 3.02935 using depthfirst
-mazes/braid/101.png took 1.02496 using rightturn
-mazes/braid/501.png took 187.10279 using dijkstra
-mazes/braid/501.png took 223.91772 using astar
-mazes/braid/501.png took 65.76729 using breadthfirst
-mazes/braid/501.png took 6.38771 using depthfirst
-mazes/braid/501.png took 3.13997 using rightturn
-mazes/braid/1001.png took 920.8889 using dijkstra
-mazes/braid/1001.png took 1328.37176 using astar
-mazes/braid/1001.png took 402.57716 using breadthfirst
-mazes/braid/1001.png took 26.02625 using depthfirst
-mazes/braid/1001.png took 10.36477 using rightturn
-mazes/braid/2501.png took 5557.81054 using dijkstra
-mazes/braid/2501.png took 7413.92612 using astar
-mazes/braid/2501.png took 2619.21263 using breadthfirst
-mazes/braid/2501.png took 58.7213 using depthfirst
-mazes/braid/2501.png took 19.64927 using rightturn
-mazes/braid_tilt/51.png took 1.18351 using dijkstra
-mazes/braid_tilt/51.png took 1.36733 using astar
-mazes/braid_tilt/51.png took 0.65637 using breadthfirst
-mazes/braid_tilt/51.png took 0.44537 using depthfirst
-mazes/braid_tilt/51.png took 0.5188 using rightturn
-mazes/braid_tilt/101.png took 5.95188 using dijkstra
-mazes/braid_tilt/101.png took 16.00695 using astar
-mazes/braid_tilt/101.png took 3.7179 using breadthfirst
-mazes/braid_tilt/101.png took 1.64056 using depthfirst
-mazes/braid_tilt/101.png took 3.54004 using rightturn
-mazes/braid_tilt/501.png took 146.93499 using dijkstra
-mazes/braid_tilt/501.png took 283.23746 using astar
-mazes/braid_tilt/501.png took 70.26458 using breadthfirst
-mazes/braid_tilt/501.png took 33.28991 using depthfirst
-mazes/braid_tilt/501.png took 28.03969 using rightturn
-mazes/braid_tilt/1001.png took 349.98798 using dijkstra
-mazes/braid_tilt/1001.png took 667.60063 using astar
-mazes/braid_tilt/1001.png took 167.62972 using breadthfirst
-mazes/braid_tilt/1001.png took 186.68604 using depthfirst
-mazes/braid_tilt/1001.png took 185.87899 using rightturn
-mazes/braid_tilt/2501.png took 3867.50054 using dijkstra
-mazes/braid_tilt/2501.png took 5929.43311 using astar
-mazes/braid_tilt/2501.png took 1474.31231 using breadthfirst
-mazes/braid_tilt/2501.png took 1035.03394 using depthfirst
-mazes/braid_tilt/2501.png took 1894.93132 using rightturn
-mazes/diagonal/51.png took 2.01917 using dijkstra
-mazes/diagonal/51.png took 3.15285 using astar
-mazes/diagonal/51.png took 1.5862 using breadthfirst
-mazes/diagonal/51.png took 0.39935 using depthfirst
-mazes/diagonal/51.png took 0.98658 using rightturn
-mazes/diagonal/101.png took 9.11474 using dijkstra
-mazes/diagonal/101.png took 12.90369 using astar
-mazes/diagonal/101.png took 4.18282 using breadthfirst
-mazes/diagonal/101.png took 1.21379 using depthfirst
-mazes/diagonal/101.png took 1.6129 using rightturn
-mazes/diagonal/501.png took 200.76108 using dijkstra
-mazes/diagonal/501.png took 354.42996 using astar
-mazes/diagonal/501.png took 86.97963 using breadthfirst
-mazes/diagonal/501.png took 47.26291 using depthfirst
-mazes/diagonal/501.png took 65.08017 using rightturn
-mazes/diagonal/1001.png took 954.35166 using dijkstra
-mazes/diagonal/1001.png took 1822.61682 using astar
-mazes/diagonal/1001.png took 431.11396 using breadthfirst
-mazes/diagonal/1001.png took 138.43322 using depthfirst
-mazes/diagonal/1001.png took 197.93129 using rightturn
-mazes/diagonal/2501.png took 5090.06572 using dijkstra
-mazes/diagonal/2501.png took 9535.86507 using astar
-mazes/diagonal/2501.png took 2392.46607 using breadthfirst
-mazes/diagonal/2501.png took 997.25461 using depthfirst
-mazes/diagonal/2501.png took 2204.62918 using rightturn
-mazes/perfect/51.png took 1.8723 using dijkstra
-mazes/perfect/51.png took 4.25434 using astar
-mazes/perfect/51.png took 1.55044 using breadthfirst
-mazes/perfect/51.png took 0.54216 using depthfirst
-mazes/perfect/51.png took 0.65017 using rightturn
-mazes/perfect/101.png took 3.87812 using dijkstra
-mazes/perfect/101.png took 7.10034 using astar
-mazes/perfect/101.png took 1.7004 using breadthfirst
-mazes/perfect/101.png took 2.76399 using depthfirst
-mazes/perfect/101.png took 3.53456 using rightturn
-mazes/perfect/501.png took 102.42748 using dijkstra
-mazes/perfect/501.png took 184.74269 using astar
-mazes/perfect/501.png took 49.66044 using breadthfirst
-mazes/perfect/501.png took 73.277 using depthfirst
-mazes/perfect/501.png took 96.87185 using rightturn
-mazes/perfect/1001.png took 295.76516 using dijkstra
-mazes/perfect/1001.png took 555.01151 using astar
-mazes/perfect/1001.png took 139.28604 using breadthfirst
-mazes/perfect/1001.png took 303.96795 using depthfirst
-mazes/perfect/1001.png took 405.50804 using rightturn
-mazes/perfect/2501.png took 5634.21869 using dijkstra
-mazes/perfect/2501.png took 10657.69005 using astar
-mazes/perfect/2501.png took 2533.24604 using breadthfirst
-mazes/perfect/2501.png took 895.08557 using depthfirst
-mazes/perfect/2501.png took 1608.58369 using rightturn
-mazes/prim/51.png took 5.37038 using dijkstra
-mazes/prim/51.png took 8.84795 using astar
-mazes/prim/51.png took 1.62148 using breadthfirst
-mazes/prim/51.png took 1.22309 using depthfirst
-mazes/prim/51.png took 1.12367 using rightturn
-mazes/prim/101.png took 8.94523 using dijkstra
-mazes/prim/101.png took 11.39045 using astar
-mazes/prim/101.png took 3.64876 using breadthfirst
-mazes/prim/101.png took 2.23327 using depthfirst
-mazes/prim/101.png took 3.02124 using rightturn
-mazes/prim/501.png took 237.90073 using dijkstra
-mazes/prim/501.png took 300.85921 using astar
-mazes/prim/501.png took 94.64526 using breadthfirst
-mazes/prim/501.png took 41.91947 using depthfirst
-mazes/prim/501.png took 98.4025 using rightturn
-mazes/prim/1001.png took 1175.48299 using dijkstra
-mazes/prim/1001.png took 1048.14124 using astar
-mazes/prim/1001.png took 457.50999 using breadthfirst
-mazes/prim/1001.png took 116.14203 using depthfirst
-mazes/prim/1001.png took 128.36194 using rightturn
-mazes/prim/2501.png took 2850.07453 using dijkstra
-mazes/prim/2501.png took 1998.51775 using astar
-mazes/prim/2501.png took 1301.7683 using breadthfirst
-mazes/prim/2501.png took 1851.83501 using depthfirst
-mazes/prim/2501.png took 3039.84427 using rightturn
-mazes/recursive/51.png took 1.70875 using dijkstra
-mazes/recursive/51.png took 2.97189 using astar
-mazes/recursive/51.png took 0.67377 using breadthfirst
-mazes/recursive/51.png took 0.9861 using depthfirst
-mazes/recursive/51.png took 1.3206 using rightturn
-mazes/recursive/101.png took 5.62382 using dijkstra
-mazes/recursive/101.png took 12.10976 using astar
-mazes/recursive/101.png took 2.76899 using breadthfirst
-mazes/recursive/101.png took 1.92738 using depthfirst
-mazes/recursive/101.png took 2.44284 using rightturn
-mazes/recursive/501.png took 115.46612 using dijkstra
-mazes/recursive/501.png took 216.14075 using astar
-mazes/recursive/501.png took 59.08823 using breadthfirst
-mazes/recursive/501.png took 47.16372 using depthfirst
-mazes/recursive/501.png took 60.92644 using rightturn
-mazes/recursive/1001.png took 281.6546 using dijkstra
-mazes/recursive/1001.png took 517.70163 using astar
-mazes/recursive/1001.png took 135.19239 using breadthfirst
-mazes/recursive/1001.png took 73.37976 using depthfirst
-mazes/recursive/1001.png took 54.50726 using rightturn
-mazes/recursive/2501.png took 4618.59536 using dijkstra
-mazes/recursive/2501.png took 8559.44848 using astar
-mazes/recursive/2501.png took 4069.12422 using breadthfirst
-mazes/recursive/2501.png took 1240.19146 using depthfirst
-mazes/recursive/2501.png took 2818.24493 using rightturn
-mazes/sidewinder/51.png took 2.44403 using dijkstra
-mazes/sidewinder/51.png took 4.36068 using astar
-mazes/sidewinder/51.png took 1.93739 using breadthfirst
-mazes/sidewinder/51.png took 1.06168 using depthfirst
-mazes/sidewinder/51.png took 1.29724 using rightturn
-mazes/sidewinder/101.png took 11.70063 using dijkstra
-mazes/sidewinder/101.png took 21.65914 using astar
-mazes/sidewinder/101.png took 6.60014 using breadthfirst
-mazes/sidewinder/101.png took 3.0539 using depthfirst
-mazes/sidewinder/101.png took 4.8759 using rightturn
-mazes/sidewinder/501.png took 261.85369 using dijkstra
-mazes/sidewinder/501.png took 450.95038 using astar
-mazes/sidewinder/501.png took 120.50676 using breadthfirst
-mazes/sidewinder/501.png took 84.68151 using depthfirst
-mazes/sidewinder/501.png took 102.31042 using rightturn
-mazes/sidewinder/1001.png took 1197.85714 using dijkstra
-mazes/sidewinder/1001.png took 1524.40095 using astar
-mazes/sidewinder/1001.png took 402.80366 using breadthfirst
-mazes/sidewinder/1001.png took 221.98606 using depthfirst
-mazes/sidewinder/1001.png took 292.71245 using rightturn
-mazes/sidewinder/2501.png took 6587.42356 using dijkstra
-mazes/sidewinder/2501.png took 8603.47223 using astar
-mazes/sidewinder/2501.png took 2537.71019 using breadthfirst
-mazes/sidewinder/2501.png took 791.81838 using depthfirst
-mazes/sidewinder/2501.png took 1102.31972 using rightturn
-mazes/spiral/51.png took 1.10769 using dijkstra
-mazes/spiral/51.png took 1.91498 using astar
-mazes/spiral/51.png took 5.15699 using breadthfirst
-mazes/spiral/51.png took 0.983 using depthfirst
-mazes/spiral/51.png took 1.1127 using rightturn
-mazes/spiral/101.png took 3.62802 using dijkstra
-mazes/spiral/101.png took 4.47154 using astar
-mazes/spiral/101.png took 0.45848 using breadthfirst
-mazes/spiral/101.png took 1.91236 using depthfirst
-mazes/spiral/101.png took 1.477 using rightturn
-mazes/spiral/501.png took 2.55561 using dijkstra
-mazes/spiral/501.png took 1.99366 using astar
-mazes/spiral/501.png took 0.78797 using breadthfirst
-mazes/spiral/501.png took 27.59767 using depthfirst
-mazes/spiral/501.png took 0.64731 using rightturn
-mazes/spiral/1001.png took 26.01814 using dijkstra
-mazes/spiral/1001.png took 28.98812 using astar
-mazes/spiral/1001.png took 4.96006 using breadthfirst
-mazes/spiral/1001.png took 102.67496 using depthfirst
-mazes/spiral/1001.png took 148.60821 using rightturn
-mazes/spiral/2501.png took 128.901 using dijkstra
-mazes/spiral/2501.png took 168.21361 using astar
-mazes/spiral/2501.png took 9.96852 using breadthfirst
-mazes/spiral/2501.png took 524.71924 using depthfirst
-mazes/spiral/2501.png took 777.4663 using rightturn
+SUCCESS: Solved mazes/braid/51.png in 1.53327 ms using dijkstra
+SUCCESS: Solved mazes/braid/51.png in 2.38252 ms using astar
+SUCCESS: Solved mazes/braid/51.png in 1.2176 ms using breadthfirst
+SUCCESS: Solved mazes/braid/51.png in 0.45991 ms using depthfirst
+SUCCESS: Solved mazes/braid/51.png in 0.54693 ms using rightturn
+SUCCESS: Solved mazes/braid/101.png in 4.37784 ms using dijkstra
+SUCCESS: Solved mazes/braid/101.png in 27.81963 ms using astar
+SUCCESS: Solved mazes/braid/101.png in 2.46072 ms using breadthfirst
+SUCCESS: Solved mazes/braid/101.png in 3.02935 ms using depthfirst
+SUCCESS: Solved mazes/braid/101.png in 1.02496 ms using rightturn
+SUCCESS: Solved mazes/braid/501.png in 187.10279 ms using dijkstra
+SUCCESS: Solved mazes/braid/501.png in 223.91772 ms using astar
+SUCCESS: Solved mazes/braid/501.png in 65.76729 ms using breadthfirst
+SUCCESS: Solved mazes/braid/501.png in 6.38771 ms using depthfirst
+SUCCESS: Solved mazes/braid/501.png in 3.13997 ms using rightturn
+SUCCESS: Solved mazes/braid/1001.png in 920.8889 ms using dijkstra
+SUCCESS: Solved mazes/braid/1001.png in 1328.37176 ms using astar
+SUCCESS: Solved mazes/braid/1001.png in 402.57716 ms using breadthfirst
+SUCCESS: Solved mazes/braid/1001.png in 26.02625 ms using depthfirst
+SUCCESS: Solved mazes/braid/1001.png in 10.36477 ms using rightturn
+SUCCESS: Solved mazes/braid/2501.png in 5557.81054 ms using dijkstra
+SUCCESS: Solved mazes/braid/2501.png in 7413.92612 ms using astar
+SUCCESS: Solved mazes/braid/2501.png in 2619.21263 ms using breadthfirst
+SUCCESS: Solved mazes/braid/2501.png in 58.7213 ms using depthfirst
+SUCCESS: Solved mazes/braid/2501.png in 19.64927 ms using rightturn
+SUCCESS: Solved mazes/braid_tilt/51.png in 1.18351 ms using dijkstra
+SUCCESS: Solved mazes/braid_tilt/51.png in 1.36733 ms using astar
+SUCCESS: Solved mazes/braid_tilt/51.png in 0.65637 ms using breadthfirst
+SUCCESS: Solved mazes/braid_tilt/51.png in 0.44537 ms using depthfirst
+SUCCESS: Solved mazes/braid_tilt/51.png in 0.5188 ms using rightturn
+SUCCESS: Solved mazes/braid_tilt/101.png in 5.95188 ms using dijkstra
+SUCCESS: Solved mazes/braid_tilt/101.png in 16.00695 ms using astar
+SUCCESS: Solved mazes/braid_tilt/101.png in 3.7179 ms using breadthfirst
+SUCCESS: Solved mazes/braid_tilt/101.png in 1.64056 ms using depthfirst
+SUCCESS: Solved mazes/braid_tilt/101.png in 3.54004 ms using rightturn
+SUCCESS: Solved mazes/braid_tilt/501.png in 146.93499 ms using dijkstra
+SUCCESS: Solved mazes/braid_tilt/501.png in 283.23746 ms using astar
+SUCCESS: Solved mazes/braid_tilt/501.png in 70.26458 ms using breadthfirst
+SUCCESS: Solved mazes/braid_tilt/501.png in 33.28991 ms using depthfirst
+SUCCESS: Solved mazes/braid_tilt/501.png in 28.03969 ms using rightturn
+SUCCESS: Solved mazes/braid_tilt/1001.png in 349.98798 ms using dijkstra
+SUCCESS: Solved mazes/braid_tilt/1001.png in 667.60063 ms using astar
+SUCCESS: Solved mazes/braid_tilt/1001.png in 167.62972 ms using breadthfirst
+SUCCESS: Solved mazes/braid_tilt/1001.png in 186.68604 ms using depthfirst
+SUCCESS: Solved mazes/braid_tilt/1001.png in 185.87899 ms using rightturn
+SUCCESS: Solved mazes/braid_tilt/2501.png in 3867.50054 ms using dijkstra
+SUCCESS: Solved mazes/braid_tilt/2501.png in 5929.43311 ms using astar
+SUCCESS: Solved mazes/braid_tilt/2501.png in 1474.31231 ms using breadthfirst
+SUCCESS: Solved mazes/braid_tilt/2501.png in 1035.03394 ms using depthfirst
+SUCCESS: Solved mazes/braid_tilt/2501.png in 1894.93132 ms using rightturn
+SUCCESS: Solved mazes/diagonal/51.png in 2.01917 ms using dijkstra
+SUCCESS: Solved mazes/diagonal/51.png in 3.15285 ms using astar
+SUCCESS: Solved mazes/diagonal/51.png in 1.5862 ms using breadthfirst
+SUCCESS: Solved mazes/diagonal/51.png in 0.39935 ms using depthfirst
+SUCCESS: Solved mazes/diagonal/51.png in 0.98658 ms using rightturn
+SUCCESS: Solved mazes/diagonal/101.png in 9.11474 ms using dijkstra
+SUCCESS: Solved mazes/diagonal/101.png in 12.90369 ms using astar
+SUCCESS: Solved mazes/diagonal/101.png in 4.18282 ms using breadthfirst
+SUCCESS: Solved mazes/diagonal/101.png in 1.21379 ms using depthfirst
+SUCCESS: Solved mazes/diagonal/101.png in 1.6129 ms using rightturn
+SUCCESS: Solved mazes/diagonal/501.png in 200.76108 ms using dijkstra
+SUCCESS: Solved mazes/diagonal/501.png in 354.42996 ms using astar
+SUCCESS: Solved mazes/diagonal/501.png in 86.97963 ms using breadthfirst
+SUCCESS: Solved mazes/diagonal/501.png in 47.26291 ms using depthfirst
+SUCCESS: Solved mazes/diagonal/501.png in 65.08017 ms using rightturn
+SUCCESS: Solved mazes/diagonal/1001.png in 954.35166 ms using dijkstra
+SUCCESS: Solved mazes/diagonal/1001.png in 1822.61682 ms using astar
+SUCCESS: Solved mazes/diagonal/1001.png in 431.11396 ms using breadthfirst
+SUCCESS: Solved mazes/diagonal/1001.png in 138.43322 ms using depthfirst
+SUCCESS: Solved mazes/diagonal/1001.png in 197.93129 ms using rightturn
+SUCCESS: Solved mazes/diagonal/2501.png in 5090.06572 ms using dijkstra
+SUCCESS: Solved mazes/diagonal/2501.png in 9535.86507 ms using astar
+SUCCESS: Solved mazes/diagonal/2501.png in 2392.46607 ms using breadthfirst
+SUCCESS: Solved mazes/diagonal/2501.png in 997.25461 ms using depthfirst
+SUCCESS: Solved mazes/diagonal/2501.png in 2204.62918 ms using rightturn
+SUCCESS: Solved mazes/perfect/51.png in 1.8723 ms using dijkstra
+SUCCESS: Solved mazes/perfect/51.png in 4.25434 ms using astar
+SUCCESS: Solved mazes/perfect/51.png in 1.55044 ms using breadthfirst
+SUCCESS: Solved mazes/perfect/51.png in 0.54216 ms using depthfirst
+SUCCESS: Solved mazes/perfect/51.png in 0.65017 ms using rightturn
+SUCCESS: Solved mazes/perfect/101.png in 3.87812 ms using dijkstra
+SUCCESS: Solved mazes/perfect/101.png in 7.10034 ms using astar
+SUCCESS: Solved mazes/perfect/101.png in 1.7004 ms using breadthfirst
+SUCCESS: Solved mazes/perfect/101.png in 2.76399 ms using depthfirst
+SUCCESS: Solved mazes/perfect/101.png in 3.53456 ms using rightturn
+SUCCESS: Solved mazes/perfect/501.png in 102.42748 ms using dijkstra
+SUCCESS: Solved mazes/perfect/501.png in 184.74269 ms using astar
+SUCCESS: Solved mazes/perfect/501.png in 49.66044 ms using breadthfirst
+SUCCESS: Solved mazes/perfect/501.png in 73.277 ms using depthfirst
+SUCCESS: Solved mazes/perfect/501.png in 96.87185 ms using rightturn
+SUCCESS: Solved mazes/perfect/1001.png in 295.76516 ms using dijkstra
+SUCCESS: Solved mazes/perfect/1001.png in 555.01151 ms using astar
+SUCCESS: Solved mazes/perfect/1001.png in 139.28604 ms using breadthfirst
+SUCCESS: Solved mazes/perfect/1001.png in 303.96795 ms using depthfirst
+SUCCESS: Solved mazes/perfect/1001.png in 405.50804 ms using rightturn
+SUCCESS: Solved mazes/perfect/2501.png in 5634.21869 ms using dijkstra
+SUCCESS: Solved mazes/perfect/2501.png in 10657.69005 ms using astar
+SUCCESS: Solved mazes/perfect/2501.png in 2533.24604 ms using breadthfirst
+SUCCESS: Solved mazes/perfect/2501.png in 895.08557 ms using depthfirst
+SUCCESS: Solved mazes/perfect/2501.png in 1608.58369 ms using rightturn
+SUCCESS: Solved mazes/prim/51.png in 5.37038 ms using dijkstra
+SUCCESS: Solved mazes/prim/51.png in 8.84795 ms using astar
+SUCCESS: Solved mazes/prim/51.png in 1.62148 ms using breadthfirst
+SUCCESS: Solved mazes/prim/51.png in 1.22309 ms using depthfirst
+SUCCESS: Solved mazes/prim/51.png in 1.12367 ms using rightturn
+SUCCESS: Solved mazes/prim/101.png in 8.94523 ms using dijkstra
+SUCCESS: Solved mazes/prim/101.png in 11.39045 ms using astar
+SUCCESS: Solved mazes/prim/101.png in 3.64876 ms using breadthfirst
+SUCCESS: Solved mazes/prim/101.png in 2.23327 ms using depthfirst
+SUCCESS: Solved mazes/prim/101.png in 3.02124 ms using rightturn
+SUCCESS: Solved mazes/prim/501.png in 237.90073 ms using dijkstra
+SUCCESS: Solved mazes/prim/501.png in 300.85921 ms using astar
+SUCCESS: Solved mazes/prim/501.png in 94.64526 ms using breadthfirst
+SUCCESS: Solved mazes/prim/501.png in 41.91947 ms using depthfirst
+SUCCESS: Solved mazes/prim/501.png in 98.4025 ms using rightturn
+SUCCESS: Solved mazes/prim/1001.png in 1175.48299 ms using dijkstra
+SUCCESS: Solved mazes/prim/1001.png in 1048.14124 ms using astar
+SUCCESS: Solved mazes/prim/1001.png in 457.50999 ms using breadthfirst
+SUCCESS: Solved mazes/prim/1001.png in 116.14203 ms using depthfirst
+SUCCESS: Solved mazes/prim/1001.png in 128.36194 ms using rightturn
+SUCCESS: Solved mazes/prim/2501.png in 2850.07453 ms using dijkstra
+SUCCESS: Solved mazes/prim/2501.png in 1998.51775 ms using astar
+SUCCESS: Solved mazes/prim/2501.png in 1301.7683 ms using breadthfirst
+SUCCESS: Solved mazes/prim/2501.png in 1851.83501 ms using depthfirst
+SUCCESS: Solved mazes/prim/2501.png in 3039.84427 ms using rightturn
+SUCCESS: Solved mazes/recursive/51.png in 1.70875 ms using dijkstra
+SUCCESS: Solved mazes/recursive/51.png in 2.97189 ms using astar
+SUCCESS: Solved mazes/recursive/51.png in 0.67377 ms using breadthfirst
+SUCCESS: Solved mazes/recursive/51.png in 0.9861 ms using depthfirst
+SUCCESS: Solved mazes/recursive/51.png in 1.3206 ms using rightturn
+SUCCESS: Solved mazes/recursive/101.png in 5.62382 ms using dijkstra
+SUCCESS: Solved mazes/recursive/101.png in 12.10976 ms using astar
+SUCCESS: Solved mazes/recursive/101.png in 2.76899 ms using breadthfirst
+SUCCESS: Solved mazes/recursive/101.png in 1.92738 ms using depthfirst
+SUCCESS: Solved mazes/recursive/101.png in 2.44284 ms using rightturn
+SUCCESS: Solved mazes/recursive/501.png in 115.46612 ms using dijkstra
+SUCCESS: Solved mazes/recursive/501.png in 216.14075 ms using astar
+SUCCESS: Solved mazes/recursive/501.png in 59.08823 ms using breadthfirst
+SUCCESS: Solved mazes/recursive/501.png in 47.16372 ms using depthfirst
+SUCCESS: Solved mazes/recursive/501.png in 60.92644 ms using rightturn
+SUCCESS: Solved mazes/recursive/1001.png in 281.6546 ms using dijkstra
+SUCCESS: Solved mazes/recursive/1001.png in 517.70163 ms using astar
+SUCCESS: Solved mazes/recursive/1001.png in 135.19239 ms using breadthfirst
+SUCCESS: Solved mazes/recursive/1001.png in 73.37976 ms using depthfirst
+SUCCESS: Solved mazes/recursive/1001.png in 54.50726 ms using rightturn
+SUCCESS: Solved mazes/recursive/2501.png in 4618.59536 ms using dijkstra
+SUCCESS: Solved mazes/recursive/2501.png in 8559.44848 ms using astar
+SUCCESS: Solved mazes/recursive/2501.png in 4069.12422 ms using breadthfirst
+SUCCESS: Solved mazes/recursive/2501.png in 1240.19146 ms using depthfirst
+SUCCESS: Solved mazes/recursive/2501.png in 2818.24493 ms using rightturn
+SUCCESS: Solved mazes/sidewinder/51.png in 2.44403 ms using dijkstra
+SUCCESS: Solved mazes/sidewinder/51.png in 4.36068 ms using astar
+SUCCESS: Solved mazes/sidewinder/51.png in 1.93739 ms using breadthfirst
+SUCCESS: Solved mazes/sidewinder/51.png in 1.06168 ms using depthfirst
+SUCCESS: Solved mazes/sidewinder/51.png in 1.29724 ms using rightturn
+SUCCESS: Solved mazes/sidewinder/101.png in 11.70063 ms using dijkstra
+SUCCESS: Solved mazes/sidewinder/101.png in 21.65914 ms using astar
+SUCCESS: Solved mazes/sidewinder/101.png in 6.60014 ms using breadthfirst
+SUCCESS: Solved mazes/sidewinder/101.png in 3.0539 ms using depthfirst
+SUCCESS: Solved mazes/sidewinder/101.png in 4.8759 ms using rightturn
+SUCCESS: Solved mazes/sidewinder/501.png in 261.85369 ms using dijkstra
+SUCCESS: Solved mazes/sidewinder/501.png in 450.95038 ms using astar
+SUCCESS: Solved mazes/sidewinder/501.png in 120.50676 ms using breadthfirst
+SUCCESS: Solved mazes/sidewinder/501.png in 84.68151 ms using depthfirst
+SUCCESS: Solved mazes/sidewinder/501.png in 102.31042 ms using rightturn
+SUCCESS: Solved mazes/sidewinder/1001.png in 1197.85714 ms using dijkstra
+SUCCESS: Solved mazes/sidewinder/1001.png in 1524.40095 ms using astar
+SUCCESS: Solved mazes/sidewinder/1001.png in 402.80366 ms using breadthfirst
+SUCCESS: Solved mazes/sidewinder/1001.png in 221.98606 ms using depthfirst
+SUCCESS: Solved mazes/sidewinder/1001.png in 292.71245 ms using rightturn
+SUCCESS: Solved mazes/sidewinder/2501.png in 6587.42356 ms using dijkstra
+SUCCESS: Solved mazes/sidewinder/2501.png in 8603.47223 ms using astar
+SUCCESS: Solved mazes/sidewinder/2501.png in 2537.71019 ms using breadthfirst
+SUCCESS: Solved mazes/sidewinder/2501.png in 791.81838 ms using depthfirst
+SUCCESS: Solved mazes/sidewinder/2501.png in 1102.31972 ms using rightturn
+SUCCESS: Solved mazes/spiral/51.png in 1.10769 ms using dijkstra
+SUCCESS: Solved mazes/spiral/51.png in 1.91498 ms using astar
+SUCCESS: Solved mazes/spiral/51.png in 5.15699 ms using breadthfirst
+SUCCESS: Solved mazes/spiral/51.png in 0.983 ms using depthfirst
+SUCCESS: Solved mazes/spiral/51.png in 1.1127 ms using rightturn
+SUCCESS: Solved mazes/spiral/101.png in 3.62802 ms using dijkstra
+SUCCESS: Solved mazes/spiral/101.png in 4.47154 ms using astar
+SUCCESS: Solved mazes/spiral/101.png in 0.45848 ms using breadthfirst
+SUCCESS: Solved mazes/spiral/101.png in 1.91236 ms using depthfirst
+SUCCESS: Solved mazes/spiral/101.png in 1.477 ms using rightturn
+SUCCESS: Solved mazes/spiral/501.png in 2.55561 ms using dijkstra
+SUCCESS: Solved mazes/spiral/501.png in 1.99366 ms using astar
+SUCCESS: Solved mazes/spiral/501.png in 0.78797 ms using breadthfirst
+SUCCESS: Solved mazes/spiral/501.png in 27.59767 ms using depthfirst
+SUCCESS: Solved mazes/spiral/501.png in 0.64731 ms using rightturn
+SUCCESS: Solved mazes/spiral/1001.png in 26.01814 ms using dijkstra
+SUCCESS: Solved mazes/spiral/1001.png in 28.98812 ms using astar
+SUCCESS: Solved mazes/spiral/1001.png in 4.96006 ms using breadthfirst
+SUCCESS: Solved mazes/spiral/1001.png in 102.67496 ms using depthfirst
+SUCCESS: Solved mazes/spiral/1001.png in 148.60821 ms using rightturn
+SUCCESS: Solved mazes/spiral/2501.png in 128.901 ms using dijkstra
+SUCCESS: Solved mazes/spiral/2501.png in 168.21361 ms using astar
+SUCCESS: Solved mazes/spiral/2501.png in 9.96852 ms using breadthfirst
+SUCCESS: Solved mazes/spiral/2501.png in 524.71924 ms using depthfirst
+SUCCESS: Solved mazes/spiral/2501.png in 777.4663 ms using rightturn
